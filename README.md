@@ -1,7 +1,12 @@
-## Xecades :: notes
+# Alpha :: Note \[α\]
 
-The source code of my notes. Developed with [MkDocs](https://www.mkdocs.org/).
+Part of the **Alpha α** project.
 
-Refer to [note.xecades.xyz](https://note.xecades.xyz/) for more information.
+ - **Homepage**: [xecades.xyz](https://xecades.xyz/) ([Xecades/Homepage](https://github.com/Xecades/Homepage))
+ - **Note**: [note.xecades.xyz](https://note.xecades.xyz/) (This Repo) (*WIP*)
+ - **Blog**: [blog.xecades.xyz](https://blog.xecades.xyz/) (Private Repo) (*WIP*)
 
-Licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+---
+
+ - **Tech stack**: Vite, Vue.js, TypeScript
+ - **License**: GPL-3.0
