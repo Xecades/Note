@@ -2,9 +2,6 @@
 
 一切为提高阅读体验为目标
 
- - /note -> /docs
- - 或许还是把 note 放到 note.xecades.xyz 为好（?）
-
  - 删除背景，使用纯色
  - 取消 Cursor 效果
  - 参考上学期线性代数的笔记 pdf，适当组合使用 sans-serif 字体（背景或许改成点状背景？）
@@ -40,7 +37,6 @@
 
 ## 当前
 
- - 长时间不动隐藏 cursor
  - Dark Mode code block prism css error（目前是在 twikoo 中设置 theme 为 none）
  - external link 换一个样式
  - 目前为了避免 fold 折叠时 scrollreveal 出问题，设置如果有 expand，就不允许折叠
@@ -64,7 +60,6 @@
  - Code block 添加标题
  - block code meta 参数的处理（转义、引号）
  - 搜索支持上下键选择，回车跳转
- - 评论系统支持 Cursor.js
  - 在合适的地方加上版权声明
  - 页面高度不够时，左右栏加上滚动
 

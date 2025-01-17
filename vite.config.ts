@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import vueDevTools from "vite-plugin-vue-devtools";
+import vueXecadesNote from "vite-plugin-vue-xecades-note";
 import autoprefixer from "autoprefixer";
 
 const customElement = ["rb"];
@@ -25,6 +26,11 @@ export default defineConfig({
 
         // [vite-plugin-vue-devtools]
         vueDevTools(),
+
+        // [vite-plugin-vue-xecades-note]
+        vueXecadesNote({
+            componentDir: "src/components/md",
+        }),
     ],
     resolve: {
         alias: {
