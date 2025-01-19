@@ -1,23 +1,20 @@
 <script setup lang="tsx">
 /** @todo 图片缓存，不能每次都重新加载一遍 */
 
-import { computed, onMounted, onUpdated, ref, watch } from "vue";
-import { RouterView, useRoute } from "vue-router";
-import { assertType } from "@/assets/ts/types";
-import router from "@/router";
+import { computed, onMounted, onUpdated } from "vue";
+import { RouterView } from "vue-router";
 
 import Timestamp from "./Timestamp.vue";
 import Comment from "./Comment.vue";
 import Metadata from "./Metadata.vue";
 
-import "@/assets/css/markdown.css";
+import "@/assets/css/markdown.styl";
 
 // Types
 import type { Ref } from "vue";
 import type { RouteMeta } from "vite-plugin-vue-xecades-note";
 
 const props = defineProps<{ meta: RouteMeta }>();
-const emit = defineEmits(["update"]);
 
 /**
  * Whether to show timestamp.
@@ -69,23 +66,12 @@ const registerAnchor = () => {
 
 onMounted(registerAnchor);
 onUpdated(registerAnchor);
-
-/**
- * Callback function when JSX lazyload updates.
- */
-// const lazyload_update = (index: number) => {
-//     const selector: string = ".markdown > *";
-//     const els: NodeListOf<HTMLElement> = document.querySelectorAll(selector);
-//     const target: HTMLElement = els[index - 1];
-
-//     emit("update", target);
-// };
 </script>
 
 <template>
     <div id="content">
         <header>
-            <h1>{{ meta.attr.title }}</h1>
+            <h1>{{ meta.attr.displayTitle ?? meta.attr.title }}</h1>
         </header>
 
         <!-- 通过 key 强制组件刷新，从而正常触发 busuanzi 统计更新 -->
@@ -106,62 +92,37 @@ onUpdated(registerAnchor);
     </div>
 </template>
 
-<style scoped>
-* {
-    --width: 740px;
+<style scoped lang="stylus">
+@import "../assets/css/global.styl";
 
-    --margin-lr: 3rem;
-    --margin-top: 4rem;
-    --margin-bottom: 4rem;
+$header-color = lighten($text-color, 12%);
 
-    --header-main-spacing: 2.3rem;
+dualr("--width", 740px, 100%)
+dualr("--margin-lr", 3rem, 2.5rem)
+dualr("--margin-top", 4rem, 3rem)
+dualr("--margin-bottom", 4rem, 3rem)
+dualr("--header-size", 2.2rem, 2rem)
+dualr("--header-line-height", 3.5rem, 3rem)
 
-    --header-color: #535353;
-    --header-size: 2.2rem;
-    --header-line-height: 3.5rem;
-}
-
-@media (prefers-color-scheme: dark) {
-    * {
-        --header-color: #f3f4f6;
-    }
-}
-
-#content {
+#content
     width: var(--width);
     margin: 0 auto;
     z-index: 10;
-}
 
-#content.fade {
-    transition: opacity 0.1s ease-in;
-    opacity: 0;
-}
+    &.fade // TODO
+        transition: opacity 0.1s ease-in;
+        opacity: 0;
 
-main {
+main
     margin: 0 var(--margin-lr) var(--margin-bottom);
-}
 
-header {
-    margin: var(--margin-top) var(--margin-lr) 0.6rem;
-}
+header
+    margin: var(--margin-top) var(--margin-lr) 0.7rem;
 
-h1 {
-    font-size: var(--header-size);
-    color: var(--header-color);
-    letter-spacing: 0.12rem;
-    line-height: var(--header-line-height);
-    font-weight: 500;
-}
-
-@media (max-width: 768px) {
-    * {
-        --width: 100%;
-        --margin-lr: 2.5rem;
-        --margin-top: 5.5rem;
-        --margin-bottom: 5rem;
-        --header-size: 2rem;
-        --header-line-height: 3rem;
-    }
-}
+    h1
+        font-size: var(--header-size);
+        color: $header-color;
+        letter-spacing: 0.05rem;
+        line-height: var(--header-line-height);
+        font-weight: 500;
 </style>

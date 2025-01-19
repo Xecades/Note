@@ -32,7 +32,11 @@ onMounted(registerScrollListener);
 
 <template>
     <!-- https://cn.vuejs.org/guide/built-ins/transition.html#transition-on-appear -->
-    <Transition name="rightbar" appear v-if="status === RIGHTBAR_STATUS.SHOW">
+    <Transition
+        name="rightbar"
+        appear
+        v-if="status === RIGHTBAR_STATUS.SHOW && toc.length"
+    >
         <div
             id="right"
             :key="$route.path"
@@ -81,184 +85,138 @@ onMounted(registerScrollListener);
     </Transition>
 </template>
 
-<style scoped>
-* {
-    --offset-top: 10rem;
-    --offset-bottom: 5rem;
-    --offset-right: 51px;
+<style scoped lang="stylus">
+@import "../assets/css/global.styl";
 
-    --width: 270px;
-    --height: calc(100vh - var(--offset-top) - var(--offset-bottom));
-    --theme-color: #60a5fa;
+$offset-top = 10rem;
+$offset-bottom = 5rem;
+$offset-right = 51px;
+$width = 270px;
+$height = "calc(100vh - %s)" % ($offset-top + $offset-bottom);
 
-    --toc-gap: 15px;
-    --toc-padding: 0.5rem;
-    --toc-margin: 1.5rem;
-    --toc-offset-top: calc(11rem - var(--offset-top));
+$toc-gap = 15px;
+$toc-padding = 0.5rem;
+$toc-margin = 1.5rem;
+$toc-offset-top = 11rem - $offset-top;
+$toc-translate-offset = 7px;
 
-    --toc-background-image: linear-gradient(90deg, #f7f7f780, #f7f7f7f5);
-    --toc-border-radius: 4px;
-    --toc-translate-offset: 7px;
+$detail-title-indent = 0.5rem;
+$detail-color = lighten($text-color, 10%);
+$detail-color-passed = lighten($text-color, 55%);
 
-    --detail-color: #6e758c;
-    --detail-title-indent: 0.5rem;
+$bar-height = 4px;
+$bar-padding = 4px;
+$bar-background-color = lighten(black, 88%);
+$bar-active-background-color = lighten(black, 68%);
 
-    --bar-background-color: #e3e2e0;
-    --bar-active-background-color: #bdbbb8;
-
-    --bar-height: 4px;
-    --bar-padding: 4px;
-
-    --detail-color-passed: #acb1c1;
-}
-
-@media (prefers-color-scheme: dark) {
-    * {
-        --theme-color: #87b3ea;
-        --toc-background-image: linear-gradient(90deg, #1c1d1e80, #1c1d1ef5);
-
-        --bar-background-color: #363636;
-        --bar-active-background-color: #9e9e9e;
-
-        --detail-color: #c4c6ce;
-        --detail-color-passed: #5f6064;
-    }
-}
-
-#right {
+#right
     position: fixed;
-    width: var(--width);
-    height: var(--height);
-    top: var(--offset-top);
+    width: $width;
+    height: $height;
+    top: $offset-top;
     z-index: 100;
-    /** To avoid scrollbar flickering. */
-    left: calc(100vw - var(--offset-right) - var(--width));
-}
+    left: "calc(100vw - %s)" % ($offset-right + $width); // To avoid scrollbar flickering
 
-.toc {
+.toc
     width: max-content;
     display: flex;
     flex-direction: column;
-    gap: calc(var(--toc-gap) - 2 * var(--bar-padding));
+    gap: $toc-gap - 2 * $bar-padding;
     position: absolute;
-    top: var(--toc-offset-top);
+    top: $toc-offset-top;
     right: 0;
-    padding: var(--toc-padding);
-    margin: var(--toc-margin);
-    /** To avoid flickering on hovering edges */
-    margin-right: var(--toc-translate-offset);
-    background-image: var(--toc-background-image);
-    border-radius: var(--toc-border-radius);
-}
+    padding: $toc-padding;
+    margin: $toc-margin;
+    margin-right: $toc-translate-offset; // To avoid flickering on hovering edges
 
-:global(#right .toc .katex) {
+:global(#right .toc .katex)
     font-size: 1rem;
-}
 
-:global(#right .toc code) {
-    font-family: var(--monospace);
+:global(#right .toc code)
+    font-family: $monospace;
     font-size: 0.85em;
-}
 
-:global(#right .toc em) {
+:global(#right .toc em)
     font-style: italic;
-}
 
-:global(#right .toc strong) {
+:global(#right .toc strong)
     font-weight: bold;
-}
 
-.bar {
-    margin-top: var(--bar-padding);
+.bar
+    margin-top: $bar-padding;
     margin-left: auto;
-    background-color: var(--bar-background-color);
+    background-color: $bar-background-color;
     border-radius: 4px;
-    height: var(--bar-height);
-    transition: background-color 0.15s;
-}
+    height: $bar-height;
+    transition: background-color 0.1s;
 
-.bar.active {
-    background-color: var(--bar-active-background-color);
-}
+    &.active
+        background-color: $bar-active-background-color;
 
-.detail {
+.detail
     line-height: 1.6rem;
-    transition: color 0.15s;
+    transition: color 0.1s;
     margin-left: auto;
     display: inline-block;
-    color: var(--detail-color);
+    color: $detail-color;
     font-size: 0.95rem;
     position: relative;
-}
 
-.detail.active {
-    color: var(--theme-color);
-}
+    &.active
+        color: $theme-color;
 
-.detail.passed {
-    color: var(--detail-color-passed);
-}
+    &.passed
+        color: $detail-color-passed;
 
-.detail .sign {
-    color: var(--theme-color);
-    opacity: 0;
-    transition: opacity 0.1s;
-    font-size: 0.7rem;
-    display: block;
-    float: inline-end;
-    animation: shake-x 1s infinite ease-in-out;
-}
+    .sign
+        color: $theme-color;
+        opacity: 0;
+        transition: opacity 0.1s;
+        font-size: 0.7rem;
+        display: block;
+        float: inline-end;
+        animation: shake-x 1s infinite ease-in-out;
 
-.detail .text {
-    padding-right: var(--detail-title-indent);
-}
+    .text
+        padding-right: $detail-title-indent;
 
-.detail:hover .text {
-    color: var(--theme-color);
-}
+    &:hover
+        .text
+            color: $theme-color;
 
-.detail:hover .sign {
-    opacity: 1;
-}
+        .sign
+            opacity: 1;
 
 .rightbar-enter-active,
-.rightbar-leave-active {
+.rightbar-leave-active
     transition-property: opacity;
-}
 
-.rightbar-enter-active {
-    transition-duration: 0.37s;
+.rightbar-enter-active
+    transition-duration: 0.17s;
     transition-timing-function: ease-out;
-}
 
-.rightbar-leave-active {
-    transition-duration: 0.2s;
+.rightbar-leave-active
+    transition-duration: 0.08s;
     transition-timing-function: cubic-bezier(0.15, 0.79, 0.69, 0.68);
-}
 
 .rightbar-enter-from,
-.rightbar-leave-to {
+.rightbar-leave-to
     opacity: 0;
-}
 
 .bars-enter-active,
-.bars-leave-active {
+.bars-leave-active
     transition-property: opacity, transform;
-}
 
-.bars-enter-active {
-    transition-duration: 0.37s;
+.bars-enter-active
+    transition-duration: 0.17s;
     transition-timing-function: ease-out;
-}
 
-.bars-leave-active {
-    transition-duration: 0.2s;
+.bars-leave-active
+    transition-duration: 0.08s;
     transition-timing-function: cubic-bezier(0.15, 0.79, 0.69, 0.68);
-}
 
 .bars-enter-from,
-.bars-leave-to {
+.bars-leave-to
     opacity: 0;
-    transform: translateX(var(--toc-translate-offset));
-}
+    transform: translateX($toc-translate-offset);
 </style>

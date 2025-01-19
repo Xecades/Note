@@ -122,7 +122,7 @@ onBeforeUnmount(() => {
         >
             <div class="header">
                 <div
-                    class="cursor item"
+                    class="item"
                     v-for="(tab, idx) in data"
                     @click="active = idx"
                     :class="{ active: idx === active }"
@@ -200,6 +200,7 @@ onBeforeUnmount(() => {
     flex-shrink: 0;
     transition: background-color 0.2s ease;
     position: relative;
+    cursor: pointer;
 }
 
 .header .item:hover {

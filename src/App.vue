@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { get_leftbar_status } from "@/assets/ts/leftbar";
-import { get_rightbar_status, ScrollListener } from "@/assets/ts/rightbar";
+import { get_rightbar_status } from "@/assets/ts/rightbar";
 import { assertType, LEFTBAR_STATUS, RIGHTBAR_STATUS } from "@/assets/ts/types";
 import router from "@/router";
 
@@ -35,9 +35,8 @@ const in_view: Ref<number | null> = ref(null);
     </div>
 </template>
 
-<style scoped>
-#main {
-    width: 100vw;
-    display: flex;
-}
+<style scoped lang="stylus">
+#main
+    width 100vw
+    display flex
 </style>

@@ -11,7 +11,7 @@ import "./assets/ts/fontawesome";
 import router from "./router";
 
 // CSS
-import "./assets/css/reset.css";
+import "./assets/css/reset.styl";
 import "katex/dist/katex.min.css";
 import "overlayscrollbars/overlayscrollbars.css";
 

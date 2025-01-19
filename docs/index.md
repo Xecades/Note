@@ -1,5 +1,6 @@
 ---
 title: 笔记
+displayTitle: Xecades Notes
 ---
 
 :v{5rem}

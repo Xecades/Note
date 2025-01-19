@@ -1,0 +1,31 @@
+// Mixins
+$qryDark = "prefers-color-scheme: dark";
+$qrySmallscreen = "only screen and (max-width: 748px)";
+
+media-var($query, $name, $var1, $var2)
+    {$name}: $var1;
+    @media $query
+        {$name}: $var2;
+
+dual($name, $normal, $small)
+    media-var($qrySmallscreen, $name, $normal, $small);
+
+scheme($name, $light, $dark)
+    media-var($qryDark, $name, $light, $dark);
+
+dualr($name, $normal, $small)
+    *
+        dual($name, $normal, $small);
+
+schemer($name, $light, $dark)
+    *
+        scheme($name, $light, $dark);
+
+// Fonts
+$font-family = "Libertinus Serif", "Georgia", "Noto Serif SC", serif;
+$monospace = "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+
+// Colors
+$theme-color = #60a5fa;
+$text-color = #181818;
+$background-color = #fefefe;

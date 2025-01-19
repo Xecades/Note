@@ -1,0 +1,44 @@
+@import "https://fonts.loli.net/css2?family=Noto+Serif+SC:wght@200..900&display=swap";
+@import "https://fonts.cdnfonts.com/css/libertinus-serif";
+@import "./global.styl";
+
+// Overlay Scrollbar Theme
+.os-theme-dark .os-scrollbar-handle
+    scheme("--os-handle-bg", alpha(black, 0.44), alpha(white, 0.44));
+    scheme("--os-handle-bg-hover", alpha(black, 0.55), alpha(white, 0.55));
+    scheme("--os-handle-bg-active", alpha(black, 0.66), alpha(white, 0.66));
+
+// Global Fonts
+body
+    font-family: $font-family;
+    color: $text-color;
+
+// Tap / Selection / Outline Effects
+*
+    -webkit-tap-highlight-color: transparent;
+
+*::selection
+    background-color: lighten($theme-color, 75%);
+
+body
+    outline: none;
+
+// Background Color
+body
+    background-color: $background-color;
+
+// Scrollbar Flickering Prevention
+html
+    padding-right: calc(100% - 100vw);
+    overflow-x: hidden;
+
+// Prevent Scrollbar Flickering
+#app
+    width: 100vw;
+
+// Animation
+@keyframes shake-x
+    0%, 100%
+        transform: translateX(2px);
+    50%
+        transform: translateX(0);

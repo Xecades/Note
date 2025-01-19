@@ -48,6 +48,7 @@ onMounted(() => {
             :class="{ cursor: !props.expand }"
             @click="!props.expand && (expanded = !expanded)"
         >
+            <!--TODO: fix cursor above-->
             <div class="icon">
                 <font-awesome-icon :icon="icon[type]" />
             </div>

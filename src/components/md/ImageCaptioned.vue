@@ -46,7 +46,7 @@ onMounted(() => {
     <figure>
         <img
             ref="img"
-            class="cursor lazyload"
+            class="lazyload"
             :class="src.endsWith('.svg') && 'svg'"
             :alt="alt"
             :data-src="src"
@@ -67,7 +67,6 @@ onMounted(() => {
 
 .medium-zoom-overlay {
     z-index: 9999;
-    cursor: unset !important;
 }
 
 :root {
@@ -97,7 +96,7 @@ img {
     padding: 0;
     border-radius: 2px;
     transition: border-radius 0.3s;
-    cursor: unset;
+    cursor: pointer;
 }
 
 figcaption {

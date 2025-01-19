@@ -15,26 +15,22 @@ const rmode: "stay" | "jump" = props.mode ?? (inside ? "stay" : "jump");
 
 <template>
     <template v-if="isButton">
-        <a class="cursor" @click="(src as fn)()">
+        <a @click="(src as fn)()">
             <slot />
         </a>
     </template>
 
     <template v-else-if="rmode == 'stay'">
-        <router-link
-            :to="encodeURI(src as string)"
-            v-if="inside"
-            class="cursor"
-        >
+        <router-link :to="encodeURI(src as string)" v-if="inside">
             <slot />
         </router-link>
-        <a :href="(src as string)" v-else class="cursor">
+        <a :href="(src as string)" v-else>
             <slot />
         </a>
     </template>
 
     <template v-else>
-        <a :href="(src as string)" target="_blank" class="cursor">
+        <a :href="(src as string)" target="_blank">
             <slot />
         </a>
     </template>

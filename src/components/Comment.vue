@@ -24,7 +24,7 @@ onMounted(async () => {
 
 <style>
 #comment {
-    --border-color: #eee;
+    --border-color: #eaeaea;
     --input-color: #888;
     --owo-background-color: #fff;
 
@@ -39,13 +39,8 @@ onMounted(async () => {
     }
 }
 
-#twikoo * {
-    cursor: unset !important;
-}
-
 #twikoo .OwO .OwO-body {
     background-color: var(--owo-background-color);
-    color: unset;
 }
 
 #twikoo .tk-extras {
@@ -159,8 +154,5 @@ onMounted(async () => {
 
 #twikoo .tk-content a {
     color: #999;
-}
-
-@media (max-width: 768px) {
 }
 </style>

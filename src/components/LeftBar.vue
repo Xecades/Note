@@ -54,7 +54,7 @@ const active_id: Ref<number> = ref(category_id === -1 ? 0 : category_id);
 const do_show_detail: Ref<boolean> = ref(false);
 const is_searching: Ref<boolean> = ref(false);
 
-const REVEAL_DELAY = 40;
+const REVEAL_DELAY = 15;
 
 const category = {
     reveal: () => {
@@ -194,243 +194,206 @@ watchEffect(() => {
     </div>
 </template>
 
-<style>
-#left .content {
-    position: absolute;
-    left: var(--cate-offset-left);
-    top: var(--cate-offset-top);
-    width: var(--cate-width);
-    display: block;
-    border-radius: var(--background-radius);
-    padding: 15px 0;
-}
+<style lang="stylus">
+@import "../assets/css/global.styl";
 
-#left .content .title {
-    color: var(--content-color);
-    font-size: 0.95rem;
-    line-height: var(--cate-title-height);
-    margin-bottom: 5px;
-    padding-right: 10px;
-    display: flex;
-    gap: 8px;
-    transition: color 0.2s;
-}
+// Nav
+$nav-width = 42px;
+$nav-height = 40px;
+$nav-gap = 2px;
 
-#left .content .title.router-link-exact-active .text {
-    color: var(--theme-color);
-}
+$nav-color = lighten($text-color, 45%);
+$nav-hover-color = $theme-color;
+$nav-hover-background-color = alpha($theme-color, 12%);
 
-#left .content .title .sign {
-    color: var(--theme-color);
-    opacity: 0;
-    transition: opacity 0.1s;
-    font-size: 0.7rem;
-    display: block;
-    animation: shake-x 1s infinite ease-in-out;
-}
+$item-color = lighten($text-color, 10%);
+$item-active-color = $theme-color;
+$item-underline-color = lighten($theme-color, 50%);
+$item-hover-background-color = alpha($theme-color, 12%);
 
-#left .content .title .text {
-    text-indent: calc(0px - var(--cate-title-indent));
-    padding-left: var(--cate-title-indent);
-}
+// TOC
+$toc-translate-offset = -8px;
+$toc-offset-left = 28px;
+$toc-offset-top = 11px + $nav-height;
+$toc-width = 240px;
+$toc-title-height = 1.45rem;
+$toc-title-indent = 0.5rem;
 
-#left .content .title:hover .text {
-    color: var(--theme-color);
-}
+$toc-color = lighten($text-color, 30%);
 
-#left .content .title:hover .sign {
-    opacity: 1;
-}
+// Search
+$search-scale = 0.99;
 
-#left .content .children {
-    margin-left: 1rem;
-}
+// Global
+$offset-top = 28px;
+$offset-left = 35px;
+$background-radius = 4px;
+$width = $toc-offset-left + $toc-width;
+$height = 100vh - $offset-top * 2;
 
-#left .content > .children {
-    margin: 0;
-}
-</style>
-
-<style scoped>
-* {
-    --offset-top: 28px;
-    --offset-left: 35px;
-
-    --theme-color: #60a5fa;
-    --background-radius: 4px;
-
-    --nav-width: 42px;
-    --nav-height: 40px;
-    --nav-gap: 2px;
-    --nav-color: #cecece;
-    --nav-hover-color: #a9a9a9;
-    --nav-hover-background-color: #f2f2f2c4;
-
-    --item-color: #888e8f;
-    --item-underline-color: #ced0d1;
-    --item-hover-background-color: #f5f5f5fc;
-
-    --cate-translate-offset: -7px;
-    --cate-offset-left: 28px;
-    --cate-offset-top: calc(11px + var(--nav-height));
-    --cate-width: 240px;
-    --cate-title-height: 1.45rem;
-    --cate-title-indent: 0.5rem;
-
-    --search-scale: 0.99;
-
-    --content-color: #787f83;
-
-    --width: calc(var(--cate-offset-left) + var(--cate-width));
-    --height: calc(100vh - var(--offset-top) * 2);
-}
-
-@media (prefers-color-scheme: dark) {
-    * {
-        --theme-color: #87b3ea;
-        --nav-color: #676767;
-        --nav-hover-color: #a9a9a9;
-        --nav-hover-background-color: #212121c4;
-        --item-color: #cbcfd2;
-        --item-underline-color: #5d5f61;
-        --item-hover-background-color: #212121c4;
-        --content-color: #c5ccd0;
-    }
-}
-
-#left {
+#left
     position: fixed;
-    left: var(--offset-left);
-    top: var(--offset-top);
-    width: var(--width);
-    height: var(--height);
-    z-index: 100;
-}
+    left: $offset-left;
+    top: $offset-top;
+    width: $width;
+    height: $height;
+
+    .nav
+        display: flex;
+        flex-direction: row;
+        gap: $nav-gap;
+
+        .btn
+            height: $nav-height;
+            width: $nav-width;
+            text-align: center;
+            line-height: $nav-height;
+            font-size: 1.2rem;
+            border-radius: 3px;
+            transition: background-color 0.07s, color 0.08s;
+            color: $nav-color;
+            cursor: pointer;
+            display: block;
+
+            &:hover
+                background-color: $nav-hover-background-color;
+                color: $nav-hover-color;
+
+    .category
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        top: 0;
+        left: $nav-width + $nav-gap;
+        height: $nav-height;
+        text-wrap: nowrap;
+        overflow: hidden;
+        border-radius: background-radius;
+        user-select: none;
+
+        .item
+            height: $nav-height;
+            line-height: $nav-height;
+            font-size: 0.94rem;
+            padding: 0 12px;
+            color: $item-color;
+            text-decoration-color: transparent;
+            border-radius: 3px;
+            transition: background-color 0.07s, opacity 0.08s, text-decoration-color 0.08s;
+
+            &:hover
+                color: $item-active-color;
+                background-color: $item-hover-background-color;
+
+            &.active
+                color: $item-active-color;
+                text-decoration-line: underline;
+                text-underline-offset: 5px;
+                text-decoration-style: wavy;
+                text-decoration-color: $item-underline-color;
+
+    .content
+        position: absolute;
+        left: $toc-offset-left;
+        top: $toc-offset-top;
+        width: $toc-width;
+        display: block;
+        border-radius: $background-radius;
+        padding: 15px 0;
+
+    .content .title
+        color: $toc-color;
+        font-size: 0.95rem;
+        line-height: $toc-title-height;
+        margin-bottom: 5px;
+        padding-right: 10px;
+        display: flex;
+        gap: 8px;
+        transition: color 0.2s;
+
+    .content .title.router-link-exact-active .text
+        color: $theme-color;
+
+    .content .title .sign
+        color: $theme-color;
+        opacity: 0;
+        transition: opacity 0.1s;
+        font-size: 0.7rem;
+        display: block;
+        animation: shake-x 1s infinite ease-in-out;
+
+    .content .title .text
+        text-indent: 0 - $toc-title-indent;
+        padding-left: $toc-title-indent;
+
+    .content .title:hover .text
+        color: $theme-color;
+
+    .content .title:hover .sign
+        opacity: 1;
+
+    .content .children
+        margin-left: 1rem;
+
+    .content > .children
+        margin: 0;
+
+    .content-enter-active,
+    .content-leave-active
+        transition-property: opacity, transform;
+
+    .content-enter-active
+        transition-duration: 0.12s;
+        transition-timing-function: ease-out;
+
+    .content-leave-active
+        transition-duration: 0.07s;
+        transition-timing-function: cubic-bezier(0.15, 0.79, 0.69, 0.68);
+
+    .content-enter-from,
+    .content-leave-to
+        opacity: 0;
+        transform: translateY($toc-translate-offset);
+
 
 .search-enter-active,
-.search-leave-active {
+.search-leave-active
     transition-property: opacity, transform;
     transition-duration: 0.12s;
-}
 
-.search-enter-active {
+.search-enter-active
     transition-timing-function: cubic-bezier(0.41, 0.16, 0.83, 0.74);
-}
 
-.search-leave-active {
+.search-leave-active
     transition-timing-function: cubic-bezier(0.08, 0.46, 0.76, 0.89);
-}
 
 .search-enter-from,
-.search-leave-to {
+.search-leave-to
     opacity: 0;
-    transform: scale(var(--search-scale));
-}
+    transform: scale($search-scale);
 
-.content-enter-active,
-.content-leave-active {
-    transition-property: opacity, transform;
-}
 
-.content-enter-active {
-    transition-duration: 0.23s;
-    transition-timing-function: ease-out;
-}
-
-.content-leave-active {
-    transition-duration: 0.15s;
-    transition-timing-function: cubic-bezier(0.15, 0.79, 0.69, 0.68);
-}
-
-.content-enter-from,
-.content-leave-to {
-    opacity: 0;
-    transform: translateY(var(--cate-translate-offset));
-}
-
-.nav {
-    display: flex;
-    flex-direction: row;
-    gap: var(--nav-gap);
-}
-
-.nav .btn {
-    height: var(--nav-height);
-    width: var(--nav-width);
-    text-align: center;
-    line-height: var(--nav-height);
-    font-size: 1.2rem;
-    border-radius: 3px;
-    transition: background-color 0.15s, color 0.15s;
-    color: var(--nav-color);
-    display: block;
-}
-
-.nav .btn:hover {
-    background-color: var(--nav-hover-background-color);
-    color: var(--nav-hover-color);
-}
-
-.category {
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    top: 0;
-    left: calc(var(--nav-width) + var(--nav-gap));
-    height: var(--nav-height);
-    text-wrap: nowrap;
-    overflow: hidden;
-    border-radius: var(--background-radius);
-    user-select: none;
-}
-
-.category .item {
-    height: var(--nav-height);
-    line-height: var(--nav-height);
-    font-size: 0.9rem;
-    padding: 0 12px;
-    color: var(--item-color);
-    text-decoration-color: transparent;
-    transition: background-color 0.15s, opacity 0.2s, text-decoration-color 0.2s;
-}
-
-.category .item.active {
-    text-decoration-line: underline;
-    text-underline-offset: 5px;
-    text-decoration-style: wavy;
-    text-decoration-color: var(--item-underline-color);
-}
-
-.category .item:hover {
-    background-color: var(--item-hover-background-color);
-}
-
-@media (max-width: 768px) {
-    * {
+@media (max-width: 768px) // TODO
+    *
         --offset-top: 28px;
         --offset-left: 35px;
 
         --item-hover-background-color: unset;
-        --nav-hover-background-color: unset;
+        --$nav-hover-background-color: unset;
 
         --width: unset;
         --height: unset;
 
-        --nav-width: 35px;
-        --nav-gap: 0px;
-    }
+        --$nav-width: 35px;
+        --$nav-gap: 0px;
 
-    #left {
+    #left
         position: absolute;
-    }
 
-    .nav .btn {
+    .nav .btn
         font-size: 1rem;
-    }
 
-    .category .item {
+    .category .item
         font-size: 0.85rem;
         padding: 0 9px;
-    }
-}
 </style>

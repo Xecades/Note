@@ -4,10 +4,10 @@ const is_internal: boolean = !props.href.startsWith("http");
 </script>
 
 <template>
-    <router-link :to="encodeURI(href)" v-if="is_internal" class="cursor">
+    <router-link :to="encodeURI(href)" v-if="is_internal">
         <slot />
     </router-link>
-    <a :href="href" v-else class="cursor external" target="_blank">
+    <a :href="href" v-else class="external" target="_blank">
         <slot />
     </a>
 </template>

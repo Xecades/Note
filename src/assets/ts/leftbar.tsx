@@ -46,7 +46,7 @@ export const render_list = (
         </span>
     );
     const title_comp: JSX.Element = (
-        <RouterLink to={link} class="title cursor">
+        <RouterLink to={link} class="title">
             {icon_comp}
             {text_comp}
         </RouterLink>

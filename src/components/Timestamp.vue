@@ -30,42 +30,31 @@ const title: Ref<string> = computed(
     </div>
 </template>
 
-<style scoped>
-* {
-    --color: #95989a;
+<style scoped lang="stylus">
+@import "../assets/css/global.styl";
 
-    --line-width: 146px;
-    --line-extend: 6px;
-    --line-color: #e3e3e3;
-    --line-gap: 15px;
-}
+$color = lighten($text-color, 34%);
 
-@media (prefers-color-scheme: dark) {
-    * {
-        --color: #878787;
-        --line-color: #393a3b;
-    }
-}
+$line-width = 146px;
+$line-extend = 6px;
+$line-gap = 15px;
+$line-color = lighten(black, 85%);
 
-.timestamp {
+.timestamp
     margin: 0 var(--margin-lr) 6rem;
     font-size: 0.8rem;
-    color: var(--color);
+    color: $color;
     line-height: 1.3rem;
     width: max-content;
-}
 
-.line {
+.line
     height: 1px;
-    width: var(--line-width);
-    margin-left: calc(var(--line-extend) * -1);
-    margin-bottom: var(--line-gap);
-    background-color: var(--line-color);
-}
+    width: $line-width;
+    margin-left: 0 - $line-extend;
+    margin-bottom: $line-gap;
+    background-color: $line-color;
 
-@media (max-width: 768px) {
-    .timestamp {
+@media (max-width: 768px)
+    .timestamp
         font-size: 0.75rem;
-    }
-}
 </style>
