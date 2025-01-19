@@ -379,13 +379,13 @@ $height = 100vh - $offset-top * 2;
         --offset-left: 35px;
 
         --item-hover-background-color: unset;
-        --$nav-hover-background-color: unset;
+        --nav-hover-background-color: unset;
 
         --width: unset;
         --height: unset;
 
-        --$nav-width: 35px;
-        --$nav-gap: 0px;
+        --nav-width: 35px;
+        --nav-gap: 0px;
 
     #left
         position: absolute;

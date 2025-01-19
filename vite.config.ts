@@ -28,9 +28,8 @@ export default defineConfig({
         vueDevTools(),
 
         // [vite-plugin-vue-xecades-note]
-        vueXecadesNote({
-            componentDir: "src/components/md",
-        }),
+        // @ts-ignore
+        vueXecadesNote({ componentDir: "src/components/md" }),
     ],
     resolve: {
         alias: {
