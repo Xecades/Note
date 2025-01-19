@@ -1,0 +1,515 @@
+/**
+ * @todo 完善标点挤压（写 js 脚本，临时用 font-feature-settings: "halt" 解决）
+ */
+
+:root {
+    --theme-color: #60a5fa;
+    --block-extend: -0.5rem;
+    --monospace: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono",
+        monospace;
+
+    --hr-color: #e3e3e3;
+    --heading-color: #2e2e2e;
+
+    --checkbox-background: none;
+    --checkbox-background-checked: #56a0ef;
+
+    --blockquote-border: #e6e7e8;
+    --blockquote-background: #f2f2f2b5;
+    --blockquote-text: #4b5563;
+
+    --inline-code-background: #edeeeebf;
+
+    --block-code-background: #fafafa;
+    --block-code-border: #ededed;
+    --block-code-text: #383a42;
+
+    --table-border: #eaeaea;
+    --table-hover-background: #00000009;
+
+    --quote-color: #6a737d;
+    --quote-padding-lr: 3rem;
+    --quote-background-opacity: 0.2;
+    --quote-background-invert: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --hr-color: #3a3a3a;
+        --heading-color: #e1e1e1;
+
+        --checkbox-background: #999a9b;
+        --checkbox-background-checked: #2f77c4;
+
+        --blockquote-border: #373839;
+        --blockquote-background: #242424b5;
+        --blockquote-text: #b5babf;
+
+        --inline-code-background: #333434bf;
+
+        --block-code-background: #1b1b1b;
+        --block-code-border: #252525;
+        --block-code-text: #c1c4d1;
+
+        --table-border: #353535;
+        --table-hover-background: #ffffff12;
+
+        --quote-color: #989ca0;
+        --quote-background-opacity: 0.3;
+        --quote-background-invert: 1;
+    }
+}
+
+/* 基础样式 */
+.markdown {
+    line-height: 1.8rem;
+    /* font-feature-settings: "halt"; */
+}
+
+/* 段落 */
+.markdown p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    overflow-wrap: break-word;
+    /* text-align: justify; */
+}
+
+/* KaTeX 数学公式 */
+.markdown .katex {
+    font-size: 1.05em;
+}
+
+.markdown .katex-display {
+    margin: 1em 2px;
+}
+
+/* 锚点 */
+.markdown .header-anchor {
+    opacity: 0;
+    font-family: "Georgia", "Times New Roman", serif;
+    color: var(--theme-color);
+    transition: opacity 0.15s, color 0.15s;
+    user-select: none;
+    padding: 0 7px;
+    margin: 0;
+}
+
+.markdown .header-anchor:hover {
+    color: #0e78fa;
+}
+
+.markdown .heading:hover .header-anchor {
+    opacity: 1;
+}
+
+/* header 标签（h1 被 ban 掉了） */
+/* .markdown h1 {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+} */
+
+.markdown h2 {
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+}
+
+.markdown h3 {
+    font-size: 1.45rem;
+    line-height: 1.75rem;
+}
+
+.markdown h4 {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.markdown h5 {
+    font-size: 1rem;
+    line-height: 1.5rem;
+}
+
+.markdown h6 {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.markdown .heading {
+    position: relative;
+    margin: 1.6rem 0;
+    color: var(--heading-color);
+    font-weight: 500;
+}
+
+/* hr 标签 */
+.markdown hr {
+    margin: 4.5rem auto;
+    width: 21rem;
+    max-width: 80%;
+    height: 1px;
+    background-color: var(--hr-color);
+}
+
+/* s 标签 */
+/* .markdown s {} */
+
+/* strong, b 标签 */
+.markdown strong,
+.markdown b {
+    font-weight: bold;
+    color: #8f6ce4;
+}
+
+/* div.right 标签 */
+.markdown div.right {
+    display: block;
+    text-align: right;
+}
+
+/* em 标签 */
+.markdown em {
+    font-style: italic;
+}
+
+/* 列表 */
+.markdown ul {
+    list-style: disc;
+}
+
+.markdown ol {
+    list-style: decimal;
+}
+
+.markdown :is(ul, ol) {
+    margin-left: 20px;
+}
+
+.markdown :is(ul, ol) li {
+    padding-left: 5px;
+    line-height: 2.5em;
+}
+
+.markdown :is(ul, ol) li::marker {
+    color: #7c8087;
+}
+
+/* checkbox */
+/* @see https://getcssscan.com/css-checkboxes-examples */
+/* @see https://github.com/linsir/markdown-it-task-checkbox */
+.markdown .task-list {
+    list-style: none;
+    margin-left: unset;
+}
+
+.markdown .task-list li {
+    text-indent: unset;
+}
+
+.markdown .task-list-item *,
+.markdown .task-list-item ::after,
+.markdown .task-list-item ::before {
+    box-sizing: border-box;
+}
+
+.markdown .task-list-item input[type="checkbox"] {
+    margin: 0;
+    width: 0;
+    height: 0;
+    display: inline;
+    appearance: none;
+}
+
+.markdown .task-list-item input[type="checkbox"] + label:before {
+    content: "";
+    display: inline-block;
+    vertical-align: sub;
+    height: 1em;
+    width: 1em;
+    margin-right: 0.6em;
+    margin-bottom: 1.5px;
+    color: #00000046;
+    border: 0.06em solid;
+    border-radius: 0.2em;
+    background: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xml:space="preserve" fill="white" viewBox="0 0 9 9"><rect x="0" y="4.3" transform="matrix(-0.707 -0.7072 0.7072 -0.707 0.5891 10.4702)" width="4.3" height="1.6" /><rect x="2.2" y="2.9" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 12.1877 2.9833)" width="6.1" height="1.7" /></svg>')
+            no-repeat center,
+        white;
+    background-color: var(--checkbox-background);
+    background-size: 0;
+}
+
+.markdown .task-list-item input[type="checkbox"]:checked + label:before {
+    background-color: var(--checkbox-background-checked);
+    background-size: 0.75em;
+    color: #00000013;
+}
+
+/* 引言 */
+.markdown blockquote {
+    margin: 1.5rem 0;
+    padding: 0.5rem 1rem;
+    border-left: 4px solid var(--blockquote-border);
+    background-color: var(--blockquote-background);
+    color: var(--blockquote-text);
+    border-radius: 4px;
+}
+
+.markdown > blockquote {
+    margin-left: var(--block-extend);
+    margin-right: var(--block-extend);
+}
+
+/* 行内代码块 */
+.markdown code.inline-code {
+    font-family: var(--monospace);
+    background: var(--inline-code-background);
+    border-radius: 0.3em;
+    white-space: normal;
+    font-size: 0.9em;
+    line-height: 1em;
+    padding: 0.15em 0.3em;
+    word-break: break-word;
+}
+
+.markdown code.inline-code ::selection {
+    background-color: var(--selection-bg);
+}
+
+/* 行间代码块 */
+.markdown pre.block-code {
+    background: var(--block-code-background);
+    border: 1px solid var(--block-code-border);
+    padding: 1em;
+    margin: 1.5em var(--block-extend);
+    border-radius: 2px;
+    color: var(--block-code-text);
+    font-family: var(--monospace);
+    overflow: auto;
+    word-spacing: normal;
+    word-break: normal;
+    line-height: 1.5;
+    tab-size: 2;
+}
+
+.markdown pre.block-code code {
+    background: unset;
+    white-space: pre !important;
+    padding: 0.2em 0;
+    font-size: 0.97em;
+    text-shadow: none;
+}
+
+.markdown pre.block-code ::selection {
+    background-color: var(--selection-bg);
+}
+
+/* 表格 */
+.markdown table {
+    border-collapse: collapse;
+    border: 1px solid var(--table-border);
+    border-radius: 2px;
+    display: block;
+    width: max-content;
+    margin: 2rem auto;
+    max-width: calc(100% - var(--block-extend) * 2);
+    transform: translateX(var(--block-extend));
+    overflow-x: auto;
+}
+
+.markdown table th {
+    font-weight: bold;
+    padding: 0.9em 1.25em;
+    text-align: unset;
+    min-width: 5rem;
+}
+
+.markdown table td {
+    border-top: 1px solid var(--table-border);
+    padding: 0.9em 1.25em;
+}
+
+.markdown table tbody tr {
+    transition: background-color 0.125s;
+}
+
+.markdown table tbody tr:hover {
+    background-color: var(--table-hover-background);
+}
+
+/* Snippet Quote */
+.markdown div.quote {
+    display: block;
+    margin: 5.5rem 0;
+    padding: 0 var(--quote-padding-lr);
+    color: var(--quote-color);
+    text-align: center;
+    position: relative;
+}
+
+.markdown div.quote::before,
+.markdown div.quote::after {
+    position: absolute;
+    display: block;
+    height: 1.5rem;
+    width: 100%;
+    margin: 0 calc(var(--quote-padding-lr) * -1);
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    opacity: var(--quote-background-opacity);
+    content: "";
+    filter: invert(var(--quote-background-invert));
+}
+
+.markdown div.quote::before {
+    top: -1.25rem;
+    background-image: url(@/assets/img/quote-left.svg);
+    background-position: 0 -4px;
+}
+
+.markdown div.quote::after {
+    bottom: -1.25rem;
+    background-image: url(@/assets/img/quote-right.svg);
+    background-position: 100% 7px;
+}
+
+/* FontAwesome icons */
+.markdown svg.icon {
+    padding: 0 0.2em;
+    opacity: 0.9;
+}
+
+/* div.asterisk 标签 */
+.markdown div.asterisk::after {
+    content: "＊＊＊";
+    text-align: center;
+    color: #999;
+    font-size: 0.75rem;
+    margin: 4rem 0;
+    letter-spacing: 6px;
+    user-select: none;
+    display: block;
+}
+
+/* Note & Fold color theme */
+.colors.default {
+    --background-color: #7777770d;
+    --icon-color: #77777780;
+    --content-code-color: #77777714;
+    --border-color: #7777771c;
+}
+
+.colors.info {
+    --background-color: #0070f30d;
+    --icon-color: #0070f380;
+    --content-code-color: #0070f314;
+    --border-color: #0070f31c;
+}
+
+.colors.success {
+    --background-color: #19cc960d;
+    --icon-color: #19cc9680;
+    --content-code-color: #19cc9614;
+    --border-color: #19cc9620;
+}
+
+.colors.warning {
+    --background-color: #f5a6230d;
+    --icon-color: #f5a62380;
+    --content-code-color: #f5a62314;
+    --border-color: #f5a62329;
+}
+
+.colors.danger {
+    --background-color: #ee00000d;
+    --icon-color: #ee000080;
+    --content-code-color: #ee000014;
+    --border-color: #ee000017;
+}
+
+@media (prefers-color-scheme: dark) {
+    .colors.default {
+        --background-color: #7777771c;
+        --icon-color: #77777780;
+        --content-code-color: #77777724;
+        --border-color: #77777730;
+    }
+
+    .colors.info {
+        --background-color: #0070f31c;
+        --icon-color: #0070f380;
+        --content-code-color: #0070f324;
+        --border-color: #0070f330;
+    }
+
+    .colors.success {
+        --background-color: #19cc961c;
+        --icon-color: #19cc9680;
+        --content-code-color: #19cc9624;
+        --border-color: #19cc9630;
+    }
+
+    .colors.warning {
+        --background-color: #f5a6231c;
+        --icon-color: #f5a62380;
+        --content-code-color: #f5a62324;
+        --border-color: #f5a62330;
+    }
+
+    .colors.danger {
+        --background-color: #ee00001c;
+        --icon-color: #ee000080;
+        --content-code-color: #ee000024;
+        --border-color: #ee00003b;
+    }
+}
+
+@media (max-width: 768px) {
+    :root {
+        --block-extend: -1rem;
+    }
+
+    /* KaTeX 数学公式 */
+    .markdown .katex {
+        font-size: 1em;
+    }
+
+    .markdown .katex-display .katex {
+        font-size: 1rem;
+    }
+
+    /* header 标签 */
+    .markdown h2 {
+        font-size: 1.5rem;
+        line-height: 2.6rem;
+    }
+
+    .markdown h3 {
+        font-size: 1.35rem;
+    }
+
+    .markdown h4 {
+        font-size: 1.025rem;
+    }
+
+    .markdown h5 {
+        font-size: 0.9rem;
+        line-height: 1.5rem;
+    }
+
+    .markdown h6 {
+        font-size: 0.8rem;
+    }
+
+    /* hr 标签 */
+    .markdown hr {
+        width: 12rem;
+    }
+
+    /* 引言 */
+    .markdown blockquote {
+        padding: 0.3rem 0.9rem;
+    }
+
+    /* 表格 */
+    .markdown table tbody tr:hover {
+        background-color: unset;
+    }
+}

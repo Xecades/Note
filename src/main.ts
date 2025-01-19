@@ -1,14 +1,19 @@
 // Modules
 import { createApp } from "vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import MasonryWall from "@yeger/vue-masonry-wall";
 
 // Vue
 import App from "./App.vue";
 
 // JS
+import "./assets/ts/fontawesome";
 import router from "./router";
 
 // CSS
 import "./assets/css/reset.css";
+import "katex/dist/katex.min.css";
+import "overlayscrollbars/overlayscrollbars.css";
 
 // Console
 const consoleMessage = () => {
@@ -43,5 +48,7 @@ const consoleMessage = () => {
 
     const app = createApp(App);
     app.use(router);
+    app.use(MasonryWall);
+    app.component("font-awesome-icon", FontAwesomeIcon);
     app.mount("#app");
 })();

@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { computed, nextTick } from "vue";
-import { leaf_nodes, locate_node, meta_of } from "@/assets/ts/note/markdown";
+import { computed } from "vue";
+import { leaf_nodes, locate_node, meta_of } from "@/assets/ts/markdown";
 import Waterfall from "./Waterfall.vue";
 import dayjs from "@/assets/ts/dayjs";
-import cursor from "@/assets/ts/cursor";
+import config from "@cache/config";
 
-import type { NavNode } from "@script/types";
 import type { Ref } from "vue";
-import config from "@cache/note/config";
+import type { NavNode, URL } from "vite-plugin-vue-xecades-note";
 
-const props = defineProps<{ target: string }>();
+const props = defineProps<{ target: URL }>();
 
 const timeago = (node: NavNode): string =>
     dayjs(meta_of(node).created).fromNow();
@@ -30,36 +29,26 @@ const meta_text = (node: NavNode): string =>
 const meta_title = (node: NavNode): string =>
     `更新于 ${dayjs(meta_of(node).updated).format("YYYY-MM-DD HH:mm:ss")}`;
 
-const category_link = (node: NavNode): string =>
-    "/" + node.link.split("/").slice(0, 2).join("/");
+const category_link = (node: NavNode): URL =>
+    node.link.split("/").slice(0, 2).join("/") as URL;
 
 const category_title = (node: NavNode): string =>
     `「${meta_of(category_link(node)).attr.title}」分类`;
 
 const root: Ref<NavNode> = computed(() => locate_node(props.target)!);
 const leaves: Ref<NavNode[]> = computed(() => leaf_nodes(root.value));
-
-const leaf_mounted = async () => {
-    await nextTick();
-    cursor.refresh();
-};
 </script>
 
 <template>
     <Waterfall class="index-comp" :width="300" :gap="16" unpack>
-        <div
-            class="leaf"
-            v-for="leaf in leaves"
-            :key="leaf.link"
-            @vue:mounted="leaf_mounted"
-        >
+        <div class="leaf" v-for="leaf in leaves" :key="leaf.link">
             <!-- node -->
             <div class="header">
                 <!-- text -->
                 <router-link
                     v-if="leaves.length !== 1"
-                    :to="'/' + leaf.link"
-                    class="text cursor"
+                    :to="leaf.link"
+                    class="text"
                     :title="leaf.title"
                 >
                     {{ leaf.title }}
@@ -69,7 +58,7 @@ const leaf_mounted = async () => {
                 <!-- icon -->
                 <router-link
                     :to="category_link(leaf)"
-                    class="icon cursor"
+                    class="icon"
                     :title="category_title(leaf)"
                 >
                     <font-awesome-icon
@@ -86,8 +75,8 @@ const leaf_mounted = async () => {
                 >
                     <!-- title -->
                     <router-link
-                        :to="'/' + child.link"
-                        class="title cursor"
+                        :to="child.link"
+                        class="title"
                         :title="child.title"
                     >
                         <!-- icon -->

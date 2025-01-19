@@ -10,7 +10,6 @@ import {
 } from "vue";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 import AnimateHeight from "vue-animate-height";
-import cursor from "@/assets/ts/cursor";
 
 import type { Ref, VNodeRef } from "vue";
 import type { JSX } from "vue/jsx-runtime";
@@ -89,12 +88,10 @@ watch(
         await nextTick();
         height.value = listener.value.clientHeight;
 
-        cursor.refresh();
-
         // Wait for animation to finish.
         await sleep(250);
         shifting = false;
-        
+
         // For unknown reason when using block-code,
         // the height is not calculated correctly.
         height.value = listener.value.clientHeight;

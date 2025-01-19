@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import "lazysizes";
-import cursor from "@/assets/ts/cursor";
-import { nextTick, onBeforeUnmount, onMounted, ref, type Ref } from "vue";
-
 import mediumZoom from "medium-zoom";
+import { nextTick, onBeforeUnmount, onMounted, ref } from "vue";
+
+import type { Ref } from "vue";
 
 const props = defineProps<{
     alt: string;
@@ -37,10 +37,7 @@ onMounted(() => {
         background: "var(--overlay-color)",
     });
 
-    zoom.on("open", async () => {
-        await nextTick();
-        cursor.refresh();
-    });
+    zoom.on("open", async () => {});
     onBeforeUnmount(zoom.detach.bind(zoom));
 });
 </script>

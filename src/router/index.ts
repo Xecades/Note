@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
+import routes from "@cache/routes";
 
-import type { RouteRecordRaw, RouterScrollBehavior } from "vue-router";
+import type { RouterScrollBehavior } from "vue-router";
 
 const scrollBehavior: RouterScrollBehavior = (_, __, saved) => {
     let target = saved ?? { left: 0, top: 0 };
@@ -12,14 +13,6 @@ const scrollBehavior: RouterScrollBehavior = (_, __, saved) => {
 
     return target;
 };
-
-const routes: RouteRecordRaw[] = [
-    {
-        path: "/",
-        name: "home",
-        component: () => import("@/views/HomeView.vue"),
-    },
-];
 
 const router = createRouter({
     routes,

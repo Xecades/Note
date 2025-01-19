@@ -2,6 +2,9 @@
 
 一切为提高阅读体验为目标
 
+ - Created Updated 时间出了问题
+ - Rightbar 空文本问题
+
  - 研究对于 markdown，有没有更好的语法（原生 mdc）（好像还是不行？因为必须要用到一点 TSX）
  - 删除背景，使用纯色
  - 取消 Cursor 效果
