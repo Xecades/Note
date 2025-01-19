@@ -43,6 +43,9 @@ jobs:
             - name: Build Project
               run: npm run build
 
+            - name: Copy vercel.json
+              run: cp vercel.json ./dist
+
             - name: Deploy to Vercel
               uses: amondnet/vercel-action@v25
               with:
