@@ -35,8 +35,8 @@ jobs:
             - name: Build Plugin
               run: npm --prefix ./plugin run build
 
-            - name: Link Plugin
-              run: npm --prefix ./plugin link && npm --prefix ./app link vite-plugin-vue-xecades-note
+            - name: Install Plugin
+              run: npm --prefix ./app install ../plugin
 
             - name: Generate Cache
               run: npm --prefix ./app run cache
