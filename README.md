@@ -6,6 +6,8 @@ Part of the **Alpha α** project.
  - **Note**: [note.xecades.xyz](https://note.xecades.xyz/) (This Repo) (*WIP*)
  - **Blog**: [blog.xecades.xyz](https://blog.xecades.xyz/) (Private Repo) (*WIP*)
 
+\* This project relies on the [vite-plugin-vue-xecades-note](https://github.com/Xecades/vite-plugin-vue-xecades-note) plugin. Link it before running the project.
+
 ---
 
  - **Tech stack**: Vite, Vue.js, TypeScript
