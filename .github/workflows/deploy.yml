@@ -36,7 +36,7 @@ jobs:
               run: npm --prefix ./plugin run build
 
             - name: Install Plugin
-              run: npm --prefix ./app install ../plugin
+              run: npm --prefix ./app install ./plugin
 
             - name: Generate Cache
               run: npm --prefix ./app run cache
