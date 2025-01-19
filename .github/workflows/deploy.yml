@@ -14,7 +14,6 @@ jobs:
             - name: Checkout App Repository
               uses: actions/checkout@v3
               with:
-                  path: app
                   fetch-depth: 0
 
             - name: Checkout Plugin Repository
@@ -30,19 +29,19 @@ jobs:
                   node-version: 20
 
             - name: Install Dependencies in app and plugin
-              run: npm --prefix ./app ci && npm --prefix ./plugin ci
+              run: npm ci && npm --prefix ./plugin ci
 
             - name: Build Plugin
               run: npm --prefix ./plugin run build
 
             - name: Install Plugin
-              run: npm --prefix ./app install ./plugin
+              run: npm install ./plugin
 
             - name: Generate Cache
-              run: npm --prefix ./app run cache
+              run: npm run cache
 
             - name: Build Project
-              run: npm --prefix ./app run build
+              run: npm run build
 
             - name: Deploy to Vercel
               uses: amondnet/vercel-action@v25
@@ -50,5 +49,5 @@ jobs:
                   vercel-token: ${{ secrets.VERCEL_TOKEN }}
                   vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
                   vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-                  working-directory: ./app/dist
+                  working-directory: ./dist
                   vercel-args: "--prod"
