@@ -4,16 +4,24 @@ on:
     workflow_dispatch:
     push:
         branches:
-            - main # 当推送到 main 分支时触发
+            - main
 
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
 
         steps:
-            - name: Checkout Repository
+            - name: Checkout App Repository
               uses: actions/checkout@v3
               with:
+                  path: app
+                  fetch-depth: 0
+
+            - name: Checkout Plugin Repository
+              uses: actions/checkout@v3
+              with:
+                  repository: "Xecades/vite-plugin-vue-xecades-note"
+                  path: plugin
                   fetch-depth: 0
 
             - name: Setup Node.js
@@ -21,14 +29,20 @@ jobs:
               with:
                   node-version: 20
 
-            - name: Install Dependencies
-              run: npm install
+            - name: Install Dependencies in app and plugin
+              run: npm --prefix ./app ci && npm --prefix ./plugin ci
+
+            - name: Build Plugin
+              run: npm --prefix ./plugin run build
+
+            - name: Link Plugin
+              run: npm --prefix ./plugin link && npm --prefix ./app link vite-plugin-vue-xecades-note
 
             - name: Generate Cache
-              run: npm run cache
+              run: npm --prefix ./app run cache
 
             - name: Build Project
-              run: npm run build
+              run: npm --prefix ./app run build
 
             - name: Deploy to Vercel
               uses: amondnet/vercel-action@v25
@@ -36,5 +50,5 @@ jobs:
                   vercel-token: ${{ secrets.VERCEL_TOKEN }}
                   vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
                   vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-                  working-directory: .
+                  working-directory: ./app
                   vercel-args: "--prod"
