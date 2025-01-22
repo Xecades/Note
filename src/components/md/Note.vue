@@ -24,28 +24,24 @@ const type: TYPE = props.type || "default";
     </div>
 </template>
 
-<style scoped>
-.note {
-    padding: 1.2rem 1.5rem;
-    margin: 1.5rem var(--block-extend);
+<style scoped lang="stylus">
+.note
+    padding: 0.9em 1.1em;
+    margin: 1em var(--block-extend);
+    background: var(--background-color);
     display: flex;
-    gap: 1rem;
+    gap: 0.8em;
+    border: 1px solid var(--border-color);
     border-left: 4px solid var(--icon-color);
     border-radius: 5px;
-    background: var(--background-color);
-}
 
-.icon {
-    font-size: 1.2em;
+.icon
+    font-size: 1.1em;
     width: 20px;
     text-align: center;
     color: var(--icon-color);
-}
 
-.content {
-    --inline-code-background: var(--content-code-color);
-
+.content
     flex: 1;
-    font-size: 0.95em;
-}
+    font-size: 0.94em;
 </style>

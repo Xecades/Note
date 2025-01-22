@@ -2,7 +2,7 @@
 
 一切为提高阅读体验为目标
 
- - 字体大小 1.04rem
+ - 点了 anchor 之后 URL 没变
  - 把 twikoo 的背景 gif 加回来
  - 每次切换页面 busuanzi 都会加载一个
  - Created Updated 时间出了问题

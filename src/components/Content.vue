@@ -97,12 +97,12 @@ onUpdated(registerAnchor);
 
 $header-color = lighten($text-color, 12%);
 
-dualr("--width", 740px, 100%)
-dualr("--margin-lr", 3rem, 2.5rem)
-dualr("--margin-top", 4rem, 3rem)
-dualr("--margin-bottom", 4rem, 3rem)
-dualr("--header-size", 2.2rem, 2rem)
-dualr("--header-line-height", 3.5rem, 3rem)
+dualr(--width, 740px, 100%)
+dualr(--margin-lr, 3rem, 2.5rem)
+dualr(--margin-top, 4rem, 3rem)
+dualr(--margin-bottom, 4rem, 3rem)
+dualr(--header-size, 2.2rem, 2rem)
+dualr(--header-line-height, 3.5rem, 3rem)
 
 #content
     width: var(--width);

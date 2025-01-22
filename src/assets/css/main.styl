@@ -4,9 +4,9 @@
 
 // Overlay Scrollbar Theme
 .os-theme-dark .os-scrollbar-handle
-    scheme("--os-handle-bg", alpha(black, 0.44), alpha(white, 0.44));
-    scheme("--os-handle-bg-hover", alpha(black, 0.55), alpha(white, 0.55));
-    scheme("--os-handle-bg-active", alpha(black, 0.66), alpha(white, 0.66));
+    scheme(--os-handle-bg, alpha(black, 0.44), alpha(white, 0.44));
+    scheme(--os-handle-bg-hover, alpha(black, 0.55), alpha(white, 0.55));
+    scheme(--os-handle-bg-active, alpha(black, 0.66), alpha(white, 0.66));
 
 // Global Fonts
 body
@@ -18,7 +18,7 @@ body
     -webkit-tap-highlight-color: transparent;
 
 *::selection
-    background-color: lighten($theme-color, 75%);
+    background-color: alpha($theme-color, 0.25);
 
 body
     outline: none;
@@ -42,3 +42,14 @@ html
         transform: translateX(2px);
     50%
         transform: translateX(0);
+
+// Medium Zoom
+schemer(--overlay-color, #47484a85, #0e0e0ed6);
+
+.medium-zoom-image[data-ic-zoomable]
+    z-index: 10000;
+    border-radius: 0;
+
+.medium-zoom-overlay
+    z-index: 9999;
+

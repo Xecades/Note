@@ -2,10 +2,9 @@
 import LinkTo from "../LinkTo.vue";
 
 const props = defineProps<{ href: string }>();
-const external: boolean =
-    props.href.startsWith("http") || props.href.startsWith("/assets/");
+const external = /^https?:\/\/|^\/assets\//.test(props.href);
 
-const isGitHub: boolean = /github\.com/.test(props.href);
+const isGitHub = /github\.com/.test(props.href);
 </script>
 
 <template>
@@ -35,90 +34,69 @@ const isGitHub: boolean = /github\.com/.test(props.href);
     </div>
 </template>
 
-<style scoped>
-.linkcard {
-    --width: 24rem;
-    --height: 4.2rem;
+<style scoped lang="stylus">
+@import "../../assets/css/global.styl";
 
-    --background: #fafafa;
-    --border: #e5e5e5;
-    --border-hover: #e8e8e8;
+$width = 24rem;
+$height = 4.2rem;
+$logo-size = 3rem;
+$gap = 1.4rem;
 
-    --logo-color: #e6e6e6;
-    --title-color: #4b5563;
-    --icon-color: #b0b4bc;
-    --href-color: #898d94;
+.linkcard
+    scheme(--background, #f9f9f9, cyan);
+    scheme(--border, #e1e4e8, cyan);
+    scheme(--border-hover, lighten(#e1e4e8, 25%), cyan);
 
-    --logo-size: 3rem;
-    --gap: 1.4rem;
-}
+    scheme(--logo-color, #c3c6ca, cyan);
+    scheme(--title-color, lighten($text-color, 10%), cyan);
+    scheme(--icon-color, lighten($text-color, 50%), cyan);
+    scheme(--href-color, lighten($text-color, 44%), cyan);
 
-@media (prefers-color-scheme: dark) {
-    .linkcard {
-        --background: #222324;
-        --border: #272829;
-        --border-hover: #3d3f43;
+    > *  // Actually <a> tag
+        width: $width;
+        height: $height;
+        max-width: calc(100% - 3.5rem);
+        margin: 2rem auto;
+        padding: 0.75rem 1.5rem;
+        border-radius: 3px;
+        background-color: var(--background);
+        display: flex;
+        gap: $gap;
+        box-shadow: 0 0 0 1px var(--border);
+        transition: box-shadow 0.05s cubic-bezier(0.4, 0, 0.2, 1);
 
-        --logo-color: #44464a;
-        --title-color: #d8dee9;
-        --icon-color: #aeb4bc;
-        --href-color: #9ba0a6;
-    }
-}
+        &:hover
+            box-shadow: 0 0 0 3px var(--border-hover);
 
-.linkcard > * {
-    width: var(--width);
-    max-width: calc(100% - 1.5rem * 2 - 0.5rem);
-    height: var(--height);
-    margin: 2rem auto;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.375rem;
-    background-color: var(--background);
-    display: flex;
-    gap: var(--gap);
-    box-shadow: 0 0 0 1px var(--border);
-    transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
+    .logo
+        color: var(--logo-color);
 
-.linkcard > *:hover {
-    box-shadow: 0 0 0 3px var(--border-hover);
-}
+        svg
+            width: $logo-size;
+            height: $logo-size;
+            padding: (($height - $logo-size) / 2) 0;
 
-.logo {
-    color: var(--logo-color);
-}
+    .content
+        flex: 1;
+        width: "calc(100% - %s)" % ($logo-size + $gap);
 
-.logo svg {
-    width: var(--logo-size);
-    height: var(--logo-size);
-    padding: calc((var(--height) - var(--logo-size)) / 2) 0;
-}
+    .item
+        height: $height / 2;
+        line-height: $height / 2;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
 
-.content {
-    flex: 1;
-    width: calc(100% - var(--logo-size) - var(--gap));
-}
+        &.title
+            color: var(--title-color);
 
-.content .item {
-    height: calc(var(--height) / 2);
-    line-height: calc(var(--height) / 2);
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-}
+        &.link
+            .icon
+                font-size: 0.8em;
+                margin-right: 6px;
+                color: var(--icon-color);
 
-.content .item.title {
-    color: var(--title-color);
-}
-
-.content .item.link .icon {
-    font-size: 0.8em;
-    margin-right: 6px;
-    color: var(--icon-color);
-}
-
-.content .item.link .href {
-    font-size: 0.9em;
-    color: var(--href-color);
-}
+            .href
+                font-size: 0.9em;
+                color: var(--href-color);
 </style>

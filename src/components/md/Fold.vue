@@ -43,19 +43,14 @@ onMounted(() => {
 
 <template>
     <div class="fold colors" :class="type">
-        <div
-            class="header"
-            :class="{ cursor: !props.expand }"
-            @click="!props.expand && (expanded = !expanded)"
-        >
-            <!--TODO: fix cursor above-->
+        <div class="header" @click="expanded = !expanded">
             <div class="icon">
                 <font-awesome-icon :icon="icon[type]" />
             </div>
             <div class="title">
                 <component :is="title" v-if="title" />
             </div>
-            <div class="expand" v-if="!props.expand">
+            <div class="expand">
                 <font-awesome-icon
                     :icon="['fas', 'angle-right']"
                     :style="{ transform: `rotate(${expanded ? 90 : 0}deg)` }"
@@ -76,88 +71,64 @@ onMounted(() => {
     </div>
 </template>
 
-<style scoped>
-.fold {
-    --header-color: #6d6e75;
-}
+<style lang="stylus">
+@import "../../assets/css/global.styl";
 
-@media (prefers-color-scheme: dark) {
-    .fold {
-        --header-color: #b9bcc0;
-    }
-}
-
-.fold {
+.fold
+    scheme(--header-color, lighten($text-color, 10%), cyan)
     border-radius: 5px;
     margin: 2rem var(--block-extend);
     overflow: hidden;
+    border: 1px solid var(--border-color);
     border-left: 4px solid var(--icon-color);
-}
 
-.header {
-    display: flex;
-    padding: 7px 9px;
-    background-color: var(--background-color);
-    user-select: none;
-}
+    .header
+        display: flex;
+        padding: 7px 8px;
+        background-color: var(--background-color);
+        user-select: none;
+        cursor: pointer;
 
-.title {
-    --inline-code-background: var(--content-code-color);
+        .title
+            flex: 1;
+            font-size: 0.9em;
+            color: var(--header-color);
 
-    flex: 1;
-    font-size: 0.9em;
-    color: var(--header-color);
-}
+        .icon,
+        .expand
+            font-size: 1.1em;
+            text-align: center;
+            width: 36px;
+            color: var(--icon-color);
 
-.icon,
-.expand {
-    font-size: 1.1em;
-    text-align: center;
-    width: 36px;
-    color: var(--icon-color);
-}
+        .icon
+            margin-right: 7px;
 
-.icon {
-    margin-right: 7px;
-}
+        .expand
+            margin-left: 7px;
 
-.expand {
-    margin-left: 7px;
-}
+            svg
+                transition: transform 0.2s ease;
 
-.expand svg {
-    transition: transform 0.2s ease;
-}
+    .content
+        --wrapper-padding: 0.8em 1.4em;
+        overflow: hidden;
 
-.content {
-    --wrapper-padding: 0.8rem 1.4rem;
-    border-right: 1px solid var(--background-color);
-    border-bottom: 1px solid var(--background-color);
-    border-bottom-right-radius: 5px;
-    overflow: hidden;
-}
+        .fold-height-listener
+            --block-extend: 0;
+            padding: var(--wrapper-padding);
 
-.content.immensive {
-    --wrapper-padding: 0;
-}
+        &.immensive
+            --wrapper-padding: 0;
 
-.content :global(.fold-height-listener) {
-    --block-extend: 0;
+            .block-code
+                margin: 0;
+                border: none;
+                background: unset;
 
-    padding: var(--wrapper-padding);
-}
+            .quote
+                margin: 3rem 1.4rem;
 
-.content.immensive .block-code {
-    margin: 0;
-    border: none;
-    background: unset;
-}
-
-.content.immensive div.quote {
-    margin: 3rem 1.4rem;
-}
-
-:global(.fold .content.immensive .katex-display) {
-    margin: 0.3em 0;
-}
+            .katex-display
+                margin: 0.3em 0;
 </style>

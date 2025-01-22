@@ -146,115 +146,91 @@ onBeforeUnmount(() => {
     </div>
 </template>
 
-<style scoped>
-.tab {
-    --header-height: 3rem;
+<style lang="stylus">
+@import "../../assets/css/global.styl";
 
-    --border-color: #eaeaea;
-    --header-color: #6d6e75;
-    --content-background-color: #f9f9f9d4;
-    --header-background-color: #f4f4f4;
-    --title-hover-color: #e0e0e0;
-    --title-underline-color: #9e9ea2;
-}
+$header-height = 3rem;
 
-@media (prefers-color-scheme: dark) {
-    .tab {
-        --border-color: #2a2a2b;
-        --header-color: #b9bcc0;
-        --content-background-color: #1b1c1d52;
-        --header-background-color: #1a1a1a94;
-        --title-hover-color: #242425;
-        --title-underline-color: #5d5f61;
-    }
-}
+// TODO 继续完成剩下的模块
 
-.tab {
+.tab
+    scheme(--border-color, #eaeaea, #2a2a2b);
+    scheme(--header-color, #6d6e75, #b9bcc0);
+    scheme(--content-background-color, #f9f9f9d4, #1b1c1d52);
+    scheme(--header-background-color, #f4f4f4, #1a1a1a94);
+    scheme(--title-hover-color, #e0e0e0, #242425);
+    scheme(--title-underline-color, #9e9ea2, #5d5f61);
+
     margin: 2rem var(--block-extend);
     border: 1px solid var(--border-color);
     border-radius: 5px;
     overflow: hidden;
-}
 
-.header-container {
-    height: var(--header-height);
-    border-bottom: 1px solid var(--border-color);
-    background-color: var(--header-background-color);
-}
+    .header-container
+        height: $header-height;
+        border-bottom: 1px solid var(--border-color);
+        background-color: var(--header-background-color);
 
-.header-container :global(.os-scrollbar-horizontal) {
-    --os-size: 7px;
-}
+        .os-scrollbar-horizontal
+            --os-size: 7px;
 
-.header {
-    display: flex;
-    color: var(--header-color);
-    height: var(--header-height);
-}
+    .header
+        display: flex;
+        color: var(--header-color);
+        height: $header-height;
 
-.header .item {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    line-height: calc(var(--header-height) - 1rem);
-    font-size: 0.85em;
-    flex-shrink: 0;
-    transition: background-color 0.2s ease;
-    position: relative;
-    cursor: pointer;
-}
+        .item
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            line-height: $header-height - 1rem;
+            font-size: 0.85em;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease;
+            position: relative;
+            cursor: pointer;
 
-.header .item:hover {
-    background-color: var(--title-hover-color);
-}
+            &:hover
+                background-color: var(--title-hover-color);
 
-.header .item::before {
-    content: "";
-    text-decoration-color: transparent;
-    transition: text-decoration-color 0.5s ease;
-}
+            &::before
+                content: "";
+                text-decoration-color: transparent;
+                transition: text-decoration-color 0.5s ease;
 
-.header .item.active::before {
-    /** A CSS hack to avoid skipping ink on specific tags :-) */
-    content: "............................................................................................................................................................................................................";
-    user-select: none;
-    color: transparent;
-    width: calc(100% - 1rem * 2);
-    overflow: hidden;
-    position: absolute;
-    text-decoration-line: underline;
-    text-underline-offset: 5px;
-    text-decoration-style: wavy;
-    text-decoration-color: var(--title-underline-color);
-}
+            &.active::before
+                // A CSS hack to avoid skipping ink on specific tags :-)
+                content: "............................................................................................................................................................................................................";
+                user-select: none;
+                color: transparent;
+                width: calc(100% - 2rem);
+                overflow: hidden;
+                position: absolute;
+                text-decoration-line: underline;
+                text-underline-offset: 5px;
+                text-decoration-style: wavy;
+                text-decoration-color: var(--title-underline-color);
 
-.content {
-    --block-extend: 0;
-    --listener-padding: 0.5rem 1.4rem;
+    .content
+        --block-extend: 0;
+        --listener-padding: 0.5rem 1.4rem;
+        background-color: var(--content-background-color);
 
-    background-color: var(--content-background-color);
-}
+        &.immensive
+            --listener-padding: 0;
 
-.content.immensive {
-    --listener-padding: 0;
-}
+            .block-code
+                margin: 0;
+                border: none;
+                background: unset;
 
-.content :global(.tab-height-listener) {
-    padding: var(--listener-padding);
-    /** Fix margin collapse */
-    overflow: hidden;
-}
+            .quote
+                margin: 3rem 1.4rem;
 
-.content.immensive .block-code {
-    margin: 0;
-    border: none;
-    background: unset;
-}
+            .index-comp
+                margin: 2rem 1.4rem;
 
-.content.immensive div.quote {
-    margin: 3rem 1.4rem;
-}
-
-.content.immensive .index-comp {
-    margin: 2rem 1.4rem;
-}
+        .tab-height-listener
+            padding: var(--listener-padding);
+            // Fix margin collapse
+            overflow: hidden;
 </style>
