@@ -39,8 +39,7 @@ const parts = computed(() => {
     </div>
 </template>
 
-<style scoped>
-.waterfall {
-    margin: 3rem var(--block-extend);
-}
+<style scoped lang="stylus">
+.waterfall
+    margin: 2em var(--block-extend);
 </style>

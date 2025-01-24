@@ -45,27 +45,24 @@ const data: Ref<GridData[]> = computed(() => mapData(parts.value));
     </div>
 </template>
 
-<style scoped>
-.grid {
-    --padding-lr: 0.5rem;
-    --min-width: 160px;
-}
+<style scoped lang="stylus">
+@import "../../assets/css/global.styl";
 
-.grid {
-    margin: 0.5rem calc(-1 * var(--padding-lr));
+$padding-lr = 0.5em;
+$min-width = 160px;
+
+.grid
+    margin: 0.5em (-1 * $padding-lr);
     display: flex;
     flex-wrap: wrap;
-}
 
-.column {
-    width: var(--width);
-    min-width: var(--min-width);
-    flex-grow: 1;
-    align-content: flex-end;
-}
+    .column
+        width: var(--width);
+        min-width: $min-width;
+        flex-grow: 1;
+        align-content: flex-end;
 
-.content {
-    --block-extend: 0;
-    padding: 0 var(--padding-lr);
-}
+        .content
+            --block-extend: 0;
+            padding: 0 $padding-lr;
 </style>

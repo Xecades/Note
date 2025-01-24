@@ -36,32 +36,25 @@ const rmode: "stay" | "jump" = props.mode ?? (inside ? "stay" : "jump");
     </template>
 </template>
 
-<style scoped>
-* {
+<style scoped lang="stylus">
+*
     --color: #5b8db2;
     --color-hover: #005d92;
     --color-active: #0d77b4;
-}
 
-@media (prefers-color-scheme: dark) {
-    * {
+@media (prefers-color-scheme: dark)
+    *
         --color: #81beff;
         --color-hover: #90c1f5;
         --color-active: #accff5;
-    }
-}
 
-a {
-    /* 这里不能用 opacity，否则 Safari 下 <ruby> 会不显示 */
+a
     color: var(--color);
-    transition: color 0.1s;
-}
+    transition: color 0.07s;
 
-a:hover {
-    color: var(--color-hover);
-}
+    &:hover
+        color: var(--color-hover);
 
-a:active {
-    color: var(--color-active);
-}
+    &:active
+        color: var(--color-active);
 </style>

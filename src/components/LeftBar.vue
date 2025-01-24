@@ -359,7 +359,7 @@ $height = 100vh - $offset-top * 2;
 .search-enter-active,
 .search-leave-active
     transition-property: opacity, transform;
-    transition-duration: 0.12s;
+    transition-duration: 0.07s;
 
 .search-enter-active
     transition-timing-function: cubic-bezier(0.41, 0.16, 0.83, 0.74);

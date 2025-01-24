@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
-
 import type { PartialOptions } from "overlayscrollbars";
 
-const props = defineProps<{
-    lang: string;
-    html: string;
-}>();
+defineProps<{ lang: string; html: string }>();
 
 /** @see https://github.com/KingSora/OverlayScrollbars/ */
 const osOptions: PartialOptions = {
-    scrollbars: {
-        autoHide: "move",
-        autoHideSuspend: true,
-    },
+    scrollbars: { autoHide: "move", autoHideSuspend: true },
     overflow: { y: "visible-hidden" },
 };
 </script>

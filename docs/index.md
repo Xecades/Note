@@ -1,5 +1,5 @@
 ---
-title: 笔记
+title: 主页
 displayTitle: Xecades Notes
 ---
 

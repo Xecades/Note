@@ -107,126 +107,96 @@ const leaves: Ref<NavNode[]> = computed(() => leaf_nodes(root.value));
     </Waterfall>
 </template>
 
-<style scoped>
-.index-comp {
-    --border-color: #e1e1e1c4;
-    --max-width: 370px;
+<style scoped lang="stylus">
+@import "../../assets/css/global.styl";
 
-    /* header */
-    --h-height: 3.5rem;
-    --h-background: #eeeeee87;
-    --h-color: #3c3c3e;
-    --h-hover-color: #60a5fa;
-    --h-icon-color: #b5bcbe9e;
-    --h-icon-hover-color: #3c3c3e;
+.index-comp
+    scheme(--border-color, lighten(black, 88%), cyan);
+    dual(--max-width, 370px, 0);
 
-    /* child */
-    --c-height: 3.5rem;
-    --c-color: #3c3c3e;
-    --c-hover-color: #60a5fa;
-    --c-icon-color: #b5bcbe9e;
-    --c-meta-color: #787b7e;
-}
+    // header
+    dual(--h-height, 3.4em, 0);
+    scheme(--h-background, lighten(black, 94%), cyan);
+    scheme(--h-color, $text-color, cyan);
+    scheme(--h-hover-color, $theme-color, cyan);
+    scheme(--h-icon-color, lighten($text-color, 60%), cyan);
+    scheme(--h-icon-hover-color, $theme-color, cyan);
 
-@media (prefers-color-scheme: dark) {
-    .index-comp {
-        --border-color: #333333c4;
+    // child
+    dual(--c-height, 3.4em, 0);
+    scheme(--c-color, $text-color, cyan);
+    scheme(--c-hover-color, $theme-color, cyan);
+    scheme(--c-icon-color, lighten($text-color, 78%), cyan);
+    scheme(--c-meta-color, lighten($text-color, 30%), cyan);
 
-        /* header */
-        --h-background: #2d2d2d6e;
-        --h-color: #c6c6c6;
-        --h-hover-color: #87b3ea;
-        --h-icon-color: #787b7c9e;
-        --h-icon-hover-color: #c6c6c6;
+    .leaf
+        border: 1px solid var(--border-color);
+        border-radius: 3px;
+        overflow: hidden;
+        max-width: var(--max-width);
+        margin: 0 auto;
 
-        /* child */
-        --c-color: #c6c6c6;
-        --c-hover-color: #87b3ea;
-        --c-icon-color: #787b7c9e;
-        --c-meta-color: #919599;
-    }
-}
+        .header
+            display: flex;
+            height: var(--h-height);
+            align-items: center;
+            padding-left: 9px;
+            padding-right: 14px;
+            background-color: var(--h-background);
 
-.leaf {
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    max-width: var(--max-width);
-    margin: 0 auto;
-}
+            .text
+                color: var(--h-color);
+                padding: 0 8px;
+                transition: color 0.07s ease-out;
 
-.header {
-    display: flex;
-    height: var(--h-height);
-    align-items: center;
-    padding-left: 9px;
-    padding-right: 14px;
-    background-color: var(--h-background);
-}
+                &:not(.static):hover
+                    color: var(--h-hover-color);
 
-.header .text {
-    color: var(--h-color);
-    padding: 0 8px;
-    transition: color 0.15s ease-out;
-}
+            .icon
+                margin-left: auto;
+                width: 1.5rem;
+                text-align: center;
+                color: var(--h-icon-color);
+                transition: color 0.07s ease-out, transform 0.07s ease;
 
-.header .text:not(.static):hover {
-    color: var(--h-hover-color);
-}
+                &:hover
+                    color: var(--h-icon-hover-color);
+                    transform: scale(1.1);
 
-.header .icon {
-    margin-left: auto;
-    width: 1.5rem;
-    text-align: center;
-    color: var(--h-icon-color);
-    transition: color 0.15s ease-out, transform 0.15s ease;
-}
+    .children .child
+        display: flex;
+        border-bottom: 1px solid var(--border-color);
+        height: var(--c-height);
+        align-items: center;
+        padding-left: 9px;
+        padding-right: 18px;
 
-.header .icon:hover {
-    color: var(--h-icon-hover-color);
-    transform: scale(1.1);
-}
+        &:last-of-type
+            border-bottom: none;
 
-.child {
-    display: flex;
-    border-bottom: 1px solid var(--border-color);
-    height: var(--c-height);
-    align-items: center;
-    padding-left: 9px;
-    padding-right: 18px;
-}
+        .title
+            padding: 0 8px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            color: var(--c-color);
 
-.child:last-of-type {
-    border-bottom: none;
-}
+            &:hover
+                color: var(--c-hover-color);
 
-.child .title {
-    padding: 0 8px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    color: var(--c-color);
-}
+            .icon
+                color: var(--c-icon-color);
+                width: 1.6rem;
+                display: inline-block;
+                text-align: center;
 
-.child .title:hover {
-    color: var(--c-hover-color);
-}
+            .text
+                transition: color 0.07s ease-out;
 
-.child .title .icon {
-    color: var(--c-icon-color);
-    width: 1.6rem;
-    display: inline-block;
-    text-align: center;
-}
-
-.child .title .text {
-    transition: color 0.15s ease-out;
-}
-
-.child .meta {
-    color: var(--c-meta-color);
-    margin-left: auto;
-    font-size: 0.85rem;
-    white-space: nowrap;
-    user-select: none;
-}
+        .meta
+            color: var(--c-meta-color);
+            margin-left: auto;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            user-select: none;
 </style>

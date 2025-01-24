@@ -43,10 +43,7 @@ const mapData = (parts: JSX.Element[]): TabData[] => {
 
 /** @see https://github.com/KingSora/OverlayScrollbars/ */
 const osOptions: PartialOptions = {
-    scrollbars: {
-        autoHide: "move",
-        autoHideDelay: 500,
-    },
+    scrollbars: { autoHide: "move", autoHideDelay: 500 },
     overflow: { y: "visible-hidden" },
 };
 
@@ -115,22 +112,24 @@ onBeforeUnmount(() => {
 
 <template>
     <div class="tab">
-        <OverlayScrollbarsComponent
-            element="div"
-            :options="(osOptions as any)"
-            class="header-container"
-        >
-            <div class="header">
-                <div
-                    class="item"
-                    v-for="(tab, idx) in data"
-                    @click="active = idx"
-                    :class="{ active: idx === active }"
-                >
-                    <component :is="() => tab.title" />
+        <div class="header-wrapper">
+            <OverlayScrollbarsComponent
+                element="div"
+                :options="(osOptions as any)"
+                class="header-container"
+            >
+                <div class="header">
+                    <div
+                        class="item"
+                        v-for="(tab, idx) in data"
+                        @click="active = idx"
+                        :class="{ active: idx === active }"
+                    >
+                        <component :is="() => tab.title" />
+                    </div>
                 </div>
-            </div>
-        </OverlayScrollbarsComponent>
+            </OverlayScrollbarsComponent>
+        </div>
         <div class="content" :class="{ immensive: is_immensive }">
             <!-- @see https://www.npmjs.com/package/vue-animate-height -->
             <AnimateHeight
@@ -149,71 +148,59 @@ onBeforeUnmount(() => {
 <style lang="stylus">
 @import "../../assets/css/global.styl";
 
-$header-height = 3rem;
-
-// TODO 继续完成剩下的模块
+$header-height = 2.8rem;
 
 .tab
-    scheme(--border-color, #eaeaea, #2a2a2b);
-    scheme(--header-color, #6d6e75, #b9bcc0);
-    scheme(--content-background-color, #f9f9f9d4, #1b1c1d52);
-    scheme(--header-background-color, #f4f4f4, #1a1a1a94);
-    scheme(--title-hover-color, #e0e0e0, #242425);
-    scheme(--title-underline-color, #9e9ea2, #5d5f61);
+    scheme(--border-color, lighten(black, 89%), cyan);
+    scheme(--header-border-color, lighten(black, 91%), cyan);
+    scheme(--header-color, lighten($text-color, 44%), cyan);
+    scheme(--header-active-color, $text-color, cyan);
+    scheme(--header-active-border, lighten($text-color, 30%), cyan);
+    scheme(--header-background-color, alpha(black, 3%), cyan);
+    scheme(--title-hover-color, lighten(black, 92%), cyan);
 
-    margin: 2rem var(--block-extend);
+    margin: 1.5em var(--block-extend);
     border: 1px solid var(--border-color);
-    border-radius: 5px;
+    border-radius: 3px;
     overflow: hidden;
 
-    .header-container
-        height: $header-height;
-        border-bottom: 1px solid var(--border-color);
+    > .header-wrapper
+        padding: 0 0.8em;
         background-color: var(--header-background-color);
 
-        .os-scrollbar-horizontal
-            --os-size: 7px;
+        > .header-container
+            height: $header-height;
+            border-bottom: 1px solid var(--header-border-color);
 
-    .header
-        display: flex;
-        color: var(--header-color);
-        height: $header-height;
+            .os-scrollbar-horizontal
+                --os-size: 7px;
+                bottom: -2px;
 
-        .item
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            line-height: $header-height - 1rem;
-            font-size: 0.85em;
-            flex-shrink: 0;
-            transition: background-color 0.2s ease;
-            position: relative;
-            cursor: pointer;
+        > .header-container .header
+            display: flex;
+            color: var(--header-color);
+            height: $header-height;
 
-            &:hover
-                background-color: var(--title-hover-color);
+            > .item
+                display: inline-block;
+                padding: 0 0.9rem;
+                line-height: $header-height;
+                font-size: 0.8em;
+                flex-shrink: 0;
+                transition: background-color 0.06s ease;
+                position: relative;
+                cursor: pointer;
 
-            &::before
-                content: "";
-                text-decoration-color: transparent;
-                transition: text-decoration-color 0.5s ease;
+                &:hover
+                    background-color: var(--title-hover-color);
 
-            &.active::before
-                // A CSS hack to avoid skipping ink on specific tags :-)
-                content: "............................................................................................................................................................................................................";
-                user-select: none;
-                color: transparent;
-                width: calc(100% - 2rem);
-                overflow: hidden;
-                position: absolute;
-                text-decoration-line: underline;
-                text-underline-offset: 5px;
-                text-decoration-style: wavy;
-                text-decoration-color: var(--title-underline-color);
+                &.active
+                    color: var(--header-active-color);
+                    border-bottom: 1.5px solid var(--header-active-border);
 
-    .content
+    > .content
         --block-extend: 0;
         --listener-padding: 0.5rem 1.4rem;
-        background-color: var(--content-background-color);
 
         &.immensive
             --listener-padding: 0;
@@ -229,7 +216,7 @@ $header-height = 3rem;
             .index-comp
                 margin: 2rem 1.4rem;
 
-        .tab-height-listener
+        > div > .tab-height-listener
             padding: var(--listener-padding);
             // Fix margin collapse
             overflow: hidden;

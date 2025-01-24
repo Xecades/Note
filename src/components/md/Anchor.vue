@@ -12,33 +12,16 @@ const is_internal: boolean = !props.href.startsWith("http");
     </a>
 </template>
 
-<style scoped>
-* {
-    --color: #3083e8;
-    --hover-color: #0454b3;
-}
+<style scoped lang="stylus">
+@import "../../assets/css/global.styl";
 
-@media (prefers-color-scheme: dark) {
-    * {
-        --color: #98c6ff;
-        --hover-color: #54a2ff;
-    }
-}
+a
+    scheme(--color, $theme-color, cyan);
+    scheme(--hover-color, darken($theme-color, 45%), cyan);
 
-a {
     color: var(--color);
-    transition: color 0.1s;
-}
+    transition: color 0.07s;
 
-a:hover {
-    color: var(--hover-color);
-}
-
-/* a.external::after {
-    content: "✦";
-    font-size: 0.7em;
-    line-height: 1em;
-    padding: 0 2px;
-    vertical-align: super;
-} */
+    &:hover
+        color: var(--hover-color);
 </style>
