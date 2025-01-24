@@ -9,12 +9,11 @@ import {
     faBoxArchive,
     faCaretLeft,
     faCaretRight,
-    faChevronLeft,
+    faChevronRight,
     faCode,
     faCube,
     faExclamationCircle,
     faExclamationTriangle,
-    faEye,
     faFaceFrown,
     faFile,
     faFlag,
@@ -23,7 +22,6 @@ import {
     faLightbulb,
     faLink,
     faMagnifyingGlass,
-    faSpinner,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
@@ -50,11 +48,9 @@ library.add(
     faArrowUpRightFromSquare,
     faStar,
     faGithub,
-    faSpinner,
-    faChevronLeft,
+    faChevronRight,
     faCode,
     faAtom,
     faBoxArchive,
-    faFlag,
-    faEye
+    faFlag
 );

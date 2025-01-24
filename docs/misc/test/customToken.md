@@ -65,7 +65,6 @@ $$
 ```
 ::
 
-
 ---
 
 ## Icon
@@ -87,7 +86,6 @@ The *magic spell* :arrow-up: :arrow-up: :arrow-down: :arrow-down: :arrow-left: :
 The *magic spell* :arrow-up: :arrow-up: :arrow-down: :arrow-down: :arrow-left: :arrow-right: :arrow-left: :arrow-right: :a: :b: :a: :b: will lead you to the treasure :sack-dollar:.
 ```
 ::
-
 
 ---
 
@@ -133,7 +131,6 @@ $$
 e ^ {i \pi} + 1 = 0
 $$
 ::
-
 
 ---
 
@@ -196,7 +193,6 @@ $\text{P} \neq \text{NP}$
 ::note{success}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ::
-
 
 ---
 

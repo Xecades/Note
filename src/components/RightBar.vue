@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUpdated, ref } from "vue";
-import { navigate, normalize_toc, ScrollListener } from "@/assets/ts/rightbar";
+import { normalize_toc, ScrollListener } from "@/assets/ts/rightbar";
+import { navigate } from "@/assets/ts/utils";
 import { RIGHTBAR_STATUS } from "@/assets/ts/types";
 
 import type { Ref } from "vue";

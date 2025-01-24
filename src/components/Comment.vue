@@ -22,137 +22,115 @@ onMounted(async () => {
     </div>
 </template>
 
-<style>
-#comment {
-    --border-color: #eaeaea;
-    --input-color: #888;
-    --owo-background-color: #fff;
+<style lang="stylus">
+@import "../assets/css/global.styl";
+
+#comment
+    scheme(--border-color, #eaeaea, #2c2c2c);
+    scheme(--input-color, #666, #b0b1b5);
+    scheme(--owo-background-color, #fff, #1f1f1f);
 
     margin: 0 var(--margin-lr) 7rem;
-}
 
-@media (prefers-color-scheme: dark) {
-    #comment {
-        --border-color: #2c2c2c;
-        --input-color: #b0b1b5;
-        --owo-background-color: #1f1f1f;
-    }
-}
+    .OwO .OwO-body
+        background-color: var(--owo-background-color);
 
-#twikoo .OwO .OwO-body {
-    background-color: var(--owo-background-color);
-}
+    .tk-extras
+        display: none;
+    
+    .tk-input textarea
+        padding: 0.7rem 1rem;
+        min-height: 170px !important;
+        background-size: 200px;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-color: transparent;
+        background-position-x: calc(100% - 1rem);
+        resize: none;
+        transition: background-position-y 0.2s ease-in-out 0s;
+        border: 0;
 
-#twikoo .tk-extras {
-    display: none;
-}
+        &:focus
+            background-position-y: calc(100% + 200px);
 
-#twikoo .tk-input textarea {
-    padding: 0.7rem 1rem;
-    min-height: 170px !important;
-    background: none !important;
-    resize: none;
-    border: 0;
-}
+    .tk-nick-link
+        margin-right: 0.3rem;
 
-#twikoo .tk-nick-link {
-    margin-right: 0.3rem;
-}
+    .tk-actions
+        font-size: 0.8rem;
+        
+        a
+            color: #777;
 
-#twikoo .tk-actions a {
-    color: #777;
-}
+    .tk-comment
+        margin-bottom: 1rem;
 
-#twikoo .tk-actions {
-    font-size: 0.8rem;
-}
+    .tk-comments-title
+        font-size: 1.1rem;
+        font-weight: normal;
 
-#twikoo .tk-comment {
-    margin-bottom: 1rem;
-}
+    .tk-avatar
+        border-radius: 50%;
+        margin-right: 0.7rem;
 
-#twikoo .tk-comments-title {
-    font-size: 1.1rem;
-    font-weight: normal;
-}
+    .tk-content
+        max-height: unset;
+        font-size: 16px;
 
-#twikoo .tk-avatar {
-    border-radius: 50%;
-    margin-right: 0.7rem;
-}
+    .tk-time
+        margin-left: 0.5rem;
+        font-size: 0.8rem;
+        color: #bebebe;
 
-#twikoo .tk-content {
-    max-height: unset;
-    font-size: 16px;
-}
+    .tk-footer
+        display: none;
 
-#twikoo .tk-time {
-    margin-left: 0.5rem;
-    font-size: 0.8rem;
-    color: #bebebe;
-}
+    .tk-preview-container
+        overflow-wrap: break-word;
 
-#twikoo .tk-footer {
-    display: none;
-}
+    .tk-submit .tk-col
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
 
-#twikoo .tk-preview-container {
-    overflow-wrap: break-word;
-}
+    .tk-meta-input
+        margin: 0;
+        padding: 0.4rem 0;
+        border-bottom: 1px solid var(--border-color);
 
-#twikoo .tk-submit .tk-col {
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-}
+        .el-input
+            width: auto;
+            margin: 0;
 
-#twikoo .tk-meta-input {
-    margin: 0;
-    padding: 0.4rem 0;
-    border-bottom: 1px solid var(--border-color);
-}
+        .el-input-group__append,
+        .el-input-group__prepend
+            background-color: transparent;
+            border: none;
+            border-radius: 0;
+            padding-right: 0.2rem;
 
-#twikoo .tk-meta-input .el-input {
-    width: auto;
-    margin: 0;
-}
+        .el-input__inner
+            border-radius: 0;
+            border: none;
+            padding-left: 0.2rem;
+            color: var(--input-color);
 
-#twikoo .tk-meta-input .el-input-group__append,
-#twikoo .tk-meta-input .el-input-group__prepend {
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
-    padding-right: 0.2rem;
-}
+    .tk-panel .tk-content
+        a:not(.button)
+            color: #409eff;
 
-#twikoo .tk-meta-input .el-input__inner {
-    border-radius: 0;
-    border: none;
-    padding-left: 0.2rem;
-    color: var(--input-color);
-}
+        code
+            color: #333;
 
-#twikoo .tk-panel .tk-content a:not(.button) {
-    color: #409eff;
-}
+        blockquote
+            color: #fff;
 
-#twikoo .tk-panel .tk-content code {
-    color: #333;
-}
+        a
+            color: #999;
 
-#twikoo .tk-panel .tk-content blockquote {
-    color: #fff;
-}
+    pre::-webkit-scrollbar
+        width: 0 !important;
+        height: 0 !important;
 
-#twikoo pre::-webkit-scrollbar {
-    width: 0 !important;
-    height: 0 !important;
-}
-
-#twikoo a {
-    text-decoration: none;
-}
-
-#twikoo .tk-content a {
-    color: #999;
-}
+    a
+        text-decoration: none;
 </style>

@@ -47,21 +47,6 @@ export const normalize_toc = (toc: MarkdownHeaderJsx[]): HeaderRef[] => {
 };
 
 /**
- * Navigate to the element with the given ID.
- *
- * @param id - ID of the element to navigate to
- * @param offset - Offset from the top of the element, default to -4rem
- */
-export const navigate = (id: string, offset: number = -4 * 16) => {
-    let el = document.getElementById(id);
-    if (el) {
-        const y = el.getBoundingClientRect().top + window.scrollY + offset;
-
-        window.scrollTo({ top: y, behavior: "smooth" });
-    }
-};
-
-/**
  * Scroll listener class for rightbar.
  */
 export class ScrollListener {

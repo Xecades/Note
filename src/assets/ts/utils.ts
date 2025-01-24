@@ -53,6 +53,22 @@ export const loadJS = (src: string): Promise<unknown> =>
 export const sleep = (ms: number) =>
     new Promise<void>((res) => setTimeout(res, ms));
 
+/**
+ * Navigate to the element with the given ID.
+ *
+ * @param id - ID of the element to navigate to
+ * @param offset - Offset from the top of the element, default to -4rem
+ */
+export const navigate = (id: string, offset: number = -4 * 16) => {
+    let el = document.getElementById(id);
+    if (el) {
+        const y = el.getBoundingClientRect().top + window.scrollY + offset;
+
+        window.scrollTo({ top: y, behavior: "smooth" });
+        history.pushState(null, "", `#${id}`);
+    }
+};
+
 /** The screen width of a small screen. */
 export const SMALL_SCREEN_WIDTH: number = 768;
 

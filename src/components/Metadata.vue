@@ -1,34 +1,23 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { loadJS } from "@/assets/ts/utils";
-
 import type { RouteMeta } from "vite-plugin-vue-xecades-note";
 
 defineProps<{
     type: RouteMeta["type"];
-    back: RouteMeta["back"];
+    breadcrumb: RouteMeta["breadcrumb"];
 }>();
-
-const URL = "https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js";
-onMounted(() => loadJS(URL));
 </script>
 
 <template>
     <div class="metadata">
-        <router-link :to="back.link" class="back">
-            <span class="icon">
-                <font-awesome-icon :icon="['fas', 'chevron-left']" />
-            </span>
-            <span class="text">{{ back.title }}</span>
-        </router-link>
-
-        <span class="viewcount" v-if="type === 'post'">
-            <span class="icon">
-                <font-awesome-icon :icon="['fas', 'eye']" />
-            </span>
-            <span class="text" id="busuanzi_value_page_pv">
-                <font-awesome-icon :icon="['fas', 'spinner']" spin />
-            </span>
+        <span class="breadcrumb">
+            <template v-for="(item, index) in breadcrumb" :key="index">
+                <router-link :to="item.link" class="text">
+                    {{ item.title }}
+                </router-link>
+                <span class="icon" v-if="index !== breadcrumb.length - 1">
+                    <font-awesome-icon :icon="['fas', 'chevron-right']" />
+                </span>
+            </template>
         </span>
     </div>
 </template>
@@ -37,53 +26,35 @@ onMounted(() => loadJS(URL));
 @import "../assets/css/global.styl";
 
 $header-main-spacing = 2.3rem;
+$height = 1.5rem;
 
-$back-color = lighten($text-color, 30%);
-$back-hover-color = $theme-color;
-
-$viewcount-color = lighten($text-color, 30%);
+$breadcrumb-color = lighten($text-color, 30%);
+$breadcrumb-hover-color = $theme-color;
 
 .metadata
     margin: 0rem var(--margin-lr) $header-main-spacing;
     user-select: none;
 
-.viewcount
+.breadcrumb
     display: inline-flex;
-    margin-left: 10px;
-    color: $viewcount-color;
-    height: 1.5rem;
-    line-height: 1.5rem;
-
-    .icon
-        width: 19px;
-        text-align: center;
-        font-size: 0.7em;
-        opacity: 0.85;
-
-    .text
-        font-size: 0.9em;
-
-.back
-    display: inline-flex;
-    width: max-content;
-    color: $back-color;
-    transition: color 0.1s ease;
-    height: 1.5rem;
-    line-height: 1.5rem;
-    margin-left: -2px;
-
-    &:hover
-        color: $back-hover-color;
+    height: $height;
+    line-height: $height;
+    margin-left: 3px;
 
     .icon, .text
         display: inline-block;
+        color: $breadcrumb-color;
 
     .icon
-        width: 15px;
+        width: 20px;
         text-align: center;
         font-size: 0.7em;
         opacity: 0.85;
 
     .text
         font-size: 0.9em;
+        transition: color 0.1s ease;
+
+        &:hover
+            color: $breadcrumb-hover-color;
 </style>

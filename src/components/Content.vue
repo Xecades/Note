@@ -2,7 +2,8 @@
 /** @todo 图片缓存，不能每次都重新加载一遍 */
 
 import { computed, onMounted, onUpdated } from "vue";
-import { RouterView } from "vue-router";
+import { RouterView, useRoute } from "vue-router";
+import { navigate, sleep } from "@/assets/ts/utils";
 
 import Timestamp from "./Timestamp.vue";
 import Comment from "./Comment.vue";
@@ -15,6 +16,7 @@ import type { Ref } from "vue";
 import type { RouteMeta } from "vite-plugin-vue-xecades-note";
 
 const props = defineProps<{ meta: RouteMeta }>();
+const route = useRoute();
 
 /**
  * Whether to show timestamp.
@@ -51,19 +53,19 @@ const registerAnchor = () => {
         if (anchor) {
             anchor.addEventListener("click", (e: Event) => {
                 e.preventDefault();
-
-                const offset = -4 * 16;
-                const y =
-                    heading.getBoundingClientRect().top +
-                    window.scrollY +
-                    offset;
-
-                window.scrollTo({ top: y, behavior: "smooth" });
+                navigate(heading.id);
             });
         }
     });
 };
 
+const scrollToAnchor = async () => {
+    await sleep(100);
+    const hash = route.hash;
+    navigate(hash.slice(1));
+};
+
+onMounted(scrollToAnchor);
 onMounted(registerAnchor);
 onUpdated(registerAnchor);
 </script>
@@ -76,7 +78,11 @@ onUpdated(registerAnchor);
 
         <!-- 通过 key 强制组件刷新，从而正常触发 busuanzi 统计更新 -->
         <!-- @todo 改进一下 -->
-        <Metadata :back="meta.back" :type="meta.type" :key="meta.attr.title" />
+        <Metadata
+            :breadcrumb="meta.breadcrumb"
+            :type="meta.type"
+            :key="meta.attr.title"
+        />
 
         <main class="markdown">
             <RouterView />

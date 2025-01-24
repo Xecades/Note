@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { nextTick, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { get_leftbar_status } from "@/assets/ts/leftbar";
 import { get_rightbar_status } from "@/assets/ts/rightbar";
