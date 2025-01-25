@@ -40,9 +40,10 @@ $line-gap = 15px;
 #timestamp
     scheme(--color, lighten($text-color, 34%), darken($text-color-d, 20%));
     scheme(--line-color, lighten(black, 85%), lighten(black, 36%));
+    dual(--font-size, 0.8rem, 0.75rem);
 
     margin: 0 var(--margin-lr) 6rem;
-    font-size: 0.8rem;
+    font-size: var(--font-size);
     color: var(--color);
     line-height: 1.3rem;
     width: max-content;
@@ -53,9 +54,4 @@ $line-gap = 15px;
     margin-left: 0 - $line-extend;
     margin-bottom: $line-gap;
     background-color: var(--line-color);
-
-// TODO
-@media (max-width: 768px)
-    #timestamp
-        font-size: 0.75rem;
 </style>

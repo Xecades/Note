@@ -198,16 +198,11 @@ watchEffect(() => {
 @import "../assets/css/global.styl";
 
 // Nav
-$nav-width = 42px;
 $nav-height = 40px;
-$nav-gap = 2px;
-
 $nav-hover-color = $theme-color;
-$nav-hover-background-color = alpha($theme-color, 12%);
 
 $item-active-color = $theme-color;
 $item-underline-color = alpha($theme-color, 65%);
-$item-hover-background-color = alpha($theme-color, 12%);
 
 // TOC
 $toc-translate-offset = -8px;
@@ -221,34 +216,41 @@ $toc-title-indent = 0.5rem;
 $search-scale = 0.99;
 
 // Global
-$offset-top = 28px;
-$offset-left = 35px;
 $background-radius = 4px;
 $width = $toc-offset-left + $toc-width;
-$height = 100vh - $offset-top * 2;
 
 #left
     // Nav
     scheme(--nav-color, lighten($text-color, 45%), darken($text-color-d, 15%));
     scheme(--item-color, lighten($text-color, 10%), darken($text-color-d, 8%));
+    dual(--nav-hover-background-color, alpha($theme-color, 12%), unset);
+    dual(--item-hover-background-color, alpha($theme-color, 12%), unset);
+    dual(--nav-width, 42px, 35px);
+    dual(--nav-gap, 2px, 0px);
 
     // TOC
     scheme(--toc-color, lighten($text-color, 30%), darken($text-color-d, 5%));
 
+    // Global
+    dual(--offset-top, 28px, 32px);
+    dual(--offset-left, 35px, 27px);
+    dual(--height, calc(100vh - var(--offset-top) * 2), unset);
+
     position: fixed;
-    left: $offset-left;
-    top: $offset-top;
+    left: var(--offset-left);
+    top: var(--offset-top);
     width: $width;
-    height: $height;
+    height: var(--height);
+    z-index: 100;
 
     .nav
         display: flex;
         flex-direction: row;
-        gap: $nav-gap;
+        gap: var(--nav-gap);
 
         .btn
             height: $nav-height;
-            width: $nav-width;
+            width: var(--nav-width);
             text-align: center;
             line-height: $nav-height;
             font-size: 1.2rem;
@@ -267,7 +269,7 @@ $height = 100vh - $offset-top * 2;
         display: flex;
         flex-direction: row;
         top: 0;
-        left: $nav-width + $nav-gap;
+        left: calc(var(--nav-width) + var(--nav-gap));
         height: $nav-height;
         text-wrap: nowrap;
         overflow: hidden;
@@ -375,28 +377,14 @@ $height = 100vh - $offset-top * 2;
     opacity: 0;
     transform: scale($search-scale);
 
-
-@media (max-width: 768px) // TODO
-    *
-        --offset-top: 28px;
-        --offset-left: 35px;
-
-        --item-hover-background-color: unset;
-        --nav-hover-background-color: unset;
-
-        --width: unset;
-        --height: unset;
-
-        --nav-width: 35px;
-        --nav-gap: 0px;
-
+@media only screen and (max-width: 748px)
     #left
         position: absolute;
 
-    .nav .btn
-        font-size: 1rem;
+        .nav .btn
+            font-size: 1rem;
 
-    .category .item
-        font-size: 0.85rem;
-        padding: 0 9px;
+        .category .item
+            font-size: 0.85rem;
+            padding: 0 9px;
 </style>

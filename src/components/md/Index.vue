@@ -112,10 +112,10 @@ const leaves: Ref<NavNode[]> = computed(() => leaf_nodes(root.value));
 
 .index-comp
     scheme(--border-color, lighten(black, 88%), lighten(black, 25%));
-    dual(--max-width, 370px, 0);
+    dual(--max-width, 370px, calc(370px));
 
     // header
-    dual(--h-height, 3.4em, 0);
+    dual(--h-height, 3.4em, 3.2em);
     scheme(--h-background, lighten(black, 94%), lighten(black, 20%));
     scheme(--h-color, $text-color, $text-color-d);
     scheme(--h-hover-color, $theme-color, $theme-color);
@@ -123,7 +123,7 @@ const leaves: Ref<NavNode[]> = computed(() => leaf_nodes(root.value));
     scheme(--h-icon-hover-color, $theme-color, $theme-color);
 
     // child
-    dual(--c-height, 3.4em, 0);
+    dual(--c-height, 3.4em, 3.2em);
     scheme(--c-color, $text-color, $text-color-d);
     scheme(--c-hover-color, $theme-color, $theme-color);
     scheme(--c-icon-color, lighten($text-color, 78%), darken($text-color-d, 23%));

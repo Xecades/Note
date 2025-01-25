@@ -101,8 +101,8 @@ onUpdated(registerAnchor);
 
 #content
     dual(--width, 740px, 100%);
-    dual(--margin-lr, 3rem, 2.5rem);
-    dual(--margin-top, 4rem, 3rem);
+    dual(--margin-lr, 3rem, 2.1rem);
+    dual(--margin-top, 4rem, 6.3rem);
     dual(--margin-bottom, 4rem, 3rem);
     dual(--header-size, 2.2rem, 2rem);
     dual(--header-line-height, 3.5rem, 3rem);
@@ -124,5 +124,5 @@ header
         color: var(--header-color);
         letter-spacing: 0.05rem;
         line-height: var(--header-line-height);
-        font-weight: 600;
+        font-weight: 500;
 </style>

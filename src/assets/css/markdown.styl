@@ -320,44 +320,48 @@ for $c, $i in $themes
         scheme(--content-code-color, alpha($c, $alphas[2]), alpha($c, $dkAlphas[2]));
         scheme(--border-color, alpha($c, $alphas[3]), alpha($c, $dkAlphas[3]));
 
-// TODO
 @media (max-width: 768px)
-    :root
-        --block-extend: -1rem;
-
     /* KaTeX 数学公式 */
-    .markdown .katex
-        font-size: 1em;
+    .markdown
+        .katex
+            font-size: 1em;
 
-    .markdown .katex-display .katex
-        font-size: 1rem;
+        .katex-display .katex
+            font-size: 1rem;
 
-    /* header 标签 */
-    .markdown h2
-        font-size: 1.5rem;
-        line-height: 2.6rem;
+        /* header 标签 */
+        h2
+            font-size: 1.5rem;
+            line-height: 2.6rem;
 
-    .markdown h3
-        font-size: 1.35rem;
+        h3
+            font-size: 1.35rem;
 
-    .markdown h4
-        font-size: 1.025rem;
+        h4
+            font-size: 1.025rem;
 
-    .markdown h5
-        font-size: 0.9rem;
-        line-height: 1.5rem;
+        h5
+            font-size: 0.9rem;
+            line-height: 1.5rem;
 
-    .markdown h6
-        font-size: 0.8rem;
+        h6
+            font-size: 0.8rem;
 
-    /* hr 标签 */
-    .markdown hr
-        width: 12rem;
+        /* hr 标签 */
+        hr
+            width: 12rem;
 
-    /* 引言 */
-    .markdown blockquote
-        padding: 0.3rem 0.9rem;
+        /* 引言 */
+        blockquote
+            padding: 0.3rem 0.9rem;
 
-    /* 表格 */
-    .markdown table tbody tr:hover
-        background-color: unset;
+        /* 表格 */
+        table tbody tr:hover
+            background-color: unset;
+
+        /* Snippet Quote */
+        div.quote
+            padding: 0 2rem
+
+            &::before, &::after
+                margin: 0 -2rem;

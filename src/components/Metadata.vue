@@ -40,7 +40,7 @@ $breadcrumb-hover-color = $theme-color;
     display: inline-flex;
     height: $height;
     line-height: $height;
-    margin-left: 3px;
+    margin-left: 2px;
 
     .icon, .text
         display: inline-block;
