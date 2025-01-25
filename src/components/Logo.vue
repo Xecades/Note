@@ -39,7 +39,12 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div id="logo">
+    <a
+        id="logo"
+        href="https://xecades.xyz/"
+        target="_blank"
+        title="点击跳转主页"
+    >
         <svg
             id="logo-svg"
             xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +57,7 @@ onMounted(async () => {
                 v-for="svg in svgs"
             />
         </svg>
-    </div>
+    </a>
 </template>
 
 <style scoped lang="stylus">
@@ -62,7 +67,8 @@ $right = 40px;
 
 #logo
     dual(--display, block, none);
-    scheme(--invert, 0.4, 0.75);
+    scheme(--invert, 0.45, 0.7);
+    scheme(--hover-invert, 0.15, 0.9);
 
     display: var(--display);
     position: fixed;
@@ -70,6 +76,10 @@ $right = 40px;
     width: 50px;
     left: "calc(100vw - %dpx - 50px - 16px)" % $right;
     filter: invert(var(--invert));
+    transition: filter 0.2s;
+
+    &:hover
+        filter: invert(var(--hover-invert));
 
     svg path
         fill: none;
