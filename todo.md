@@ -1,11 +1,14 @@
 ## 近期
 
- - ToC 层级关系看起来很怪
+ - ToC 层级关系看起来很怪（align left，参考 obsidian）
  - ToC：默认折叠，hover 或滚动到目标位置展开（？）
 
+ - 标题英文字体要改一下
+ - 桌面端的 root 不要 index comp，换成别的
+ - index comp，hover 范围广一点
+ - migrate comment system
  - 添加 ::active 以提升移动端体验
- - 完成 404 页
- - root 页，标题下面加点东西
+ - root 页，标题下面加点东西（word count）
  - 中文字体 cdn，目前加载太慢了
  - 添加 backtotop 按钮
  - 提供行内左中右布局
@@ -13,11 +16,14 @@
  - 侧边栏（左右），允许折叠 / 滚动
  - 添加从 note 主页回到总主页的按钮
 
+## 灵感
+
+ - 元胞自动机、陨石雨、Gravity
+
 ## 长期
 
  - 搓一个 counter
  - 重新设计 logo
- - 图片懒加载用 ThumbHash / BlurHash（考虑改成一个 API）
  - 搓一个评论系统（考虑使用 Serverless）
  - Status 页面（如果有了后端）
  - CDN

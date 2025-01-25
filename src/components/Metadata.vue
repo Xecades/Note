@@ -12,6 +12,9 @@ defineProps<{
         <span class="breadcrumb">
             <template v-for="(item, index) in breadcrumb" :key="index">
                 <router-link :to="item.link" class="text">
+                    <span class="back" v-if="breadcrumb.length === 1">
+                        <font-awesome-icon :icon="['fas', 'chevron-left']" />
+                    </span>
                     {{ item.title }}
                 </router-link>
                 <span class="icon" v-if="index !== breadcrumb.length - 1">
@@ -49,12 +52,16 @@ $breadcrumb-hover-color = $theme-color;
     .icon
         width: 20px;
         text-align: center;
-        font-size: 0.7em;
+        font-size: 0.7rem;
         opacity: 0.85;
 
     .text
-        font-size: 0.9em;
+        font-size: 0.9rem;
         transition: color 0.1s ease;
+
+        .back
+            font-size: 0.8rem;
+            opacity: 0.85;
 
         &:hover
             color: $breadcrumb-hover-color;

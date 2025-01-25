@@ -9,6 +9,7 @@ import {
     faBoxArchive,
     faCaretLeft,
     faCaretRight,
+    faChevronLeft,
     faChevronRight,
     faCode,
     faCube,
@@ -52,5 +53,6 @@ library.add(
     faCode,
     faAtom,
     faBoxArchive,
-    faFlag
+    faFlag,
+    faChevronLeft
 );
