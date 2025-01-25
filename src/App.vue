@@ -9,6 +9,7 @@ import router from "@/router";
 import LeftBar from "@/components/LeftBar.vue";
 import RightBar from "@/components/RightBar.vue";
 import Content from "@/components/Content.vue";
+import Logo from "./components/Logo.vue";
 
 import type { Ref } from "vue";
 import type { RouteMeta } from "vite-plugin-vue-xecades-note";
@@ -32,6 +33,7 @@ const in_view: Ref<number | null> = ref(null);
         <LeftBar :status="left_stat" :current-category="meta.category" />
         <Content :meta="meta" />
         <RightBar :status="right_stat" :in-view="in_view" :toc="meta.toc" />
+        <Logo />
     </div>
 </template>
 

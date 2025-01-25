@@ -36,6 +36,7 @@
         "overlayscrollbars": "^2.10.1",
         "overlayscrollbars-vue": "^0.5.9",
         "vercel": "^39.3.0",
+        "vivus": "^0.4.6",
         "vue": "^3.5.13",
         "vue-animate-height": "^1.1.2",
         "vue-router": "^4.5.0"
@@ -43,6 +44,7 @@
     "devDependencies": {
         "@tsconfig/node22": "^22.0.0",
         "@types/node": "^22.10.2",
+        "@types/vivus": "^0.4.7",
         "@vitejs/plugin-vue": "^5.2.1",
         "@vitejs/plugin-vue-jsx": "^4.1.1",
         "@vue/tsconfig": "^0.7.0",
