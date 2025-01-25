@@ -76,8 +76,6 @@ onUpdated(registerAnchor);
             <h1>{{ meta.attr.displayTitle ?? meta.attr.title }}</h1>
         </header>
 
-        <!-- 通过 key 强制组件刷新，从而正常触发 busuanzi 统计更新 -->
-        <!-- @todo 改进一下 -->
         <Metadata
             :breadcrumb="meta.breadcrumb"
             :type="meta.type"
@@ -101,7 +99,7 @@ onUpdated(registerAnchor);
 <style scoped lang="stylus">
 @import "../assets/css/global.styl";
 
-$header-color = lighten($text-color, 12%);
+$header-color = lighten($text-color, 23%);
 
 dualr(--width, 740px, 100%)
 dualr(--margin-lr, 3rem, 2.5rem)
@@ -115,10 +113,6 @@ dualr(--header-line-height, 3.5rem, 3rem)
     margin: 0 auto;
     z-index: 10;
 
-    &.fade // TODO
-        transition: opacity 0.1s ease-in;
-        opacity: 0;
-
 main
     margin: 0 var(--margin-lr) var(--margin-bottom);
 
@@ -130,5 +124,5 @@ header
         color: $header-color;
         letter-spacing: 0.05rem;
         line-height: var(--header-line-height);
-        font-weight: 500;
+        font-weight: 600;
 </style>
