@@ -75,7 +75,8 @@ onMounted(() => {
 @import "../../assets/css/global.styl";
 
 .fold
-    scheme(--header-color, lighten($text-color, 10%), cyan)
+    scheme(--header-color, lighten($text-color, 10%), darken($text-color-d, 3%));
+
     border-radius: 5px;
     margin: 2rem var(--block-extend);
     overflow: hidden;

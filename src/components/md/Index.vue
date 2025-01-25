@@ -111,23 +111,23 @@ const leaves: Ref<NavNode[]> = computed(() => leaf_nodes(root.value));
 @import "../../assets/css/global.styl";
 
 .index-comp
-    scheme(--border-color, lighten(black, 88%), cyan);
+    scheme(--border-color, lighten(black, 88%), lighten(black, 25%));
     dual(--max-width, 370px, 0);
 
     // header
     dual(--h-height, 3.4em, 0);
-    scheme(--h-background, lighten(black, 94%), cyan);
-    scheme(--h-color, $text-color, cyan);
-    scheme(--h-hover-color, $theme-color, cyan);
-    scheme(--h-icon-color, lighten($text-color, 60%), cyan);
-    scheme(--h-icon-hover-color, $theme-color, cyan);
+    scheme(--h-background, lighten(black, 94%), lighten(black, 20%));
+    scheme(--h-color, $text-color, $text-color-d);
+    scheme(--h-hover-color, $theme-color, $theme-color);
+    scheme(--h-icon-color, lighten($text-color, 60%), darken($text-color-d, 10%));
+    scheme(--h-icon-hover-color, $theme-color, $theme-color);
 
     // child
     dual(--c-height, 3.4em, 0);
-    scheme(--c-color, $text-color, cyan);
-    scheme(--c-hover-color, $theme-color, cyan);
-    scheme(--c-icon-color, lighten($text-color, 78%), cyan);
-    scheme(--c-meta-color, lighten($text-color, 30%), cyan);
+    scheme(--c-color, $text-color, $text-color-d);
+    scheme(--c-hover-color, $theme-color, $theme-color);
+    scheme(--c-icon-color, lighten($text-color, 78%), darken($text-color-d, 23%));
+    scheme(--c-meta-color, lighten($text-color, 30%), darken($text-color-d, 18%));
 
     .leaf
         border: 1px solid var(--border-color);

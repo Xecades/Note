@@ -151,13 +151,13 @@ onBeforeUnmount(() => {
 $header-height = 2.8rem;
 
 .tab
-    scheme(--border-color, lighten(black, 89%), cyan);
-    scheme(--header-border-color, lighten(black, 91%), cyan);
-    scheme(--header-color, lighten($text-color, 44%), cyan);
-    scheme(--header-active-color, $text-color, cyan);
-    scheme(--header-active-border, lighten($text-color, 30%), cyan);
-    scheme(--header-background-color, alpha(black, 3%), cyan);
-    scheme(--title-hover-color, lighten(black, 92%), cyan);
+    scheme(--border-color, lighten(black, 89%), lighten(black, 24%));
+    scheme(--header-border-color, lighten(black, 91%), lighten(black, 20%));
+    scheme(--header-color, lighten($text-color, 44%), alpha($text-color-d, 56%));
+    scheme(--header-active-color, $text-color, $text-color-d);
+    scheme(--header-active-border, lighten($text-color, 30%), alpha($text-color-d, 70%));
+    scheme(--header-background-color, alpha(black, 3%), alpha(white, 3%));
+    scheme(--title-hover-color, lighten(black, 92%), lighten(black, 20%));
 
     margin: 1.5em var(--block-extend);
     border: 1px solid var(--border-color);

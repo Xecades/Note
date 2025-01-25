@@ -23,7 +23,7 @@ const title: Ref<string> = computed(
 </script>
 
 <template>
-    <div class="timestamp" :title="title">
+    <div id="timestamp" :title="title">
         <div class="line" />
         <p class="modify">最后更新：{{ modify.fromNow() }}</p>
         <p class="creation">文章创建：{{ creation.fromNow() }}</p>
@@ -33,17 +33,17 @@ const title: Ref<string> = computed(
 <style scoped lang="stylus">
 @import "../assets/css/global.styl";
 
-$color = lighten($text-color, 34%);
-
 $line-width = 146px;
 $line-extend = 6px;
 $line-gap = 15px;
-$line-color = lighten(black, 85%);
 
-.timestamp
+#timestamp
+    scheme(--color, lighten($text-color, 34%), darken($text-color-d, 20%));
+    scheme(--line-color, lighten(black, 85%), lighten(black, 36%));
+
     margin: 0 var(--margin-lr) 6rem;
     font-size: 0.8rem;
-    color: $color;
+    color: var(--color);
     line-height: 1.3rem;
     width: max-content;
 
@@ -52,9 +52,10 @@ $line-color = lighten(black, 85%);
     width: $line-width;
     margin-left: 0 - $line-extend;
     margin-bottom: $line-gap;
-    background-color: $line-color;
+    background-color: var(--line-color);
 
+// TODO
 @media (max-width: 768px)
-    .timestamp
+    #timestamp
         font-size: 0.75rem;
 </style>

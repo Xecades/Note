@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-    <div class="metadata">
+    <div id="metadata">
         <span class="breadcrumb">
             <template v-for="(item, index) in breadcrumb" :key="index">
                 <router-link :to="item.link" class="text">
@@ -28,10 +28,11 @@ defineProps<{
 $header-main-spacing = 2.3rem;
 $height = 1.5rem;
 
-$breadcrumb-color = lighten($text-color, 30%);
 $breadcrumb-hover-color = $theme-color;
 
-.metadata
+#metadata
+    scheme(--breadcrumb-color, lighten($text-color, 30%), darken($text-color-d, 25%));
+
     margin: 0rem var(--margin-lr) $header-main-spacing;
     user-select: none;
 
@@ -43,7 +44,7 @@ $breadcrumb-hover-color = $theme-color;
 
     .icon, .text
         display: inline-block;
-        color: $breadcrumb-color;
+        color: var(--breadcrumb-color);
 
     .icon
         width: 20px;

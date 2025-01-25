@@ -202,13 +202,11 @@ $nav-width = 42px;
 $nav-height = 40px;
 $nav-gap = 2px;
 
-$nav-color = lighten($text-color, 45%);
 $nav-hover-color = $theme-color;
 $nav-hover-background-color = alpha($theme-color, 12%);
 
-$item-color = lighten($text-color, 10%);
 $item-active-color = $theme-color;
-$item-underline-color = lighten($theme-color, 50%);
+$item-underline-color = alpha($theme-color, 65%);
 $item-hover-background-color = alpha($theme-color, 12%);
 
 // TOC
@@ -218,8 +216,6 @@ $toc-offset-top = 11px + $nav-height;
 $toc-width = 240px;
 $toc-title-height = 1.45rem;
 $toc-title-indent = 0.5rem;
-
-$toc-color = lighten($text-color, 30%);
 
 // Search
 $search-scale = 0.99;
@@ -232,6 +228,13 @@ $width = $toc-offset-left + $toc-width;
 $height = 100vh - $offset-top * 2;
 
 #left
+    // Nav
+    scheme(--nav-color, lighten($text-color, 45%), darken($text-color-d, 15%));
+    scheme(--item-color, lighten($text-color, 10%), darken($text-color-d, 8%));
+
+    // TOC
+    scheme(--toc-color, lighten($text-color, 30%), darken($text-color-d, 5%));
+
     position: fixed;
     left: $offset-left;
     top: $offset-top;
@@ -251,7 +254,7 @@ $height = 100vh - $offset-top * 2;
             font-size: 1.2rem;
             border-radius: 3px;
             transition: background-color 0.07s, color 0.08s;
-            color: $nav-color;
+            color: var(--nav-color);
             cursor: pointer;
             display: block;
 
@@ -276,7 +279,7 @@ $height = 100vh - $offset-top * 2;
             line-height: $nav-height;
             font-size: 0.94rem;
             padding: 0 12px;
-            color: $item-color;
+            color: var(--item-color);
             text-decoration-color: transparent;
             border-radius: 3px;
             transition: background-color 0.07s, opacity 0.08s, text-decoration-color 0.08s;
@@ -302,7 +305,7 @@ $height = 100vh - $offset-top * 2;
         padding: 15px 0;
 
     .content .title
-        color: $toc-color;
+        color: var(--toc-color);
         font-size: 0.95rem;
         line-height: $toc-title-height;
         margin-bottom: 5px;

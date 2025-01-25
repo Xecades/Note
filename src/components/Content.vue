@@ -99,16 +99,16 @@ onUpdated(registerAnchor);
 <style scoped lang="stylus">
 @import "../assets/css/global.styl";
 
-$header-color = lighten($text-color, 23%);
-
-dualr(--width, 740px, 100%)
-dualr(--margin-lr, 3rem, 2.5rem)
-dualr(--margin-top, 4rem, 3rem)
-dualr(--margin-bottom, 4rem, 3rem)
-dualr(--header-size, 2.2rem, 2rem)
-dualr(--header-line-height, 3.5rem, 3rem)
-
 #content
+    dual(--width, 740px, 100%);
+    dual(--margin-lr, 3rem, 2.5rem);
+    dual(--margin-top, 4rem, 3rem);
+    dual(--margin-bottom, 4rem, 3rem);
+    dual(--header-size, 2.2rem, 2rem);
+    dual(--header-line-height, 3.5rem, 3rem);
+
+    scheme(--header-color, lighten($text-color, 23%), darken($text-color-d, 3%));
+
     width: var(--width);
     margin: 0 auto;
     z-index: 10;
@@ -121,7 +121,7 @@ header
 
     h1
         font-size: var(--header-size);
-        color: $header-color;
+        color: var(--header-color);
         letter-spacing: 0.05rem;
         line-height: var(--header-line-height);
         font-weight: 600;

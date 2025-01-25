@@ -4,28 +4,28 @@
 
 dualr(--block-extend, -0.5rem, -1rem);
 
-schemer(--hr-color, lighten(black, 82%), cyan);
-schemer(--heading-color, lighten($text-color, 10%), cyan);
-schemer(--bold-color, #8f6ce4, cyan);
+schemer(--hr-color, lighten(black, 82%), lighten(black, 50%));
+schemer(--heading-color, lighten($text-color, 10%), darken($text-color-d, 7%));
+schemer(--bold-color, #8f6ce4, lighten(#8f6ce4, 10%));
 
-schemer(--checkbox-background, none, cyan);
-schemer(--checkbox-background-checked, #56a0ef, cyan);
+schemer(--checkbox-background, none, #cecece);
+schemer(--checkbox-background-checked, #56a0ef, #2f77c4);
 
-schemer(--blockquote-border, #d7d9da, cyan);
-schemer(--blockquote-background, #f2f2f2b5, cyan);
-schemer(--blockquote-text, lighten($text-color, 28%), cyan);
+schemer(--blockquote-border, #d7d9da, #676869);
+schemer(--blockquote-background, #f2f2f2b5, #242424b5);
+schemer(--blockquote-text, lighten($text-color, 28%), darken($text-color-d, 10%));
 
-schemer(--inline-code-background, #edeeeedb, cyan);
+schemer(--inline-code-background, #edeeeedb, #272828db);
 
-schemer(--block-code-background, #fafafa, cyan);
-schemer(--block-code-border, #ededed, cyan);
-schemer(--block-code-text, #383a42, cyan);
+schemer(--block-code-background, #fafafa, #1b1c1d);
+schemer(--block-code-border, #ededed, #343434);
+schemer(--block-code-text, #383a42, #c1c4d1);
 
-schemer(--table-border, lighten(black, 89%), cyan);
-schemer(--table-hover-background, alpha(black, 0.04), cyan);
+schemer(--table-border, lighten(black, 89%), lighten(black, 25%));
+schemer(--table-hover-background, alpha(black, 0.04), alpha(white, 0.04));
 
-schemer(--quote-color, lighten($text-color, 24%), cyan);
-schemer(--quote-background-opacity, 0.35, 1);
+schemer(--quote-color, lighten($text-color, 24%), darken($text-color-d, 5%));
+schemer(--quote-background-opacity, 0.35, 0.5);
 schemer(--quote-background-invert, 0, 1);
 
 .markdown
@@ -311,7 +311,7 @@ schemer(--quote-background-invert, 0, 1);
 $types = "default" "info" "success" "warning" "danger"
 $themes = #777777 #0070f3 #0fdb9d #f5a623 #ee0000
 $alphas = 0.07 0.57 0.11 0.20
-$dkAlphas = 0.11 0.9 0.22 0.22
+$dkAlphas = 0.14 0.9 0.14 0.22
 
 for $c, $i in $themes
     .colors.{$types[$i]}

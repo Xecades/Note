@@ -102,15 +102,16 @@ $toc-offset-top = 11rem - $offset-top;
 $toc-translate-offset = 7px;
 
 $detail-title-indent = 0.5rem;
-$detail-color = lighten($text-color, 10%);
-$detail-color-passed = lighten($text-color, 55%);
 
 $bar-height = 4px;
 $bar-padding = 4px;
-$bar-background-color = lighten(black, 88%);
-$bar-active-background-color = lighten(black, 68%);
 
 #right
+    scheme(--detail-color, lighten($text-color, 10%), $text-color-d);
+    scheme(--detail-color-passed, lighten($text-color, 55%), darken($text-color-d, 50%));
+    scheme(--bar-background-color, lighten(black, 88%), lighten(black, 28%));
+    scheme(--bar-active-background-color, lighten(black, 68%), lighten(black, 65%));
+
     position: fixed;
     width: $width;
     height: $height;
@@ -146,20 +147,20 @@ $bar-active-background-color = lighten(black, 68%);
 .bar
     margin-top: $bar-padding;
     margin-left: auto;
-    background-color: $bar-background-color;
+    background-color: var(--bar-background-color);
     border-radius: 4px;
     height: $bar-height;
     transition: background-color 0.1s;
 
     &.active
-        background-color: $bar-active-background-color;
+        background-color: var(--bar-active-background-color);
 
 .detail
     line-height: 1.6rem;
     transition: color 0.1s;
     margin-left: auto;
     display: inline-block;
-    color: $detail-color;
+    color: var(--detail-color);
     font-size: 0.95rem;
     position: relative;
 
@@ -167,7 +168,7 @@ $bar-active-background-color = lighten(black, 68%);
         color: $theme-color;
 
     &.passed
-        color: $detail-color-passed;
+        color: var(--detail-color-passed);
 
     .sign
         color: $theme-color;

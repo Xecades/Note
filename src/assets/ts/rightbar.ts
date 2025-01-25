@@ -13,7 +13,7 @@ export type HeaderRef = MarkdownHeaderJsx & {
 
 const width_preset: string[] = ["50px", "40px", "30px", "20px", "13px"];
 const indent_preset: string[] = ["0rem", "1rem", "1.7rem", "2.3rem", "2.8rem"];
-const opacity_preset: string[] = ["1", "0.6", "0.6", "0.6", "0.6"];
+const opacity_preset: string[] = ["1", "0.7", "0.7", "0.7", "0.7"];
 
 /**
  * Determine rightbar status (i.e. whether to display or not).

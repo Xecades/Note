@@ -26,13 +26,15 @@ onMounted(async () => {
 @import "../assets/css/global.styl";
 
 #comment
-    scheme(--border-color, #eaeaea, #2c2c2c);
-    scheme(--input-color, #666, #b0b1b5);
+    scheme(--border-color, #eaeaea, #363636);
+    scheme(--input-color, #666666, #b0b1b5);
     scheme(--owo-background-color, #fff, #1f1f1f);
+    scheme(--owo-color, #4a4a4a, #d3d3d3);
 
     margin: 0 var(--margin-lr) 7rem;
 
     .OwO .OwO-body
+        color: var(--owo-color);
         background-color: var(--owo-background-color);
 
     .tk-extras
@@ -133,4 +135,8 @@ onMounted(async () => {
 
     a
         text-decoration: none;
+
+@media (prefers-color-scheme: dark)
+    #comment .tk-input textarea
+        background: none !important;
 </style>

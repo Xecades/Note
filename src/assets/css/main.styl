@@ -2,6 +2,9 @@
 @import "https://fonts.cdnfonts.com/css/libertinus-serif";
 @import "./global.styl";
 
+schemer(--body-background-color, #fefefe, #1a1b1c);
+schemer(--body-text-color, $text-color, $text-color-d);
+
 // Overlay Scrollbar Theme
 .os-theme-dark .os-scrollbar-handle
     scheme(--os-handle-bg, alpha(black, 0.44), alpha(white, 0.44));
@@ -11,7 +14,7 @@
 // Global Fonts
 body
     font-family: $font-family;
-    color: $text-color;
+    color: var(--body-text-color);
 
 // Tap / Selection / Outline Effects
 *
@@ -25,7 +28,7 @@ body
 
 // Background Color
 body
-    background-color: $background-color;
+    background-color: var(--body-background-color);
 
 // Scrollbar Flickering Prevention
 html

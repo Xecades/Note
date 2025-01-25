@@ -43,14 +43,14 @@ $logo-size = 3rem;
 $gap = 1.4rem;
 
 .linkcard
-    scheme(--background, #f9f9f9, cyan);
-    scheme(--border, #e1e4e8, cyan);
-    scheme(--border-hover, lighten(#e1e4e8, 25%), cyan);
+    scheme(--background, #f9f9f9, #222324);
+    scheme(--border, #e1e4e8, #272829);
+    scheme(--border-hover, lighten(#e1e4e8, 25%), lighten(#272829, 12%));
 
-    scheme(--logo-color, #c3c6ca, cyan);
-    scheme(--title-color, lighten($text-color, 10%), cyan);
-    scheme(--icon-color, lighten($text-color, 50%), cyan);
-    scheme(--href-color, lighten($text-color, 44%), cyan);
+    scheme(--logo-color, #c3c6ca, #44464a);
+    scheme(--title-color, lighten($text-color, 10%), $text-color-d);
+    scheme(--icon-color, lighten($text-color, 50%), darken($text-color-d, 25%));
+    scheme(--href-color, lighten($text-color, 44%), darken($text-color-d, 20%));
 
     > *  // Actually <a> tag
         width: $width;
@@ -81,8 +81,8 @@ $gap = 1.4rem;
         width: "calc(100% - %s)" % ($logo-size + $gap);
 
     .item
-        height: $height / 2;
-        line-height: $height / 2;
+        height: ($height / 2);
+        line-height: ($height / 2);
         text-overflow: ellipsis;
         overflow: hidden;
         white-space: nowrap;

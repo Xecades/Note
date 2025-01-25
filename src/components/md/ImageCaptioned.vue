@@ -32,6 +32,8 @@ onMounted(() => {
 @import "../../assets/css/global.styl";
 
 figure
+    scheme(--caption-color, lighten($text-color, 40%), alpha($text-color-d, 80%));
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,7 +47,7 @@ figure
     figcaption
         margin-top: 0.6em;
         font-size: 0.8em;
-        color: lighten($text-color, 40%);
+        color: var(--caption-color);
         text-align: center;
 
 @media (prefers-color-scheme: dark)

@@ -112,17 +112,13 @@ watch(
 @import "../assets/css/global.styl";
 
 $margin-lr = 1rem;
-$line-color = lighten(black, 87%);
 $icon-color = lighten(black, 50%);
-$input-color = $text-color;
-$xmark-hover-color = lighten(black, 30%);
 
 $panel-width = 720px;
 $panel-height = 430px;
 $panel-width-sm = calc(100% - 2rem);
 $panel-height-sm = calc(100% - 4rem);
 $panel-radius = 15px;
-$panel-background-color = alpha(white, 95%);
 
 $search-gap = 5px;
 $search-height = 50px;
@@ -131,13 +127,19 @@ $search-icon-width = 27px;
 
 $results-bottom = 16px;
 
-$empty-icon-color = lighten(black, 85%);
+#search
+    scheme(--input-color, $text-color, $text-color-d);
+    scheme(--line-color, lighten(black, 87%), lighten(black, 23%));
+    scheme(--xmark-hover-color, lighten(black, 30%), lighten(black, 70%));
+    scheme(--panel-background-color, alpha(white, 95%), alpha(#141414, 90%));
+    
+    scheme(--empty-icon-color, lighten(black, 85%), lighten(black, 22%));
 
-$post-hover-background-color = alpha(black, 6%);
-$post-title-color = lighten($text-color, 15%);
-$post-icon-color = lighten($text-color, 38%);
-$post-content-color = lighten($text-color, 48%);
-$post-mark-background-color = #fef08a;
+    scheme(--post-hover-background-color, alpha(black, 6%), alpha(white, 6%));
+    scheme(--post-title-color, lighten($text-color, 15%), darken($text-color-d, 6%));
+    scheme(--post-icon-color, lighten($text-color, 38%), darken($text-color-d, 23%));
+    scheme(--post-content-color, lighten($text-color, 48%), darken($text-color-d, 25%));
+    scheme(--post-mark-background-color, #fef08a, #746c2f);
 
 .results
     height: "calc(100% - %s)" % ($search-height + $search-margin-top + $results-bottom)
@@ -156,7 +158,7 @@ $post-mark-background-color = #fef08a;
             left: 50%;
             scale: 6.7;
             translate: -50%, -50%;
-            color: $empty-icon-color;
+            color: var(--empty-icon-color);
 
             &.fa-spin
                 scale: 4;
@@ -167,16 +169,16 @@ $post-mark-background-color = #fef08a;
         transition: background-color 0.15s;
 
         &:hover
-            background-color: $post-hover-background-color;
+            background-color: var(--post-hover-background-color);
 
         .meta
             display: flex;
 
             .title
-                color: $post-title-color;
+                color: var(--post-title-color);
 
             .icon
-                color: $post-icon-color;
+                color: var(--post-icon-color);
                 padding: 2px 7px 0 4px;
                 width: 17px;
                 text-align: center;
@@ -186,7 +188,7 @@ $post-mark-background-color = #fef08a;
                     font-size: 0.93rem;
 
         .content
-            color: $post-content-color;
+            color: var(--post-content-color);
             margin: 6px 13px 0;
             font-size: 0.94rem;
             height: 1.6rem;
@@ -196,7 +198,7 @@ $post-mark-background-color = #fef08a;
             text-wrap: nowrap;
 
         mark
-            background-color: $post-mark-background-color;
+            background-color: var(--post-mark-background-color);
             color: unset;
 
 .search
@@ -204,7 +206,7 @@ $post-mark-background-color = #fef08a;
     align-items: center;
     justify-content: space-between;
     margin: $search-margin-top $margin-lr 0;
-    border-bottom: 1px solid $line-color;
+    border-bottom: 1px solid var(--line-color);
     height: $search-height;
     gap: $search-gap;
 
@@ -227,7 +229,7 @@ $post-mark-background-color = #fef08a;
             transition: color 0.15s, transform 0.15s ease-in-out;
 
         &.xmark:hover
-            color: $xmark-hover-color;
+            color: var(--xmark-hover-color);
             transform: scale(1.1);
 
     .input
@@ -236,13 +238,13 @@ $post-mark-background-color = #fef08a;
         height: 100%;
         outline: none;
         padding: 0 5px;
-        color: $input-color;
+        color: var(--input-color);
         background-color: transparent;
         opacity: 0.9;
         padding-bottom: 3px;
 
         &::placeholder
-            color: $input-color;
+            color: var(--input-color);
             opacity: 0.7;
 
 #search
@@ -257,12 +259,12 @@ $post-mark-background-color = #fef08a;
 .panel
     width: $panel-width;
     height: $panel-height;
-    background-color: $panel-background-color;
+    background-color: var(--panel-background-color);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid $line-color;
+    border: 1px solid var(--line-color);
     border-radius: $panel-radius;
 
 @media (max-width: 768px)
