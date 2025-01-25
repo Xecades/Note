@@ -7,7 +7,7 @@ import vueDevTools from "vite-plugin-vue-devtools";
 import vueXecadesNote from "vite-plugin-vue-xecades-note";
 import autoprefixer from "autoprefixer";
 
-const customElement = ["rb"];
+const customElement = ["rb", "center"];
 
 export default defineConfig({
     plugins: [
