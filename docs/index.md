@@ -3,15 +3,21 @@ title: 主页
 displayTitle: Xecades Notes
 ---
 
-:v{5rem}
+::dot-pattern
+:::p{style="font-size: 1.1em"}
+Hi [👋]{.waving} 欢迎来到我的笔记本～
+:::
 
-<center>惟学无际，际于天地。</center>
-
-:asterisk
-:v{5rem}
+:::span{.home-links}
+[主页](https://xecades.xyz)
+[博客](https://blog.xecades.xyz/)
+[GitHub](https://github.com/Xecades/Note)
+[CC98](https://www.cc98.org/user/id/731275)
+:::
+::
 
 ::note{warning}
-本网站仍在开发阶段，内容随时可能产生较大更改。
+本站使用电脑端浏览效果最佳
 ::
 
 :index

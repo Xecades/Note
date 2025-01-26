@@ -122,7 +122,6 @@ header
     h1
         font-size: var(--header-size);
         color: var(--header-color);
-        letter-spacing: 0.05rem;
         line-height: var(--header-line-height);
         font-weight: 500;
 </style>

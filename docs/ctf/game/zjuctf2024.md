@@ -1005,6 +1005,8 @@ exp()
 
 :v{7rem}
 
-<center>欢迎加入浙江大学 AAA 战队。</center>
+::center
+欢迎加入浙江大学 AAA 战队。
+::
 
 :v{8rem}

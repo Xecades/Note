@@ -3,6 +3,9 @@
  - ToC 层级关系看起来很怪（align left，参考 obsidian）
  - ToC：默认折叠，hover 或滚动到目标位置展开（？）
 
+ - 小屏幕保留 confetti 彩蛋
+ - 每次修改 md 后，因为 routes.tsx 变动，导致页面需要全部刷新，可以优化一下
+ - 渲染 plugin，遇到 fatal error 不要直接挂掉
  - 标题英文字体要改一下
  - 桌面端的 root 不要 index comp，换成别的
  - index comp，hover 范围广一点

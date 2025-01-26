@@ -69,6 +69,18 @@ export const navigate = (id: string, offset: number = -4 * 16) => {
     }
 };
 
+export const shuffle = <T>(array: T[]): T[] => {
+    let i = array.length;
+
+    while (i !== 0) {
+        let rnd = Math.floor(Math.random() * i);
+        i--;
+        [array[i], array[rnd]] = [array[rnd], array[i]];
+    }
+
+    return array;
+};
+
 /** The screen width of a small screen. */
 export const SMALL_SCREEN_WIDTH: number = 768;
 

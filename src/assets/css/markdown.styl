@@ -306,6 +306,43 @@ schemer(--quote-background-invert, 0, 1);
         letter-spacing: 6px;
         user-select: none;
         display: block;
+    
+    /* span.waving 标签 */
+    span.waving
+        display: inline-block;
+        scale: 1.1;
+        margin-left: 0.1em;
+        margin-right: 0.1em;
+        animation: waving 1.7s infinite ease-in-out;
+        transform-origin: 70% 60%;
+
+    /* span.home-links 标签 */
+    span.home-links
+        display: flex;
+        justify-content: center;
+        font-size: 0.9em;
+
+        a
+            color: unset;
+            opacity: 0.8;
+
+            &:hover
+                color: $theme-color;
+
+            &:not(:last-child)::after
+                display: inline-block;
+                content: "";
+                width: 1px;
+                height: 0.7em;
+                background-color: lighten(black, 50%);
+                margin: 0 0.5em;
+
+/* Animation */
+@keyframes waving
+    0%, 100%
+        transform: rotate(-10deg);
+    50%
+        transform: rotate(10deg);
 
 /* Note & Fold color theme */
 $types = "default" "info" "success" "warning" "danger"
