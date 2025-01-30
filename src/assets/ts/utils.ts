@@ -57,14 +57,15 @@ export const sleep = (ms: number) =>
  * Navigate to the element with the given ID.
  *
  * @param id - ID of the element to navigate to
- * @param offset - Offset from the top of the element, default to -4rem
+ * @param smooth - Whether to scroll smoothly or not
  */
-export const navigate = (id: string, offset: number = -4 * 16) => {
+export const navigate = (id: string, smooth: boolean = true) => {
+    const OFFSET = 4 * 16;
     let el = document.getElementById(id);
     if (el) {
-        const y = el.getBoundingClientRect().top + window.scrollY + offset;
+        const y = el.getBoundingClientRect().top + window.scrollY - OFFSET;
 
-        window.scrollTo({ top: y, behavior: "smooth" });
+        window.scrollTo({ top: y, behavior: smooth ? "smooth" : "auto" });
         history.pushState(null, "", `#${id}`);
     }
 };

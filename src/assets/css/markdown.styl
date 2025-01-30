@@ -327,7 +327,7 @@ schemer(--quote-background-invert, 0, 1);
             opacity: 0.8;
 
             &:hover
-                color: $theme-color;
+                color: var(--color);
 
             &:not(:last-child)::after
                 display: inline-block;
@@ -336,6 +336,24 @@ schemer(--quote-background-invert, 0, 1);
                 height: 0.7em;
                 background-color: lighten(black, 50%);
                 margin: 0 0.5em;
+
+    /* .fold.home-fontawesome-list 标签 */
+    .fold.home-fontawesome-list
+        .fold-height-listener
+            p
+                line-height: 1.5em;
+            svg
+                width: 1.3rem;
+                margin-left: -0.2rem; // To eat &nbsp;
+
+    /* .fold.home-recent-updates 标签 */
+    .fold.home-recent-updates
+        .fold-height-listener
+            a
+                color: unset;
+
+                &:hover
+                    color: var(--color);
 
 /* Animation */
 @keyframes waving

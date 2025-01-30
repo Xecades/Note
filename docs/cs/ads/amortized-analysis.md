@@ -101,7 +101,7 @@ Splay Tree 的操作都由 Zig、Zag、Zig-Zag 三种子操作构成。我们对
 
 ::grid
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 初始情况（$T_1$）
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -151,7 +151,7 @@ Splay Tree 的操作都由 Zig、Zag、Zig-Zag 三种子操作构成。我们对
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 一次 Zig 操作后（$T_2$）
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -223,7 +223,7 @@ $$
 
 ::grid
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 初始情况（$T_1$）
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -288,7 +288,7 @@ $$
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 一次 Zig-Zag 操作后（$T_2$）
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -393,7 +393,7 @@ $$
 
 ::grid
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 初始情况（$T_1$）
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -458,7 +458,7 @@ $$
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 一次 Zig-Zig 操作后（$T_2$）
 #import "@preview/cetz:0.2.2": canvas, draw, tree

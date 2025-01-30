@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// TODO: add small screen support (sm:xxx)
 import { computed, useSlots } from "vue";
 
 import type { Ref } from "vue";
@@ -6,20 +7,36 @@ import type { JSX } from "vue/jsx-runtime";
 
 type GridData = {
     content: JSX.Element[];
-    props: { [key: string]: any };
+    props: { start: number; span: number };
 };
+
+const props = defineProps<{
+    align?: "bottom" | "top" | "equal";
+    gap?: string;
+    gapx?: string;
+    gapy?: string;
+}>();
+
+const align = props.align ?? "bottom";
+const gapx = props.gap ?? props.gapx ?? "0";
+const gapy = props.gap ?? props.gapy ?? "0";
 
 /** Map slots to grid data. */
 const mapData = (parts: JSX.Element[]): GridData[] => {
     let res: GridData[] = [];
+    let start = 1;
 
     for (const part of parts) {
         // @ts-expect-error
         if (part.type.__name === "Delimiter") {
-            res.push({
-                content: [],
-                props: part.props ?? {},
-            });
+            start %= 24;
+
+            let span = +(part.props?.span ?? 24);
+            let offset = +(part.props?.offset ?? 0);
+
+            start += offset;
+            res.push({ content: [], props: { start, span } });
+            start += span;
         } else {
             const last = res.length - 1;
             res[last].content.push(part);
@@ -29,40 +46,64 @@ const mapData = (parts: JSX.Element[]): GridData[] => {
     return res;
 };
 
+const isImmensive = (parts: JSX.Element[]): boolean => {
+    if (parts.length > 1) return false;
+
+    // @ts-expect-error
+    return parts[0].type.__name === "Fold";
+};
+
 const parts: Ref<JSX.Element[]> = computed(() => useSlots().default!());
 const data: Ref<GridData[]> = computed(() => mapData(parts.value));
 </script>
 
 <template>
-    <div class="grid">
+    <div
+        class="grid"
+        :class="align"
+        :style="{
+            '--grid-gapx': gapx,
+            '--grid-gapy': gapy,
+        }"
+    >
         <template v-for="(col, idx) in data" :key="idx">
-            <div class="column" :style="{ '--width': col.props?.width }">
-                <div class="content">
-                    <component :is="() => col.content" />
-                </div>
+            <div
+                class="column"
+                :class="{ immensive: isImmensive(col.content) }"
+                :style="{
+                    '--grid-start': col.props.start,
+                    '--grid-span': col.props.span,
+                }"
+            >
+                <component :is="() => col.content" />
             </div>
         </template>
     </div>
 </template>
 
-<style scoped lang="stylus">
+<style lang="stylus">
 @import "../../assets/css/global.styl";
 
-$padding-lr = 0.5em;
-$min-width = 160px;
-
 .grid
-    margin: 0.5em (-1 * $padding-lr);
-    display: flex;
-    flex-wrap: wrap;
+    margin: 0.5em 0;
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    grid-column-gap: var(--grid-gapx);
+    grid-row-gap: var(--grid-gapy);
 
     .column
-        width: var(--width);
-        min-width: $min-width;
-        flex-grow: 1;
-        align-content: flex-end;
+        --block-extend: 0;
+        grid-column: var(--grid-start) / span var(--grid-span);
 
-        .content
-            --block-extend: 0;
-            padding: 0 $padding-lr;
+        &.immensive
+            > .fold
+                margin: 0;
+
+.grid.equal
+    .column.immensive
+        > .fold
+            height: 100%;
+
+.grid.bottom
+    align-items: end;
 </style>

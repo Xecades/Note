@@ -17,11 +17,13 @@ const icon: Record<TYPE, string> = {
 
 const props = defineProps<{
     expand?: boolean;
+    always?: boolean;
     title?: JSX.Element;
     type?: TYPE;
 }>();
 
 const type: TYPE = props.type || "default";
+const foldable: boolean = !(props.expand && props.always);
 const expanded: Ref<boolean> = ref(props.expand || false);
 
 const target: VNodeRef = ref();
@@ -43,14 +45,18 @@ onMounted(() => {
 
 <template>
     <div class="fold colors" :class="type">
-        <div class="header" @click="expanded = !expanded">
+        <div
+            class="header"
+            :class="{ cursor: foldable }"
+            @click="if (foldable) expanded = !expanded;"
+        >
             <div class="icon">
                 <font-awesome-icon :icon="icon[type]" />
             </div>
             <div class="title">
                 <component :is="title" v-if="title" />
             </div>
-            <div class="expand">
+            <div class="expand" v-if="foldable">
                 <font-awesome-icon
                     :icon="['fas', 'angle-right']"
                     :style="{ transform: `rotate(${expanded ? 90 : 0}deg)` }"
@@ -88,7 +94,9 @@ onMounted(() => {
         padding: 7px 8px;
         background-color: var(--background-color);
         user-select: none;
-        cursor: pointer;
+
+        &.cursor
+            cursor: pointer;
 
         .title
             flex: 1;

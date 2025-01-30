@@ -20,7 +20,7 @@ AVL Tree 是在二叉搜索树的基础上实现的，对任何节点 $\text{nod
 
 ::grid
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst RR-Rotation 操作前
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -75,7 +75,7 @@ AVL Tree 是在二叉搜索树的基础上实现的，对任何节点 $\text{nod
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst RR-Rotation 操作后
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -145,7 +145,7 @@ LL-Rotation 与 RR-Rotation 类似，此处不再赘述。
 ::fold{info title="点击展开示意图"}
 :::grid
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst LL-Rotation 操作前
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -200,7 +200,7 @@ LL-Rotation 与 RR-Rotation 类似，此处不再赘述。
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst LL-Rotation 操作后
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -273,7 +273,7 @@ LR-Rotation 实际上是两步操作：
 
 ::grid
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 初始情况
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -349,7 +349,7 @@ LR-Rotation 实际上是两步操作：
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 在 $B$ 上进行 RR-Rotation
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -421,7 +421,7 @@ LR-Rotation 实际上是两步操作：
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 在 $A$ 上进行 LL-Rotation
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -515,7 +515,7 @@ LR-Rotation 实际上是两步操作：
 
 :::grid
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 初始情况
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -591,7 +591,7 @@ LR-Rotation 实际上是两步操作：
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 在 $B$ 上进行 LL-Rotation
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -662,7 +662,7 @@ LR-Rotation 实际上是两步操作：
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 在 $A$ 上进行 RR-Rotation
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -751,7 +751,7 @@ LR-Rotation 实际上是两步操作：
 也就是说任意高度为 $h$ 的节点一定是下图的两种情况之一：
 
 ::grid
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -789,7 +789,7 @@ LR-Rotation 实际上是两步操作：
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst
 #import "@preview/cetz:0.2.2": canvas, draw, tree

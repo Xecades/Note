@@ -3,6 +3,7 @@
  - ToC 层级关系看起来很怪（align left，参考 obsidian）
  - ToC：默认折叠，hover 或滚动到目标位置展开（？）
 
+ - grid 支持 responsive
  - 小屏幕保留 confetti 彩蛋
  - 每次修改 md 后，因为 routes.tsx 变动，导致页面需要全部刷新，可以优化一下
  - 渲染 plugin，遇到 fatal error 不要直接挂掉
@@ -38,6 +39,7 @@
 ## Bug
 
  - `\n\n\n---\n` 会被 MarkdownItAnchor 误处理成标题
+ - 行内第一个 token 为 mdc 时，会渲染失败，当前解决方案是在前面加上 &nbsp;
 
 ## 当前
 

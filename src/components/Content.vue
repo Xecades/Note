@@ -1,13 +1,14 @@
 <script setup lang="tsx">
 /** @todo 图片缓存，不能每次都重新加载一遍 */
 
-import { computed, onMounted, onUpdated } from "vue";
+import { computed, nextTick, onMounted, onUpdated } from "vue";
 import { RouterView, useRoute } from "vue-router";
-import { navigate, sleep } from "@/assets/ts/utils";
+import { navigate } from "@/assets/ts/utils";
 
 import Timestamp from "./Timestamp.vue";
 import Comment from "./Comment.vue";
 import Metadata from "./Metadata.vue";
+import Footer from "./Footer.vue";
 
 import "@/assets/css/markdown.styl";
 
@@ -60,9 +61,9 @@ const registerAnchor = () => {
 };
 
 const scrollToAnchor = async () => {
-    await sleep(100);
+    await nextTick();
     const hash = route.hash;
-    navigate(hash.slice(1));
+    navigate(hash.slice(1), false);
 };
 
 onMounted(scrollToAnchor);
@@ -93,6 +94,7 @@ onUpdated(registerAnchor);
         />
 
         <Comment v-if="show_comment" />
+        <Footer />
     </div>
 </template>
 

@@ -69,10 +69,10 @@ $$
 
 ## Icon
 
-使用 [FontAwesome](https://fontawesome.com) 加载 SVG 图标。
+使用 [FontAwesome](https://fontawesome.com) 加载 SVG 图标，支持 Solid、Regular 和 Brands 三种类别。
 
 ```md
-... :<icon>: ...
+... :<icon>.[type]: ...
 ```
 
 
@@ -81,9 +81,17 @@ $$
 
 The *magic spell* :arrow-up: :arrow-up: :arrow-down: :arrow-down: :arrow-left: :arrow-right: :arrow-left: :arrow-right: :a: :b: :a: :b: will lead you to the treasure :sack-dollar:.
 
+ - Solid: :flag:
+ - Regular: :flag.r:
+ - Brands: :github.b:
+
 # :code: 源码
 ```md
 The *magic spell* :arrow-up: :arrow-up: :arrow-down: :arrow-down: :arrow-left: :arrow-right: :arrow-left: :arrow-right: :a: :b: :a: :b: will lead you to the treasure :sack-dollar:.
+
+ - Solid: :flag:
+ - Regular: :flag.r:
+ - Brands: :github.b:
 ```
 ::
 
@@ -199,7 +207,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ## 折叠面板
 
 ```md
-::fold{title="[标题]" [expand] [default] | success | info | warning | danger}
+::fold{title="[标题]" [always] [expand] [default] | success | info | warning | danger}
 <折叠内容>
 ::
 ```
@@ -258,6 +266,10 @@ Veniam irure ipsum dolore dolore Lorem voluptate adipisicing eiusmod minim. Eu i
 :::quote
 这个折叠面板没有标题
 :::
+::
+
+::fold{always expand warning title="始终展开的折叠面板"}
+你没有办法关闭它！
 ::
 
 ::fold{title="这个折叠面板的标题真的真的真的真的真的真的真的真的真的真的真的真的非常的长，而且里面还有 `code` 块"}
@@ -453,13 +465,15 @@ print("Hello World")
 
 ## Grid
 
+采用 24 栏栅格布局，支持上下、等高对齐。
+
 ```md
-::grid
-:sep{width="<宽度>"}
+::grid{align=[bottom | top | equal] gap=[0] gapx=[0] gapy=[0]}
+:sep{span=<宽度> offset=[0]}
 
 <内容 1>
 
-:sep{width="<宽度>"}
+:sep{span=<宽度> offset=[0]}
 
 <内容 2>
 
@@ -470,8 +484,8 @@ print("Hello World")
 ::tab
 # :flask: 效果
 
-:::grid
-:sep{width="50%"}
+:::grid{align=bottom gap=10px}
+:sep{span=12}
 
 ```typst **二叉搜索树**例 1
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -492,7 +506,7 @@ print("Hello World")
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst **二叉搜索树**例 2
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -513,7 +527,7 @@ print("Hello World")
 })
 ```
 
-:sep{width="50%"}
+:sep{span=24}
 
 ```typst **二叉搜索树**例 3
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -530,27 +544,6 @@ print("Hello World")
             tree.default-draw-edge(from, to, pa, child)
         },
         ([15], ([13], [12], [14]), ([17], [16], ([18], [], [18])))
-    )
-})
-```
-
-:sep{width="50%"}
-
-```typst **二叉搜索树**例 4
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([16], ([10], ([7], [1], []), [15]), ([19], ([17], [], [18]), [20]))
     )
 })
 ```
@@ -560,8 +553,8 @@ print("Hello World")
 # :code: 源码
 
 ~~~md
-:::grid
-:sep{width="50%"}
+:::grid{align=bottom gap=10px}
+:sep{span=12}
 
 ```typst **二叉搜索树**例 1
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -582,7 +575,7 @@ print("Hello World")
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst **二叉搜索树**例 2
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -603,7 +596,7 @@ print("Hello World")
 })
 ```
 
-:sep{width="50%"}
+:sep{span=24}
 
 ```typst **二叉搜索树**例 3
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -624,28 +617,27 @@ print("Hello World")
 })
 ```
 
-:sep{width="50%"}
-
-```typst **二叉搜索树**例 4
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([16], ([10], ([7], [1], []), [15]), ([19], ([17], [], [18]), [20]))
-    )
-})
-```
-
 :::
 ~~~
 
+::
+
+---
+
+## 星形分割线
+
+```md
+:asterisk
+```
+
+::tab
+# :flask: 效果
+
+:asterisk
+
+# :code: 源码
+
+```md
+:asterisk
+```
 ::

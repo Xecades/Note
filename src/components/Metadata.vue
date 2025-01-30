@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { isSmallScreen, shuffle } from "@/assets/ts/utils";
+import { throttle } from "throttle-debounce";
 import confetti from "canvas-confetti";
 
 import type { RouteMeta } from "vite-plugin-vue-xecades-note";
@@ -9,7 +10,7 @@ defineProps<{
     breadcrumb: RouteMeta["breadcrumb"];
 }>();
 
-const playConfetti = () => {
+const playConfetti = throttle(1500, () => {
     if (isSmallScreen()) return;
 
     // Code from https://www.kirilv.com/canvas-confetti/
@@ -35,7 +36,7 @@ const playConfetti = () => {
     };
 
     frame();
-};
+});
 </script>
 
 <template>

@@ -22,7 +22,7 @@ Zig-Zag 分为左右对称的两种情况，都是通过 **Double Rotation**（L
 
 ::grid
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 初始情况
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -87,7 +87,7 @@ Zig-Zag 分为左右对称的两种情况，都是通过 **Double Rotation**（L
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 进行 Double Rotation 之后
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -162,7 +162,7 @@ Zig-Zag 分为左右对称的两种情况，都是通过 **Double Rotation**（L
 
 ::grid
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 初始情况
 #import "@preview/cetz:0.2.2": canvas, draw, tree
@@ -227,7 +227,7 @@ Zig-Zag 分为左右对称的两种情况，都是通过 **Double Rotation**（L
 })
 ```
 
-:sep{width="50%"}
+:sep{span=12}
 
 ```typst 进行两次 Single Rotation 之后
 #import "@preview/cetz:0.2.2": canvas, draw, tree
