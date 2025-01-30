@@ -41,7 +41,7 @@ $^\ast$ 若未特殊说明，本站所有笔记均采用 [CC BY-NC-SA 4.0](https
 ::::
 :::
 
-:sep{span=12}
+:sep{span=12 sm:span=24}
 :::fold{always expand title="站点统计" default .home-fontawesome-list}
 &nbsp;:file-lines: 页面总数：@PAGE_COUNT
 
@@ -50,7 +50,7 @@ $^\ast$ 若未特殊说明，本站所有笔记均采用 [CC BY-NC-SA 4.0](https
 &nbsp;:calendar-days: 最后更新：@LAST_UPDATE
 :::
 
-:sep{span=12}
+:sep{span=12 sm:span=24}
 :::fold{always expand title="最近更新" success .home-fontawesome-list .home-recent-updates}
 @RECENT_UPDATES
 :::

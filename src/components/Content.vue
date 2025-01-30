@@ -113,7 +113,7 @@ onUpdated(registerAnchor);
 
     width: var(--width);
     margin: 0 auto;
-    z-index: 10;
+    z-index: 1000;
 
 main
     margin: 0 var(--margin-lr) var(--margin-bottom);

@@ -72,14 +72,12 @@ $$
 使用 [FontAwesome](https://fontawesome.com) 加载 SVG 图标，支持 Solid、Regular 和 Brands 三种类别。
 
 ```md
-... :<icon>.[type]: ...
+... :<icon>[.type]: ...
 ```
 
 
 ::tab
 # :flask: 效果
-
-The *magic spell* :arrow-up: :arrow-up: :arrow-down: :arrow-down: :arrow-left: :arrow-right: :arrow-left: :arrow-right: :a: :b: :a: :b: will lead you to the treasure :sack-dollar:.
 
  - Solid: :flag:
  - Regular: :flag.r:
@@ -87,13 +85,13 @@ The *magic spell* :arrow-up: :arrow-up: :arrow-down: :arrow-down: :arrow-left: :
 
 # :code: 源码
 ```md
-The *magic spell* :arrow-up: :arrow-up: :arrow-down: :arrow-down: :arrow-left: :arrow-right: :arrow-left: :arrow-right: :a: :b: :a: :b: will lead you to the treasure :sack-dollar:.
-
  - Solid: :flag:
  - Regular: :flag.r:
  - Brands: :github.b:
 ```
 ::
+
+The *magic spell* :arrow-up: :arrow-up: :arrow-down: :arrow-down: :arrow-left: :arrow-right: :arrow-left: :arrow-right: :a: :b: :a: :b: will lead you to the treasure :sack-dollar:.
 
 ---
 
@@ -148,7 +146,7 @@ $$
 
 ```md
 ::note{[default] | success | info | warning | danger}
-<Note 内容>
+<Note内容>
 ::
 ```
 
@@ -318,49 +316,99 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ~~~
 ```typst [标题]
-<Typst 代码>
+<Typst代码>
 ```
 ~~~
 
 ::tab
 # :flask: 效果
-```typst 一棵来自 ***Typst*** 的树
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([15], ([13], [12], [14]), ([17], [16], ([18], [], [18])))
-    )
+```typst *Waves*
+// Code from https://raw.githubusercontent.com/typst/packages/main/packages/preview/cetz/0.3.2/gallery/waves.typ
+#import "@preview/cetz:0.3.2": canvas, draw, vector, matrix
+
+#set page(width: auto, height: auto, margin: .5cm)
+
+#canvas({
+  import draw: *
+
+  ortho(y: -30deg, x: 30deg, {
+    on-xz({
+      grid((0,-2), (8,2), stroke: gray + .5pt)
+    })
+
+    // Draw a sine wave on the xy plane
+    let wave(amplitude: 1, fill: none, phases: 2, scale: 8, samples: 100) = {
+      line(..(for x in range(0, samples + 1) {
+        let x = x / samples
+        let p = (2 * phases * calc.pi) * x
+        ((x * scale, calc.sin(p) * amplitude),)
+      }), fill: fill)
+
+      let subdivs = 8
+      for phase in range(0, phases) {
+        let x = phase / phases
+        for div in range(1, subdivs + 1) {
+          let p = 2 * calc.pi * (div / subdivs)
+          let y = calc.sin(p) * amplitude
+          let x = x * scale + div / subdivs * scale / phases
+          line((x, 0), (x, y), stroke: rgb(0, 0, 0, 150) + .5pt)
+        }
+      }
+    }
+
+    on-xy({
+      wave(amplitude: 1.6, fill: rgb(0, 0, 255, 50))
+    })
+    on-xz({
+      wave(amplitude: 1, fill: rgb(255, 0, 0, 50))
+    })
+  })
 })
 ```
 
 # :code: 源码
 ~~~md
-```typst 一棵来自 ***Typst*** 的树
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([15], ([13], [12], [14]), ([17], [16], ([18], [], [18])))
-    )
+```typst *Waves*
+// Code from https://raw.githubusercontent.com/typst/packages/main/packages/preview/cetz/0.3.2/gallery/waves.typ
+#import "@preview/cetz:0.3.2": canvas, draw, vector, matrix
+
+#set page(width: auto, height: auto, margin: .5cm)
+
+#canvas({
+  import draw: *
+
+  ortho(y: -30deg, x: 30deg, {
+    on-xz({
+      grid((0,-2), (8,2), stroke: gray + .5pt)
+    })
+
+    // Draw a sine wave on the xy plane
+    let wave(amplitude: 1, fill: none, phases: 2, scale: 8, samples: 100) = {
+      line(..(for x in range(0, samples + 1) {
+        let x = x / samples
+        let p = (2 * phases * calc.pi) * x
+        ((x * scale, calc.sin(p) * amplitude),)
+      }), fill: fill)
+
+      let subdivs = 8
+      for phase in range(0, phases) {
+        let x = phase / phases
+        for div in range(1, subdivs + 1) {
+          let p = 2 * calc.pi * (div / subdivs)
+          let y = calc.sin(p) * amplitude
+          let x = x * scale + div / subdivs * scale / phases
+          line((x, 0), (x, y), stroke: rgb(0, 0, 0, 150) + .5pt)
+        }
+      }
+    }
+
+    on-xy({
+      wave(amplitude: 1.6, fill: rgb(0, 0, 255, 50))
+    })
+    on-xz({
+      wave(amplitude: 1, fill: rgb(255, 0, 0, 50))
+    })
+  })
 })
 ```
 ~~~
@@ -409,10 +457,10 @@ $$
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-# 一个名字很长很长很长很长很长很长的选项卡（而且名字里面还有 `code`）
+# 选项卡 3.14159265358979323846264338327950288419716939937510582
 
 ```python
-print("Hello World")
+print("It has a long title!")
 ```
 
 # :code: 源码
@@ -443,10 +491,10 @@ $$
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-# 一个名字很长很长很长很长很长很长的选项卡（而且名字里面还有 `code`）
+# 选项卡 3.14159265358979323846264338327950288419716939937510582
 
 ```python
-print("Hello World")
+print("It has a long title!")
 ```
 :::
 ~~~
@@ -469,11 +517,11 @@ print("Hello World")
 
 ```md
 ::grid{align=[bottom | top | equal] gap=[0] gapx=[0] gapy=[0]}
-:sep{span=<宽度> offset=[0]}
+:sep{span=<宽度> [sm:span=<小屏幕下的宽度>] offset=[0]}
 
 <内容 1>
 
-:sep{span=<宽度> offset=[0]}
+:sep{span=<宽度> [sm:span=<小屏幕下的宽度>] offset=[0]}
 
 <内容 2>
 
@@ -484,142 +532,56 @@ print("Hello World")
 ::tab
 # :flask: 效果
 
-:::grid{align=bottom gap=10px}
-:sep{span=12}
-
-```typst **二叉搜索树**例 1
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([20], ([16], [13], [18]), ([25], [21], [28]))
-    )
-})
-```
-
-:sep{span=12}
-
-```typst **二叉搜索树**例 2
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([10], ([5], [2], [7]), [15])
-    )
-})
-```
+:::grid{align=equal gapx=10px gapy=20px}
 
 :sep{span=24}
+::::fold{always expand title="Lorem Ipsum" info}
+Aliquip ea eu quis nisi. Veniam sint officia cillum dolore. Cillum et sunt quis amet velit do magna. Aute amet sit consectetur elit mollit dolor duis excepteur laboris nostrud id Lorem. Pariatur duis ullamco aliquip laborum aliqua tempor cupidatat elit enim amet cillum.
+::::
 
-```typst **二叉搜索树**例 3
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([15], ([13], [12], [14]), ([17], [16], ([18], [], [18])))
-    )
-})
-```
+:sep{span=8 sm:span=24}
+::::fold{always expand title="Dolor" warning}
+Ullamco pariatur irure enim esse esse amet eiusmod. Cupidatat aliquip duis nulla quis. Voluptate velit aliquip exercitation ex tempor aliquip duis cupidatat magna aliqua incididunt est.
+::::
+
+:sep{span=16 sm:span=24}
+::::fold{always expand title="Sit Amet" success}
+Irure eiusmod elit aute laboris ut cillum dolore nisi sunt ullamco. Esse duis velit exercitation aliquip occaecat. Ex quis et sint non consequat eu nisi dolor. Adipisicing esse cupidatat id ex duis qui aliqua. Et occaecat dolor ut eu consectetur labore. Pariatur non labore adipisicing aute ex culpa quis cupidatat ullamco laboris ex. Tempor ipsum dolore ad consequat incididunt qui ea ea esse sint laboris fugiat. Quis aute laboris laborum amet.
+::::
 
 :::
 
 # :code: 源码
 
-~~~md
-:::grid{align=bottom gap=10px}
-:sep{span=12}
-
-```typst **二叉搜索树**例 1
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([20], ([16], [13], [18]), ([25], [21], [28]))
-    )
-})
-```
-
-:sep{span=12}
-
-```typst **二叉搜索树**例 2
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([10], ([5], [2], [7]), [15])
-    )
-})
-```
+```md
+:::grid{align=equal gapx=10px gapy=20px}
 
 :sep{span=24}
+::::fold{always expand title="Lorem Ipsum" info}
+Aliquip ea eu quis nisi. Veniam sint officia cillum dolore. Cillum et sunt quis amet velit do magna. Aute amet sit consectetur elit mollit dolor duis excepteur laboris nostrud id Lorem. Pariatur duis ullamco aliquip laborum aliqua tempor cupidatat elit enim amet cillum.
+::::
 
-```typst **二叉搜索树**例 3
-#import "@preview/cetz:0.2.2": canvas, draw, tree
-#canvas(length: 2.5cm, {
-    import draw: *
-    tree.tree(
-        draw-node: (node, ..) => {
-            if node.content == [] { return none }
-            circle((), radius: .35, stroke: black)
-            content((), [#node.content])
-        },
-        draw-edge: (from, to, pa, child) => {
-            if child.content == [] { return none }
-            tree.default-draw-edge(from, to, pa, child)
-        },
-        ([15], ([13], [12], [14]), ([17], [16], ([18], [], [18])))
-    )
-})
-```
+:sep{span=8 sm:span=24}
+::::fold{always expand title="Dolor" warning}
+Ullamco pariatur irure enim esse esse amet eiusmod. Cupidatat aliquip duis nulla quis. Voluptate velit aliquip exercitation ex tempor aliquip duis cupidatat magna aliqua incididunt est.
+::::
+
+:sep{span=16 sm:span=24}
+::::fold{always expand title="Sit Amet" success}
+Irure eiusmod elit aute laboris ut cillum dolore nisi sunt ullamco. Esse duis velit exercitation aliquip occaecat. Ex quis et sint non consequat eu nisi dolor. Adipisicing esse cupidatat id ex duis qui aliqua. Et occaecat dolor ut eu consectetur labore. Pariatur non labore adipisicing aute ex culpa quis cupidatat ullamco laboris ex. Tempor ipsum dolore ad consequat incididunt qui ea ea esse sint laboris fugiat. Quis aute laboris laborum amet.
+::::
 
 :::
-~~~
+```
 
+::
+
+::grid{align=top gap=10px}
+:sep{span=12}
+Exercitation elit labore veniam ullamco qui dolor officia. Ut veniam reprehenderit labore in anim pariatur cillum nulla quis ex sunt adipisicing laborum mollit. Mollit laboris commodo ex pariatur ut fugiat commodo occaecat. Nostrud adipisicing incididunt Lorem aliquip cupidatat. Amet minim esse non tempor. Ea laborum cupidatat duis velit. Mollit in enim consequat laboris commodo dolore aliqua irure est laborum nulla.
+
+:sep{span=12}
+Officia aliquip velit excepteur commodo ea irure quis cillum cupidatat nostrud ullamco ipsum fugiat exercitation. Minim id excepteur reprehenderit occaecat aliquip anim duis nulla veniam. Ad sunt adipisicing amet pariatur laborum id minim adipisicing elit cupidatat. Minim eu eu fugiat et non aliqua ea tempor incididunt sunt veniam cillum reprehenderit. Minim sit laborum proident Lorem cupidatat.
 ::
 
 ---
@@ -639,5 +601,78 @@ print("Hello World")
 
 ```md
 :asterisk
+```
+::
+
+---
+
+## 点状背景
+
+在文字周围添加点状背景。
+
+```md
+::dot-pattern
+<内容>
+::
+```
+
+::tab
+# :flask: 效果
+
+见下方
+
+
+# :code: 源码
+
+```md
+:::dot-pattern
+Lorem ipsum dolor sit amet,
+
+Eu enim tempor aliquip eu minim.
+:::
+```
+::
+
+::dot-pattern
+Lorem ipsum dolor sit amet,
+
+Eu enim tempor aliquip eu minim.
+::
+
+---
+
+## 垂直间距
+
+提供精细化的垂直间距调整，支持负数。
+
+```md
+:v{<高度>}
+```
+
+::tab
+# :flask: 效果
+
+Dolore aliqua proident elit ut anim aliquip duis adipisicing elit et mollit est irure non. Cupidatat sit mollit est velit officia dolore.
+
+:v{4rem}
+
+Eu incididunt elit et laborum sint dolor incididunt.
+
+:v{-2.8em}
+
+Incididunt proident enim aute enim laborum eiusmod.
+
+# :code: 源码
+
+```md
+Dolore aliqua proident elit ut anim aliquip duis adipisicing elit et mollit est irure non. Cupidatat sit mollit est velit officia dolore.
+
+:v{4rem}
+
+Eu incididunt elit et laborum sint dolor incididunt.
+
+:v{-2.8em}
+
+Incididunt proident enim aute enim laborum eiusmod.
 ```
 ::
