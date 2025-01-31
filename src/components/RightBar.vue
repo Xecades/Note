@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { computed, onMounted, onUpdated, ref } from "vue";
-import { normalize_toc, ScrollListener } from "@/assets/ts/rightbar";
-import { navigate } from "@/assets/ts/utils";
+import { serial_toc, ScrollListener, cascade_toc } from "@/assets/ts/rightbar";
 import { RIGHTBAR_STATUS } from "@/assets/ts/types";
+import RightBarDetail from "./RightBarDetail.vue";
 
 import type { Ref } from "vue";
-import type { HeaderRef } from "@/assets/ts/rightbar";
+import type { CascadeHeader, SerialHeader } from "@/assets/ts/rightbar";
 import type { RouteMeta } from "vite-plugin-vue-xecades-note";
 
 const props = defineProps<{ status: RIGHTBAR_STATUS; toc: RouteMeta["toc"] }>();
-const toc: Ref<HeaderRef[]> = computed(() => normalize_toc(props.toc));
+const s_toc: Ref<SerialHeader[]> = computed(() => serial_toc(props.toc));
+const c_toc: Ref<CascadeHeader[]> = computed(() => cascade_toc(s_toc.value));
 
 const show_text: Ref<boolean> = ref(false);
 const mouse = {
@@ -22,9 +23,7 @@ const sl: ScrollListener = new ScrollListener(in_view);
 
 const registerScrollListener = () => {
     sl.reset();
-
-    const headings = document.querySelectorAll(".heading");
-    headings.forEach(sl.listen.bind(sl));
+    document.querySelectorAll(".heading").forEach(sl.listen.bind(sl));
 };
 
 onUpdated(registerScrollListener);
@@ -36,7 +35,7 @@ onMounted(registerScrollListener);
     <Transition
         name="rightbar"
         appear
-        v-if="status === RIGHTBAR_STATUS.SHOW && toc.length"
+        v-if="status === RIGHTBAR_STATUS.SHOW && s_toc.length"
     >
         <div
             id="right"
@@ -48,7 +47,7 @@ onMounted(registerScrollListener);
             <Transition name="bars">
                 <!-- bar -->
                 <div class="toc" v-if="!show_text">
-                    <template v-for="(item, idx) in toc">
+                    <template v-for="(item, idx) in s_toc">
                         <div
                             class="bar"
                             :style="{ width: item.width }"
@@ -59,26 +58,34 @@ onMounted(registerScrollListener);
 
                 <!-- detail -->
                 <div class="toc" v-else>
-                    <template v-for="(item, idx) in toc">
-                        <a
-                            class="detail"
-                            :href="'#' + item.hash"
-                            @click.prevent="navigate(item.hash)"
-                            :style="{
-                                marginRight: item.indent,
-                                opacity: item.opacity,
-                            }"
-                            :class="{ 'active': idx === in_view, 'passed': idx < (in_view as number) }"
+                    <template v-for="item in c_toc">
+                        <RightBarDetail
+                            class="root"
+                            :item="item"
+                            :in_view="in_view!"
+                        />
+
+                        <div
+                            class="subs-wrapper"
+                            v-if="
+                                item.children.length &&
+                                (item.index === in_view ||
+                                    item.children.some(
+                                        (c) => c.index === in_view
+                                    ))
+                            "
                         >
-                            <span class="text">
-                                <component :is="item.title" />
-                            </span>
-                            <span class="sign">
-                                <font-awesome-icon
-                                    :icon="['fas', 'caret-left']"
+                            <div class="subs">
+                                <RightBarDetail
+                                    v-for="child in item.children"
+                                    class="sub"
+                                    :item="child"
+                                    :in_view="in_view!"
+                                    :key="child.index"
                                 />
-                            </span>
-                        </a>
+                            </div>
+                            <div class="indicator"></div>
+                        </div>
                     </template>
                 </div>
             </Transition>
@@ -86,7 +93,7 @@ onMounted(registerScrollListener);
     </Transition>
 </template>
 
-<style scoped lang="stylus">
+<style lang="stylus">
 @import "../assets/css/global.styl";
 
 $offset-top = 10rem;
@@ -101,10 +108,10 @@ $toc-margin = 1.5rem;
 $toc-offset-top = 11rem - $offset-top;
 $toc-translate-offset = 7px;
 
-$detail-title-indent = 0.5rem;
-
 $bar-height = 4px;
 $bar-padding = 4px;
+
+$indicator-margin = 4px;
 
 #right
     scheme(--detail-color, lighten($text-color, 10%), $text-color-d);
@@ -117,77 +124,82 @@ $bar-padding = 4px;
     height: $height;
     top: $offset-top;
     z-index: 100;
-    left: "calc(100vw - %s)" % ($offset-right + $width); // To avoid scrollbar flickering
 
-.toc
-    width: max-content;
-    display: flex;
-    flex-direction: column;
-    gap: $toc-gap - 2 * $bar-padding;
-    position: absolute;
-    top: $toc-offset-top;
-    right: 0;
-    padding: $toc-padding;
-    margin: $toc-margin;
-    margin-right: $toc-translate-offset; // To avoid flickering on hovering edges
+    // To avoid scrollbar flickering
+    left: "calc(100vw - %s)" % ($offset-right + $width);
 
-:global(#right .toc .katex)
-    font-size: 1rem;
+    .toc
+        width: max-content;
+        display: flex;
+        flex-direction: column;
+        gap: $toc-gap - 2 * $bar-padding;
+        position: absolute;
+        top: $toc-offset-top;
+        right: 0;
+        padding: $toc-padding;
+        margin: $toc-margin;
 
-:global(#right .toc code)
-    font-family: $monospace;
-    font-size: 0.85em;
+        // To avoid flickering on hovering edges
+        margin-right: $toc-translate-offset;
 
-:global(#right .toc em)
-    font-style: italic;
+        .bar
+            margin-top: $bar-padding;
+            margin-left: auto;
+            background-color: var(--bar-background-color);
+            border-radius: 4px;
+            height: $bar-height;
+            transition: background-color 0.1s;
 
-:global(#right .toc strong)
-    font-weight: bold;
+            &.active
+                background-color: var(--bar-active-background-color);
 
-.bar
-    margin-top: $bar-padding;
-    margin-left: auto;
-    background-color: var(--bar-background-color);
-    border-radius: 4px;
-    height: $bar-height;
-    transition: background-color 0.1s;
+        .root, .sub
+            line-height: 1.4rem;
+            transition: color 0.1s;
+            margin-left: auto;
+            display: inline-block;
+            color: var(--detail-color);
+            font-size: 0.95rem;
+            position: relative;
 
-    &.active
-        background-color: var(--bar-active-background-color);
+            &.active
+                color: $theme-color;
 
-.detail
-    line-height: 1.6rem;
-    transition: color 0.1s;
-    margin-left: auto;
-    display: inline-block;
-    color: var(--detail-color);
-    font-size: 0.95rem;
-    position: relative;
+            &.passed
+                color: var(--detail-color-passed);
 
-    &.active
-        color: $theme-color;
+        .subs-wrapper
+            position: relative;
 
-    &.passed
-        color: var(--detail-color-passed);
+            .subs
+                display: flex;
+                width: max-content;
+                margin-left: auto;
+                flex-direction: column;
+                gap: $toc-gap - 2 * $bar-padding;
 
-    .sign
-        color: $theme-color;
-        opacity: 0;
-        transition: opacity 0.1s;
-        font-size: 0.7rem;
-        display: block;
-        float: inline-end;
-        animation: shake-x 1s infinite ease-in-out;
+            .indicator
+                top: $indicator-margin;
+                right: 19px;
+                width: 1.5px;
+                height: "calc(100% - 2 * %dpx)" % $indicator-margin;
+                background-color: var(--detail-color);
+                opacity: 0.35;
+                position: absolute;
 
-    .text
-        padding-right: $detail-title-indent;
-
-    &:hover
         .text
-            color: $theme-color;
+            .katex
+                font-size: 1rem;
 
-        .sign
-            opacity: 1;
+            code
+                font-family: $monospace;
+                font-size: 0.85em;
+
+            em
+                font-style: italic;
+
+            strong
+                font-weight: bold;
 
 .rightbar-enter-active,
 .rightbar-leave-active

@@ -16,7 +16,7 @@ Hi [👋]{.waving} 欢迎来到我的笔记本～
 :::
 ::
 
-::grid{align=equal gapx=15px gapy=20px}
+::grid{align=equal gapx=10px gapy=20px .home-grid}
 :sep{span=24}
 :::fold{always expand title="关于我" info .home-fontawesome-list}
 &nbsp;:user: 网名 Xecades，读作 /'zɛkeɪdz/

@@ -1,14 +1,11 @@
 ## 近期
 
- - ToC 层级关系看起来很怪（align left，参考 obsidian）
- - ToC：默认折叠，hover 或滚动到目标位置展开（？）
+ - LeftBar 添加折叠
 
- - KaTeX 中文字体，手机上不显示
  - 深色模式切换按钮（切换的时候给所有元素设置临时的 transition !important？）（放 rightbar？或者不要也可以）
  - 小屏幕保留 confetti 彩蛋
  - 每次修改 md 后，因为 routes.tsx 变动，导致页面需要全部刷新，可以优化一下
  - 渲染 plugin，遇到 fatal error 不要直接挂掉
- - 标题英文字体要改一下
  - index comp，hover 范围广一点
  - migrate comment system
  - 添加 ::active 以提升移动端体验

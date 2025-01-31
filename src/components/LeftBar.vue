@@ -235,13 +235,14 @@ $width = $toc-offset-left + $toc-width;
     dual(--offset-top, 28px, 32px);
     dual(--offset-left, 35px, 27px);
     dual(--height, calc(100vh - var(--offset-top) * 2), unset);
+    dual(--z-index, 100, 1001);
 
     position: fixed;
     left: var(--offset-left);
     top: var(--offset-top);
     width: $width;
     height: var(--height);
-    z-index: 100;
+    z-index: var(--z-index);
 
     .nav
         display: flex;

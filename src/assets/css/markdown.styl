@@ -44,6 +44,9 @@ schemer(--quote-background-invert, 0, 1);
     .katex
         font-size: 1.08em;
 
+        .cjk_fallback
+            font-family: $font-family;
+
     .katex-display
         margin: 0.3em 2px;
 
@@ -354,6 +357,12 @@ schemer(--quote-background-invert, 0, 1);
 
                 &:hover
                     color: var(--color);
+    
+    /* .home-grid 标签 */
+    .home-grid .fold
+        .fold-height-listener
+            dual(--wrapper-padding, 0.8em 1.4em, 0.2em 0.9em);
+
 
 /* Animation */
 @keyframes waving

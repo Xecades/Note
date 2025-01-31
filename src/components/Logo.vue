@@ -39,12 +39,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <a
-        id="logo"
-        href="https://xecades.xyz/"
-        target="_blank"
-        title="点击跳转主页"
-    >
+    <RouterLink id="logo" to="/">
         <svg
             id="logo-svg"
             xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +52,7 @@ onMounted(async () => {
                 v-for="svg in svgs"
             />
         </svg>
-    </a>
+    </RouterLink>
 </template>
 
 <style scoped lang="stylus">

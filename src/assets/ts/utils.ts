@@ -58,15 +58,20 @@ export const sleep = (ms: number) =>
  *
  * @param id - ID of the element to navigate to
  * @param smooth - Whether to scroll smoothly or not
+ * @param pushState - Whether to push state to history or not
  */
-export const navigate = (id: string, smooth: boolean = true) => {
+export const navigate = (
+    id: string,
+    smooth: boolean = true,
+    pushState: boolean = true
+) => {
     const OFFSET = 4 * 16;
     let el = document.getElementById(id);
     if (el) {
         const y = el.getBoundingClientRect().top + window.scrollY - OFFSET;
 
         window.scrollTo({ top: y, behavior: smooth ? "smooth" : "auto" });
-        history.pushState(null, "", `#${id}`);
+        if (pushState) history.pushState(null, "", `#${id}`);
     }
 };
 
