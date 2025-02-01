@@ -200,9 +200,11 @@ watchEffect(() => {
 // Nav
 $nav-height = 40px;
 $nav-hover-color = $theme-color;
+$nav-hov-background-color = alpha($theme-color, 12%);
 
 $item-active-color = $theme-color;
 $item-underline-color = alpha($theme-color, 65%);
+$item-hov-background-color = alpha($theme-color, 12%);
 
 // TOC
 $toc-translate-offset = -8px;
@@ -223,8 +225,8 @@ $width = $toc-offset-left + $toc-width;
     // Nav
     scheme(--nav-color, lighten($text-color, 45%), darken($text-color-d, 15%));
     scheme(--item-color, lighten($text-color, 10%), darken($text-color-d, 8%));
-    dual(--nav-hover-background-color, alpha($theme-color, 12%), unset);
-    dual(--item-hover-background-color, alpha($theme-color, 12%), unset);
+    dual(--nav-act-background-color, alpha($theme-color, 30%), unset);
+    dual(--item-act-background-color, alpha($theme-color, 30%), unset);
     dual(--nav-width, 42px, 35px);
     dual(--nav-gap, 2px, 0px);
 
@@ -262,8 +264,12 @@ $width = $toc-offset-left + $toc-width;
             display: block;
 
             &:hover
-                background-color: $nav-hover-background-color;
+                background-color: $nav-hov-background-color;
                 color: $nav-hover-color;
+
+            &:active
+                background-color: var(--nav-act-background-color);
+                color: $nav-active-color;
 
     .category
         position: absolute;
@@ -274,7 +280,7 @@ $width = $toc-offset-left + $toc-width;
         height: $nav-height;
         text-wrap: nowrap;
         overflow: hidden;
-        border-radius: background-radius;
+        border-radius: $background-radius;
         user-select: none;
 
         .item
@@ -289,7 +295,11 @@ $width = $toc-offset-left + $toc-width;
 
             &:hover
                 color: $item-active-color;
-                background-color: $item-hover-background-color;
+                background-color: $item-hov-background-color;
+
+            &:active
+                color: $item-active-color;
+                background-color: var(--item-act-background-color);
 
             &.active
                 color: $item-active-color;
