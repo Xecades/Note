@@ -11,11 +11,8 @@ defineProps<{
 }>();
 
 const playConfetti = throttle(1500, () => {
-    if (isSmallScreen()) return;
-
     // Code from https://www.kirilv.com/canvas-confetti/
-
-    const defaults: confetti.Options = { particleCount: 3, spread: 55 };
+    const opt: confetti.Options = { particleCount: 3, spread: 55 };
     const colors = [
         "#26ccff",
         "#a25afd",
@@ -29,8 +26,13 @@ const playConfetti = throttle(1500, () => {
     const end = Date.now() + 2 * 1000;
     const frame = () => {
         shuffle(colors);
-        confetti({ ...defaults, colors, angle: 60, origin: { x: 0, y: 0.7 } });
-        confetti({ ...defaults, colors, angle: 120, origin: { x: 1, y: 0.7 } });
+
+        if (isSmallScreen()) {
+            confetti({ ...opt, colors, angle: 120, origin: { x: 1, y: 0.8 } });
+        } else {
+            confetti({ ...opt, colors, angle: 60, origin: { x: 0, y: 0.7 } });
+            confetti({ ...opt, colors, angle: 120, origin: { x: 1, y: 0.7 } });
+        }
 
         if (Date.now() < end) requestAnimationFrame(frame);
     };
