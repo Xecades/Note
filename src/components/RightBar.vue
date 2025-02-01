@@ -18,8 +18,8 @@ const mouse = {
     leave: () => (show_text.value = false),
 };
 
-const in_view: Ref<number | null> = ref(null);
-const sl: ScrollListener = new ScrollListener(in_view);
+const in_view: Ref<number> = ref(-1);
+const sl = new ScrollListener(in_view);
 
 const registerScrollListener = () => {
     sl.reset();
@@ -42,6 +42,7 @@ onMounted(registerScrollListener);
             :key="$route.path"
             @mouseenter="mouse.enter"
             @mouseleave="mouse.leave"
+            :style="{ '--z-index': show_text ? 1001 : 0 }"
         >
             <!-- https://cn.vuejs.org/guide/built-ins/transition.html#javascript-hooks -->
             <Transition name="bars">
@@ -62,7 +63,7 @@ onMounted(registerScrollListener);
                         <RightBarDetail
                             class="root"
                             :item="item"
-                            :in_view="in_view!"
+                            :in_view="in_view"
                             :class="{
                                 expand:
                                     item.children.length &&
@@ -79,7 +80,7 @@ onMounted(registerScrollListener);
                                     v-for="child in item.children"
                                     class="sub"
                                     :item="child"
-                                    :in_view="in_view!"
+                                    :in_view="in_view"
                                     :key="child.index"
                                 />
                             </div>
@@ -113,6 +114,7 @@ $bar-padding = 4px;
 $indicator-margin = 4px;
 
 #right
+    scheme(--background-color, alpha($background-light, 90%), alpha($background-dark, 90%));
     scheme(--detail-color, lighten($text-color, 10%), $text-color-d);
     scheme(--detail-color-passed, lighten($text-color, 55%), darken($text-color-d, 50%));
     scheme(--bar-background-color, lighten(black, 88%), lighten(black, 28%));
@@ -122,7 +124,7 @@ $indicator-margin = 4px;
     width: $width;
     height: $height;
     top: $offset-top;
-    z-index: 100;
+    z-index: var(--z-index);
 
     // To avoid scrollbar flickering
     left: "calc(100vw - %s)" % ($offset-right + $width);
@@ -137,6 +139,8 @@ $indicator-margin = 4px;
         right: 0;
         padding: $toc-padding;
         margin: $toc-margin;
+        background-color: var(--background-color);
+        border-radius: 4px;
 
         // To avoid flickering on hovering edges
         margin-right: $toc-translate-offset;

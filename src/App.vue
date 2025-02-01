@@ -24,15 +24,13 @@ window.onresize = () => {
     left_stat.value = get_leftbar_status();
     right_stat.value = get_rightbar_status();
 };
-
-const in_view: Ref<number | null> = ref(null);
 </script>
 
 <template>
     <div id="main" v-if="meta">
         <LeftBar :status="left_stat" :current-category="meta.category" />
         <Content :meta="meta" />
-        <RightBar :status="right_stat" :in-view="in_view" :toc="meta.toc" />
+        <RightBar :status="right_stat" :toc="meta.toc" />
         <Logo />
     </div>
 </template>

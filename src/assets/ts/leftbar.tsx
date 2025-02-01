@@ -16,11 +16,11 @@ import type { JSX } from "vue/jsx-runtime";
  */
 export const get_leftbar_status = (): LEFTBAR_STATUS => {
     if (isMobile()) {
+        return LEFTBAR_STATUS.SHOW_SEARCH_AND_CATEGORY;
+    } else {
         return isWidthLessThan(SMALL_SCREEN_WIDTH)
             ? LEFTBAR_STATUS.SHOW_SEARCH_AND_CATEGORY
-            : LEFTBAR_STATUS.ONLY_SEARCH_BUTTON;
-    } else {
-        return isWidthLessThan(LEFTBAR_THRESHOLD)
+            : isWidthLessThan(LEFTBAR_THRESHOLD)
             ? LEFTBAR_STATUS.ONLY_SEARCH_BUTTON
             : LEFTBAR_STATUS.HOVER_TO_SHOW;
     }

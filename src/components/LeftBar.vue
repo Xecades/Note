@@ -154,7 +154,22 @@ watchEffect(() => {
 </script>
 
 <template>
-    <div id="left" @mouseenter="mouse.enter" @mouseleave="mouse.leave">
+    <div
+        id="left"
+        @mouseenter="mouse.enter"
+        @mouseleave="mouse.leave"
+        :style="{
+            '--z-index': do_show_detail
+                ? 1001
+                : status == LEFTBAR_STATUS.HOVER_TO_SHOW
+                ? 0
+                : 1001,
+            '--height':
+                status == LEFTBAR_STATUS.HOVER_TO_SHOW
+                    ? 'calc(100vh - var(--offset-top) * 2)'
+                    : 'unset',
+        }"
+    >
         <ul class="nav">
             <li class="btn" id="search" @click="search.reveal">
                 <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
@@ -234,10 +249,9 @@ $width = $toc-offset-left + $toc-width;
     scheme(--toc-color, lighten($text-color, 30%), darken($text-color-d, 5%));
 
     // Global
+    scheme(--background-color, alpha($background-light, 90%), alpha($background-dark, 90%));
     dual(--offset-top, 28px, 32px);
     dual(--offset-left, 35px, 27px);
-    dual(--height, calc(100vh - var(--offset-top) * 2), unset);
-    dual(--z-index, 100, 1001);
 
     position: fixed;
     left: var(--offset-left);
@@ -246,9 +260,13 @@ $width = $toc-offset-left + $toc-width;
     height: var(--height);
     z-index: var(--z-index);
 
+    .nav, .category, .content
+        background-color: var(--background-color);
+
     .nav
         display: flex;
         flex-direction: row;
+        width: fit-content;
         gap: var(--nav-gap);
 
         .btn

@@ -1,8 +1,6 @@
 ## 近期
 
  - LeftBar 添加折叠
-
- - Left Right Bar 的 Responsive Design
  - 深色模式切换按钮（切换的时候给所有元素设置临时的 transition !important？）（放 rightbar？或者不要也可以）
  - 每次修改 md 后，因为 routes.tsx 变动，导致页面需要全部刷新，可以优化一下
  - 渲染 plugin，遇到 fatal error 不要直接挂掉

@@ -91,7 +91,7 @@ export const shuffle = <T>(array: T[]): T[] => {
 export const SMALL_SCREEN_WIDTH: number = 768;
 
 /** The minimum screen width required for rightbar to display. */
-export const RIGHTBAR_THRESHOLD: number = 1280;
+export const RIGHTBAR_THRESHOLD: number = 880;
 
 /** The threshold screen width required for leftbar to switch style. */
-export const LEFTBAR_THRESHOLD: number = 1260;
+export const LEFTBAR_THRESHOLD: number = 880;

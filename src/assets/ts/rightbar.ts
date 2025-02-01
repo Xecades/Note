@@ -13,15 +13,9 @@ export type SerialHeader = MarkdownHeaderJsx & {
 };
 export type CascadeHeader = SerialHeader & { children: SerialHeader[] };
 
-const width_preset: string[] = ["50px", "40px", "30px", "20px", "13px"];
-const indent_preset: string[] = [
-    "0rem",
-    "1.3rem",
-    "1.7rem",
-    "2.3rem",
-    "2.8rem",
-];
-const opacity_preset: string[] = ["1", "0.8", "0.7", "0.7", "0.7"];
+const width_preset = ["50px", "40px", "30px", "20px", "13px"];
+const indent_preset = ["0rem", "1.3rem", "1.7rem", "2.3rem", "2.8rem"];
+const opacity_preset = ["1", "0.8", "0.7", "0.7", "0.7"];
 
 /**
  * Determine rightbar status (i.e. whether to display or not).
@@ -80,14 +74,14 @@ export const cascade_toc = (s_toc: SerialHeader[]): CascadeHeader[] => {
  */
 export class ScrollListener {
     targets: Element[];
-    store: Ref<number | null>;
+    store: Ref<number>;
 
     /**
      * Constructor.
      *
      * @param in_view - Ref to store the index of the element in view
      */
-    constructor(in_view: Ref<number | null>) {
+    constructor(in_view: Ref<number>) {
         this.targets = [];
         this.store = in_view;
 
@@ -115,7 +109,7 @@ export class ScrollListener {
      */
     reset(): void {
         this.targets = [];
-        this.store.value = null;
+        this.store.value = -1;
     }
 
     /**
