@@ -35,7 +35,6 @@ nav:
                 - prove-that
                 - what-is
     - misc:
-          - french
           - test:
                 - customToken
                 - latex
