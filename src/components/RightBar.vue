@@ -63,18 +63,17 @@ onMounted(registerScrollListener);
                             class="root"
                             :item="item"
                             :in_view="in_view!"
+                            :class="{
+                                expand:
+                                    item.children.length &&
+                                    (item.index === in_view ||
+                                        item.children.some(
+                                            (c) => c.index === in_view
+                                        )),
+                            }"
                         />
 
-                        <div
-                            class="subs-wrapper"
-                            v-if="
-                                item.children.length &&
-                                (item.index === in_view ||
-                                    item.children.some(
-                                        (c) => c.index === in_view
-                                    ))
-                            "
-                        >
+                        <div class="subs-wrapper">
                             <div class="subs">
                                 <RightBarDetail
                                     v-for="child in item.children"
@@ -165,11 +164,12 @@ $indicator-margin = 4px;
             &.active
                 color: $theme-color;
 
-            &.passed
+            &.passed:not(.expand)
                 color: var(--detail-color-passed);
 
         .subs-wrapper
             position: relative;
+            display: none;
 
             .subs
                 display: flex;
@@ -186,6 +186,9 @@ $indicator-margin = 4px;
                 background-color: var(--detail-color);
                 opacity: 0.35;
                 position: absolute;
+
+        .root.expand + .subs-wrapper
+            display: block;
 
         .text
             .katex
