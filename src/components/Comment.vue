@@ -3,17 +3,24 @@ import { onMounted } from "vue";
 import { loadJS } from "@/assets/ts/utils";
 
 import "@/assets/css/twikoo.css";
+import router from "@/router";
+
+let script: HTMLScriptElement | null = null;
 
 const URL = "https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.nocss.js";
 const ENV_ID = "https://twikoo-blog.xecades.xyz/";
 
-onMounted(async () => {
-    await loadJS(URL);
+const loadTwikoo = async () => {
+    if (script) script.remove();
+    script = await loadJS(URL);
 
     // @ts-expect-error
     const twikoo = window.twikoo;
     await twikoo.init({ envId: ENV_ID, el: "#twikoo" });
-});
+};
+
+router.afterEach(loadTwikoo);
+onMounted(loadTwikoo);
 </script>
 
 <template>
@@ -39,7 +46,7 @@ onMounted(async () => {
 
     .tk-extras
         display: none;
-    
+
     .tk-input textarea
         padding: 0.7rem 1rem;
         min-height: 170px !important;
@@ -60,7 +67,7 @@ onMounted(async () => {
 
     .tk-actions
         font-size: 0.8rem;
-        
+
         a
             color: #777;
 

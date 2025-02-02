@@ -39,14 +39,14 @@ export const isMobile = (): boolean => is_mobile({ tablet: true });
  * @param src - The source URL of the script to load
  * @returns A promise that resolves when the script is loaded
  */
-export const loadJS = (src: string): Promise<unknown> =>
+export const loadJS = (src: string): Promise<HTMLScriptElement> =>
     new Promise((resolve, reject) => {
         let script = document.createElement("script");
         script.type = "text/javascript";
         script.src = src;
         document.body.appendChild(script);
 
-        script.onload = resolve;
+        script.onload = () => resolve(script);
         script.onerror = reject;
     });
 

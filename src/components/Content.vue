@@ -80,7 +80,7 @@ onUpdated(registerAnchor);
         <Metadata
             :breadcrumb="meta.breadcrumb"
             :type="meta.type"
-            :key="meta.attr.title"
+            :key="meta.pathname"
         />
 
         <main class="markdown">
