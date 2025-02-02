@@ -85,6 +85,7 @@ onMounted(loadTwikoo);
     .tk-content
         max-height: unset;
         font-size: 16px;
+        line-height: 1.8rem;
 
     .tk-time
         margin-left: 0.5rem;
@@ -142,6 +143,12 @@ onMounted(loadTwikoo);
 
     a
         text-decoration: none;
+
+    a.tk-ruser
+        color: $theme-color;
+
+        &:hover
+            text-decoration: underline;
 
 @media (prefers-color-scheme: dark)
     #comment .tk-input textarea
