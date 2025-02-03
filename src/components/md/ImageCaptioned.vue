@@ -4,7 +4,7 @@ import { onBeforeUnmount, onMounted, ref } from "vue";
 
 import type { Ref } from "vue";
 
-defineProps<{ alt: string; src: string }>();
+defineProps<{ alt: string; src: string; class?: string }>();
 const img: Ref<HTMLElement | undefined> = ref();
 
 onMounted(() => {
@@ -15,13 +15,7 @@ onMounted(() => {
 
 <template>
     <figure>
-        <img
-            ref="img"
-            :class="{ svg: src.endsWith('.svg') }"
-            :alt="alt"
-            :src="src"
-            data-ic-zoomable
-        />
+        <img ref="img" :class="class" :alt="alt" :src="src" data-ic-zoomable />
         <figcaption v-if="alt" :title="alt">
             <slot />
         </figcaption>
@@ -54,8 +48,8 @@ figure
     img
         filter: brightness(0.8);
 
-    img.svg
-        filter: invert(0.75);
+    img.svg, img.inv
+        filter: invert(0.9);
 
 @media only screen and (max-width: 748px)
     img

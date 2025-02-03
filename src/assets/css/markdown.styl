@@ -21,6 +21,8 @@ schemer(--block-code-background, #fafafa, #1b1c1d);
 schemer(--block-code-border, #ededed, #343434);
 schemer(--block-code-text, #383a42, #c1c4d1);
 
+schemer(--list-marker-color, lighten($text-color, 10%), darken($text-color-d, 7%));
+
 schemer(--table-border, lighten(black, 89%), lighten(black, 25%));
 schemer(--table-hover-background, alpha(black, 0.04), alpha(white, 0.04));
 
@@ -137,7 +139,7 @@ schemer(--quote-background-invert, 0, 1);
         line-height: 2.5em;
 
     :is(ul, ol) li::marker
-        color: lighten($text-color, 10%);
+        color: var(--list-marker-color);
 
     /* checkbox */
     /* @see https://getcssscan.com/css-checkboxes-examples */
