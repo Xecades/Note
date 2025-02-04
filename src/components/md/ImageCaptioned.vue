@@ -35,7 +35,7 @@ figure
 
     img
         max-width: 100%;
-        max-height: 20em;
+        max-height: 25em;
         cursor: pointer;
 
     figcaption
