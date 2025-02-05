@@ -5,7 +5,6 @@
 dualr(--block-extend, -0.5rem, -1rem);
 
 schemer(--hr-color, lighten(black, 82%), lighten(black, 50%));
-schemer(--heading-color, lighten($text-color, 10%), darken($text-color-d, 7%));
 schemer(--bold-color, darken($theme-color, 20%), $theme-color);
 
 schemer(--checkbox-background, none, #cecece);
@@ -52,24 +51,7 @@ schemer(--quote-background-invert, 0, 1);
     .katex-display
         margin: 0.3em 2px;
 
-    /* 锚点 */
-    .header-anchor
-        opacity: 0;
-        font-family: "Georgia", "Times New Roman", serif;
-        color: lighten(black, 65%);
-        transition: color 0.1s, opacity 0.15s;
-        user-select: none;
-        padding: 0 7px;
-        display: inline-block;
-        margin: 0;
-
-        &:hover
-            color: darken($theme-color, 20%);
-
-    .heading:hover .header-anchor
-        opacity: 1;
-
-    /* header 标签（h1 被 ban 掉了） */
+    /* header 标签（h1被ban掉了） */
     h2
         font-size: 1.6rem;
         line-height: 2.6rem;
@@ -89,12 +71,6 @@ schemer(--quote-background-invert, 0, 1);
     h6
         font-size: 0.875rem;
         line-height: 1.25rem;
-
-    .heading
-        position: relative;
-        margin: 1.5rem 0;
-        color: var(--heading-color);
-        font-weight: 500;
 
     /* hr 标签 */
     hr

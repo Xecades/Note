@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 /** @todo 图片缓存，不能每次都重新加载一遍 */
 
-import { computed, nextTick, onMounted, onUpdated } from "vue";
+import { computed, nextTick, onMounted } from "vue";
 import { RouterView, useRoute } from "vue-router";
 import { navigate } from "@/assets/ts/utils";
 
@@ -43,23 +43,6 @@ const show_comment: Ref<boolean> = computed(() => {
     return props.meta.attr.comment;
 });
 
-/**
- * Iterate through headings and register anchor click event.
- */
-const registerAnchor = () => {
-    const headings = document.querySelectorAll(".heading");
-
-    headings.forEach((heading) => {
-        const anchor = heading.querySelector(".header-anchor");
-        if (anchor) {
-            anchor.addEventListener("click", (e: Event) => {
-                e.preventDefault();
-                navigate(heading.id);
-            });
-        }
-    });
-};
-
 const scrollToAnchor = async () => {
     await nextTick();
     const hash = route.hash;
@@ -67,8 +50,6 @@ const scrollToAnchor = async () => {
 };
 
 onMounted(scrollToAnchor);
-onMounted(registerAnchor);
-onUpdated(registerAnchor);
 </script>
 
 <template>
