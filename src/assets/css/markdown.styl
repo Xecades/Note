@@ -6,7 +6,7 @@ dualr(--block-extend, -0.5rem, -1rem);
 
 schemer(--hr-color, lighten(black, 82%), lighten(black, 50%));
 schemer(--heading-color, lighten($text-color, 10%), darken($text-color-d, 7%));
-schemer(--bold-color, #8f6ce4, lighten(#8f6ce4, 10%));
+schemer(--bold-color, darken($theme-color, 20%), $theme-color);
 
 schemer(--checkbox-background, none, #cecece);
 schemer(--checkbox-background-checked, #56a0ef, #2f77c4);
@@ -330,6 +330,7 @@ schemer(--quote-background-invert, 0, 1);
         a
             color: unset;
             opacity: 0.8;
+            text-decoration: none;
 
             &:hover
                 color: var(--color);
@@ -356,6 +357,7 @@ schemer(--quote-background-invert, 0, 1);
         .fold-height-listener
             a
                 color: unset;
+                text-decoration: none;
 
                 &:hover
                     color: var(--color);
