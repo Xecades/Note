@@ -15,6 +15,7 @@ import "@/assets/css/markdown.styl";
 // Types
 import type { Ref } from "vue";
 import type { RouteMeta } from "vite-plugin-vue-xecades-note";
+import router from "@/router";
 
 const props = defineProps<{ meta: RouteMeta }>();
 const route = useRoute();
@@ -45,10 +46,12 @@ const show_comment: Ref<boolean> = computed(() => {
 
 const scrollToAnchor = async () => {
     await nextTick();
+    await nextTick();
     const hash = route.hash;
-    navigate(hash.slice(1), false);
+    navigate(hash.slice(1), false, false);
 };
 
+router.afterEach(scrollToAnchor);
 onMounted(scrollToAnchor);
 </script>
 

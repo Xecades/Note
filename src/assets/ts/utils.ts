@@ -71,7 +71,7 @@ export const navigate = (
         const y = el.getBoundingClientRect().top + window.scrollY - OFFSET;
 
         window.scrollTo({ top: y, behavior: smooth ? "smooth" : "auto" });
-        if (pushState) history.pushState(null, "", `#${id}`);
+        if (pushState) history.pushState(history.state, "", `#${id}`);
     }
 };
 
