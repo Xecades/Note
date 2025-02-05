@@ -1,0 +1,5 @@
+---
+title: Crypto
+---
+
+:index

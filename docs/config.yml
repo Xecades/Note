@@ -17,6 +17,11 @@ nav:
     - ctf:
           - game:
                 - zjuctf2024
+          - crypto:
+                - basis
+                - aes
+                - rsa
+                - diffie-hellman
     - sci:
           - phy:
                 - chapter-27
