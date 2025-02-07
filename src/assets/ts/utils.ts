@@ -6,9 +6,7 @@ import is_mobile from "is-mobile";
  * @param width - The width to compare with
  * @returns Whether the current window width is less than the given width
  */
-export const isWidthLessThan = (width: number): boolean => {
-    return window.innerWidth < width;
-};
+export const isWidthLessThan = (width: number) => window.innerWidth < width;
 
 /**
  * Check whether the current window width is *small*.
@@ -19,7 +17,7 @@ export const isWidthLessThan = (width: number): boolean => {
  *
  * @returns Whether the current device is *small* or not
  */
-export const isSmallScreen = (): boolean => isWidthLessThan(768);
+export const isSmallScreen = () => isWidthLessThan(768);
 
 /**
  * Check whether the current device is mobile or not.
@@ -31,24 +29,7 @@ export const isSmallScreen = (): boolean => isWidthLessThan(768);
  *
  * @see https://www.npmjs.com/package/is-mobile
  */
-export const isMobile = (): boolean => is_mobile({ tablet: true });
-
-/**
- * Load JS from the given URL.
- *
- * @param src - The source URL of the script to load
- * @returns A promise that resolves when the script is loaded
- */
-export const loadJS = (src: string): Promise<HTMLScriptElement> =>
-    new Promise((resolve, reject) => {
-        let script = document.createElement("script");
-        script.type = "text/javascript";
-        script.src = src;
-        document.body.appendChild(script);
-
-        script.onload = () => resolve(script);
-        script.onerror = reject;
-    });
+export const isMobile = () => is_mobile({ tablet: true });
 
 export const sleep = (ms: number) =>
     new Promise<void>((res) => setTimeout(res, ms));

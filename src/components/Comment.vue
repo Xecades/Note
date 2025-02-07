@@ -1,26 +1,27 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { loadJS } from "@/assets/ts/utils";
-
-import "@/assets/css/twikoo.css";
+import { onMounted, onUnmounted } from "vue";
+import { useScriptTag } from "@vueuse/core";
 import router from "@/router";
 
-let script: HTMLScriptElement | null = null;
+import "@/assets/css/twikoo.css";
 
 const URL = "https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.nocss.js";
 const ENV_ID = "https://twikoo-blog.xecades.xyz/";
 
-const loadTwikoo = async () => {
-    if (script) script.remove();
-    script = await loadJS(URL);
+const { load, unload } = useScriptTag(
+    URL,
+    () => {
+        // @ts-expect-error
+        const twikoo = window.twikoo;
+        twikoo.init({ envId: ENV_ID, el: "#twikoo" });
+    },
+    { manual: true }
+);
 
-    // @ts-expect-error
-    const twikoo = window.twikoo;
-    await twikoo.init({ envId: ENV_ID, el: "#twikoo" });
-};
-
-router.afterEach(loadTwikoo);
-onMounted(loadTwikoo);
+router.afterEach(() => load());
+router.beforeEach(() => unload());
+onMounted(() => load());
+onUnmounted(() => unload());
 </script>
 
 <template>

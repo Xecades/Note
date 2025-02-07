@@ -6,9 +6,9 @@ import {
     onMounted,
     ref,
     useSlots,
-    watch,
 } from "vue";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
+import { watchImmediate } from "@vueuse/core";
 import AnimateHeight from "vue-animate-height";
 
 import type { Ref, VNodeRef } from "vue";
@@ -66,35 +66,31 @@ let observer: ResizeObserver;
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
 // If current tab is a single block, then set immensive mode.
-watch(
-    active,
-    async () => {
-        shifting = true;
+watchImmediate(active, async () => {
+    shifting = true;
 
-        // Wait for the content to be rendered.
-        await nextTick();
-        const children = listener.value.children;
+    // Wait for the content to be rendered.
+    await nextTick();
+    const children = listener.value.children;
 
-        is_immensive.value =
-            children.length === 1 &&
-            (children[0].classList.contains("block-code") ||
-                children[0].classList.contains("quote") ||
-                children[0].classList.contains("index-comp"));
+    is_immensive.value =
+        children.length === 1 &&
+        (children[0].classList.contains("block-code") ||
+            children[0].classList.contains("quote") ||
+            children[0].classList.contains("index-comp"));
 
-        // Wait for immensive mode to be applied.
-        await nextTick();
-        height.value = listener.value.clientHeight;
+    // Wait for immensive mode to be applied.
+    await nextTick();
+    height.value = listener.value.clientHeight;
 
-        // Wait for animation to finish.
-        await sleep(250);
-        shifting = false;
+    // Wait for animation to finish.
+    await sleep(250);
+    shifting = false;
 
-        // For unknown reason when using block-code,
-        // the height is not calculated correctly.
-        height.value = listener.value.clientHeight;
-    },
-    { immediate: true }
-);
+    // For unknown reason when using block-code,
+    // the height is not calculated correctly.
+    height.value = listener.value.clientHeight;
+});
 
 onMounted(() => {
     const el: HTMLElement = listener.value;

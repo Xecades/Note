@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 import { search } from "@/assets/ts/search";
+import { watchImmediate } from "@vueuse/core";
 
 // Types
 import type { Ref } from "vue";
@@ -17,15 +18,11 @@ const osOptions: PartialOptions = {
     overflow: { x: "hidden" },
 };
 
-watch(
-    query,
-    async () => {
-        results.value = await search(query.value, () => {
-            isLoading.value = false;
-        });
-    },
-    { immediate: true }
-);
+watchImmediate(query, async () => {
+    results.value = await search(query.value, () => {
+        isLoading.value = false;
+    });
+});
 </script>
 
 <template>
@@ -132,7 +129,7 @@ $results-bottom = 16px;
     scheme(--line-color, lighten(black, 87%), lighten(black, 23%));
     scheme(--xmark-hover-color, lighten(black, 30%), lighten(black, 70%));
     scheme(--panel-background-color, alpha(white, 95%), alpha(#141414, 90%));
-    
+
     scheme(--empty-icon-color, lighten(black, 85%), lighten(black, 22%));
 
     scheme(--post-hover-background-color, alpha(black, 6%), alpha(white, 6%));
