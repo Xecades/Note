@@ -1,0 +1,81 @@
+@import "./global.styl";
+
+:root {
+    --cursor-bg: rgba(0, 0, 0, 0.25);
+    --cursor-pointer-bg: rgba(0, 0, 0, 0.1);
+    --cursor-pointer-scale: 2.5;
+    --cursor-active-bg: rgba(0, 0, 0, 0.5);
+    --cursor-transition-duration: 0.1s;
+}
+
+/* todo */
+/* @media (prefers-color-scheme: dark) {
+    :root {
+        --cursor-bg: rgba(255, 255, 255, 0.25);
+        --cursor-pointer-bg: rgba(255, 255, 255, 0.1);
+        --cursor-active-bg: rgba(255, 255, 255, 0.5);
+
+        --cursor-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='8px' height='8px'><circle cx='4' cy='4' r='4' fill='white' opacity='.8'/></svg>")
+                4 4,
+            auto;
+    }
+} */
+
+/** Disable cursor for mobile devices */
+/* todo */
+/* @media screen and (pointer: coarse) {
+    #cursor-trail {
+        display: none;
+    }
+} */
+
+body[data-cursor-override] *
+    cursor: none !important;
+
+.__cursor
+    position: fixed;
+    transition: all var(--cursor-transition-duration) ease-in-out;
+    transition-property: background, transform, border-radius, height, width, opacity;
+    perspective: 1000px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+
+    &#cursor-main
+        width: 8px;
+        height: 8px;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 10000001;
+        border-radius: 50%;
+
+        &[data-state="text"]
+            opacity: 0.9;
+            background: var(--cursor-text-color);
+            height: calc(var(--cursor-text-font-size) + 4px);
+            width: 3px;
+            border-radius: 2px;
+
+            &[data-active]
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(0.9);
+
+        &[data-hidden]
+            background: transparent;
+
+    &#cursor-trail
+        width: 16px;
+        height: 16px;
+        background: var(--cursor-bg);
+        z-index: 10000000;
+        border-radius: 50%;
+
+        &[data-state="pointer"]
+            background: var(--cursor-pointer-bg);
+            transform: translate(-50%, -50%) scale(var(--cursor-pointer-scale));
+            border-radius: 50%;
+
+        &[data-active]
+            background: var(--cursor-active-bg);
+            transform: translate(-50%, -50%) scale(0.5);
+
+        &[data-hidden], &[data-state="none"]
+            background: transparent;

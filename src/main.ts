@@ -8,10 +8,12 @@ import App from "./App.vue";
 
 // JS
 import "./assets/ts/fontawesome";
+// import "./assets/ts/cursor";
 import router from "./router";
 
 // CSS
 import "./assets/css/reset.styl";
+// import "./assets/css/cursor.styl";
 import "katex/dist/katex.min.css";
 import "overlayscrollbars/overlayscrollbars.css";
 
