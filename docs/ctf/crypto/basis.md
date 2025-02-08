@@ -35,7 +35,7 @@ $p$ 为合数的讨论较为复杂（NP-hard），这里只讨论 $p$ 为奇素�
 
 **当 $p \equiv 1 \pmod{4}$ 时**，可由 **Tonelli-Shanks 算法**求解.
 
- - SageMath：`mod(a, p).sqrt()`.
+ - SageMath：`mod(a, p).sqrt()`{language=python}.
 
 ---
 

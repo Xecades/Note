@@ -81,9 +81,9 @@ Exercitation incididunt dolore cupidatat mollit veniam esse reprehenderit eiusmo
 
 ---
 
-行内代码块 `#include<iostream>`。Mollit dolore est in et aliquip adipisicing et nulla id nulla esse laborum minim nulla. In ad irure qui magna Lorem ad eiusmod do do `laborum ex duis`. Reprehenderit nulla nisi laborum incididunt voluptate sunt et cupidatat commodo consectetur deserunt. Non officia aliquip enim duis. Ea irure magna excepteur labore eiusmod officia sit id sint anim ipsum duis labore Lorem. Culpa cillum `voluptate duis exercitation cillum esse incididunt laborum magna`. Est ut commodo non magna nisi sit proident deserunt consectetur ut anim ullamco ut adipisicing.
+行内代码块 `#include<iostream>`{language=cpp}。Mollit dolore est in et aliquip adipisicing et nulla id nulla esse laborum minim nulla. In ad irure qui magna Lorem ad eiusmod do do `laborum ex duis`. Reprehenderit nulla nisi laborum incididunt voluptate sunt et cupidatat commodo consectetur deserunt. Non officia aliquip enim duis. Ea irure magna excepteur labore eiusmod officia sit id sint anim ipsum duis labore Lorem. Culpa cillum `voluptate duis exercitation cillum esse incididunt laborum magna`. Est ut commodo non magna nisi sit proident deserunt consectetur ut anim ullamco ut adipisicing.
 
-> `scanf()` 用于输入数据，而 `printf()` 用于输出数据。
+> `scanf()`{language=c} 用于输入数据，而 `printf()`{language=c} 用于输出数据。
 
 ---
 

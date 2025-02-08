@@ -82,6 +82,11 @@ onMounted(scrollToAnchor);
     </div>
 </template>
 
+<style>
+@import url(@/assets/css/prism-one-light.css) (prefers-color-scheme: light);
+@import url(@/assets/css/prism-one-dark.css) (prefers-color-scheme: dark);
+</style>
+
 <style scoped lang="stylus">
 @import "../assets/css/global.styl";
 

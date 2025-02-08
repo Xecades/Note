@@ -19,8 +19,3 @@ const osOptions: PartialOptions = {
         v-html="html"
     />
 </template>
-
-<style>
-@import url(@/assets/css/prism-one-light.css) (prefers-color-scheme: light);
-@import url(@/assets/css/prism-one-dark.css) (prefers-color-scheme: dark);
-</style>
