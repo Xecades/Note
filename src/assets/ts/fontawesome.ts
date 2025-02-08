@@ -23,6 +23,7 @@ import {
     faLightbulb,
     faLink,
     faMagnifyingGlass,
+    faSpinner,
     faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
@@ -54,5 +55,6 @@ library.add(
     faAtom,
     faBoxArchive,
     faFlag,
-    faChevronLeft
+    faChevronLeft,
+    faSpinner
 );
