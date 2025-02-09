@@ -22,7 +22,7 @@ title: Ch.1 Spin
 
 电子本身也有类似上述银原子的性质，对于不同的实验结果，我们定义电子的**自旋**（Spin）方向如下：（圆圈表示电子落到屏幕上的位置）
 
-::grid
+::grid{gap=5px}
 :sep{span=5}
 ![实验结果](./assets/spin-spin-1.svg){.inv width=60px}
 
