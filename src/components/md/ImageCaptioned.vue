@@ -4,7 +4,9 @@ import { onBeforeUnmount, onMounted, ref } from "vue";
 
 import type { Ref } from "vue";
 
-defineProps<{ alt: string; src: string; class?: string }>();
+defineOptions({ inheritAttrs: false });
+defineProps<{ alt: string; src: string }>();
+
 const img: Ref<HTMLElement | undefined> = ref();
 
 onMounted(() => {
@@ -14,8 +16,8 @@ onMounted(() => {
 </script>
 
 <template>
-    <figure>
-        <img ref="img" :class="class" :alt="alt" :src="src" data-ic-zoomable />
+    <figure v-bind="{}">
+        <img ref="img" v-bind="$attrs" :src="src" :alt="alt" data-ic-zoomable />
         <figcaption v-if="alt" :title="alt">
             <slot />
         </figcaption>

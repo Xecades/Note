@@ -1,5 +1,4 @@
 <script setup lang="ts">
-// TODO: add small screen support (sm:xxx)
 import { computed, useSlots } from "vue";
 
 import type { Ref } from "vue";
@@ -7,7 +6,13 @@ import type { JSX } from "vue/jsx-runtime";
 
 type GridData = {
     content: JSX.Element[];
-    props: { start: number; smstart: number; span: number; smspan: number };
+    props: {
+        start: number;
+        smstart: number;
+        span: number;
+        smspan: number;
+        attrs: Record<string, string>;
+    };
 };
 
 const props = defineProps<{
@@ -37,9 +42,18 @@ const mapData = (parts: JSX.Element[]): GridData[] => {
             let smspan = +(part.props!["sm:span"] ?? span);
             let offset = +(part.props?.offset ?? 0);
 
+            let attrs = Object.fromEntries(
+                Object.entries(part.props!).filter(
+                    ([k]) => !["span", "sm:span", "offset"].includes(k)
+                )
+            );
+
             start += offset;
             smstart += offset;
-            res.push({ content: [], props: { start, smstart, span, smspan } });
+            res.push({
+                content: [],
+                props: { start, smstart, span, smspan, attrs },
+            });
             start += span;
             smstart += smspan;
         } else {
@@ -81,6 +95,7 @@ const data: Ref<GridData[]> = computed(() => mapData(parts.value));
                     '--grid-span-normal': col.props.span,
                     '--grid-span-small': col.props.smspan,
                 }"
+                v-bind="col.props.attrs"
             >
                 <component :is="() => col.content" />
             </div>
@@ -108,6 +123,9 @@ const data: Ref<GridData[]> = computed(() => mapData(parts.value));
         &.immensive
             > .fold
                 margin: 0;
+        
+        &.center
+            place-self: center;
 
 .grid.equal
     .column.immensive
