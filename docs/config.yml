@@ -1,5 +1,8 @@
 nav:
     - cs:
+          - quantum:
+                - spin
+                - la
           - ads:
                 - avl-tree
                 - amortized-analysis
