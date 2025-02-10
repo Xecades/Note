@@ -3,7 +3,7 @@ title: 量子计算
 ---
 
 ::fold{always expand info title="摘要"}
-![*Quantum Computing for Everyone*](./assets/index-cover.jpg)
+![*Quantum Computing for Everyone*](./assets/index.cover.jpg)
 
 &nbsp;:book: *Quantum Computing for Everyone* 书籍阅读笔记
 

@@ -10,7 +10,7 @@ title: Ch.1 Spin
 
 在玻尔的原子行星轨道模型中，电子绕核旋转产生磁场，其中内层电子磁场正反抵消，而外层电子可能无法抵消. 因此在某些原子（例如银原子）中，最外层电子会让整个原子带上一个**微小磁矩**. 据此原理，Otto Stern 和 Walther Gerlach 设计了一个实验，尝试观测银原子的磁矩方向.
 
-![Stern-Gerlach 实验](./assets/spin-stern-gerlach-experiment.svg){.inv width=450px}
+![Stern-Gerlach 实验](./assets/spin.stern-gerlach-experiment.svg){.inv width=450px}
 
 装置中间的 V 形磁体会产生一个非均匀磁场，使得 S 极的效果比 N 极强. 如果银原子 N 极朝上，那么它会受到磁体 S 极更强的吸引力，最终向上偏转；反之，如果 S 极朝上，那么他会被磁体 S 极排斥，从而向下偏转. 如果 NS 极水平，那就不会偏转.
 
@@ -24,7 +24,7 @@ title: Ch.1 Spin
 
 ::grid{gap=5px}
 :sep{span=5}
-![实验结果](./assets/spin-spin-1.svg){.inv width=60px}
+![实验结果](./assets/spin.spin-1.svg){.inv width=60px}
 
 :sep{span=1 .center}
 $\Longrightarrow$
@@ -32,10 +32,10 @@ $\Longrightarrow$
 :v{3rem}
 
 :sep{span=5}
-![Spin N](./assets/spin-spin-2.svg){.inv width=55px}
+![Spin N](./assets/spin.spin-2.svg){.inv width=55px}
 
 :sep{span=5 offset=1}
-![实验结果](./assets/spin-spin-3.svg){.inv width=60px}
+![实验结果](./assets/spin.spin-3.svg){.inv width=60px}
 
 :sep{span=1 .center}
 $\Longrightarrow$
@@ -43,12 +43,12 @@ $\Longrightarrow$
 :v{3rem}
 
 :sep{span=5}
-![Spin S](./assets/spin-spin-4.svg){.inv width=55px}
+![Spin S](./assets/spin.spin-4.svg){.inv width=55px}
 ::
 
 为了在二维平面内更好地描述自旋，定义电子旋转的角度如下：
 
-![自旋为 N，朝 $\theta$ 角方向的电子](./assets/spin-spin-angle.svg){.inv width=140px}
+![自旋为 N，朝 $\theta$ 角方向的电子](./assets/spin.spin-angle.svg){.inv width=140px}
 
 竖直向上为 $0^\circ$，顺时针旋转为正方向.
 
