@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="b" data-name="图层 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 144.88 154.07">
+  <defs>
+    <style>
+      .g, .h, .i, .j {
+        fill: none;
+      }
+
+      .k, .l, .m, .n {
+        font-family: Times-Roman, Times;
+      }
+
+      .k, .l, .o, .p {
+        fill: #231815;
+      }
+
+      .k, .m, .n {
+        font-size: 9px;
+      }
+
+      .l {
+        font-size: 8.5px;
+      }
+
+      .h {
+        stroke-width: .8px;
+      }
+
+      .h, .i, .j {
+        stroke: #231815;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      .i {
+        stroke-width: .5px;
+      }
+
+      .j {
+        stroke-width: .4px;
+      }
+
+      .q, .p {
+        font-family: TimesNewRomanPSMT, 'Times New Roman';
+        font-size: 8px;
+      }
+
+      .n {
+        letter-spacing: .1em;
+      }
+
+      .r {
+        clip-path: url(#e);
+      }
+
+      .s {
+        clip-path: url(#d);
+      }
+
+      .t {
+        clip-path: url(#f);
+      }
+
+      .u {
+        letter-spacing: .07em;
+      }
+    </style>
+    <clipPath id="d">
+      <rect class="g" width="144.88" height="154.07"/>
+    </clipPath>
+    <clipPath id="e">
+      <rect class="g" width="144.88" height="154.07"/>
+    </clipPath>
+    <clipPath id="f">
+      <rect class="g" width="144.88" height="154.07"/>
+    </clipPath>
+  </defs>
+  <g id="c" data-name="图层 1">
+    <g>
+      <g class="s">
+        <line class="i" x1=".25" y1="97.95" x2="143.89" y2="97.95"/>
+      </g>
+      <polygon class="o" points="138.69 100.29 144.19 97.95 138.69 95.61 138.69 100.29"/>
+      <path class="i" d="M48.4,146.2V2.26M96.55,97.95v-3.39"/>
+      <polygon class="o" points="46.07 7.47 48.4 1.96 50.73 7.47 46.07 7.47"/>
+      <line class="i" x1="51.78" y1="49.7" x2="45.01" y2="49.7"/>
+      <line class="h" x1="48.4" y1="97.95" x2="88.91" y2="74.51"/>
+      <polygon class="o" points="82.98 74.69 89.91 73.84 85.71 79.43 82.98 74.69"/>
+      <line class="h" x1="48.4" y1="97.95" x2="71.79" y2="138.54"/>
+      <polygon class="o" points="71.61 132.8 72.46 139.75 66.88 135.54 71.61 132.8"/>
+      <polygon class="o" points="98.41 58.83 101.36 58.83 101.36 59.45 99.03 59.45 99.03 88.13 101.36 88.13 101.36 88.75 98.41 88.75 98.41 58.83"/>
+      <polygon class="o" points="136.05 59.45 133.72 59.45 133.72 58.83 136.67 58.83 136.67 88.75 133.72 88.75 133.72 88.13 136.05 88.13 136.05 59.45"/>
+      <g class="r">
+        <path class="j" d="M48.4,83.48c5.16,0,9.93,2.76,12.1,6.53"/>
+        <polygon class="o" points="59.04 84.65 60.81 90.39 55.46 87.67 59.04 84.65"/>
+        <path class="j" d="M62.84,97.95c0,4.97-2.54,9.57-6.08,11.86"/>
+        <polygon class="o" points="61.67 108.51 55.93 110.23 58.68 104.9 61.67 108.51"/>
+        <polygon class="o" points="81.23 124.15 84.17 124.15 84.17 124.77 81.84 124.77 81.84 153.45 84.17 153.45 84.17 154.07 81.23 154.07 81.23 124.15"/>
+        <polygon class="o" points="120.26 124.77 117.93 124.77 117.93 124.15 120.88 124.15 120.88 154.07 117.93 154.07 117.93 153.45 120.26 153.45 120.26 124.77"/>
+      </g>
+      <text class="k" transform="translate(88.11 131.96)"><tspan x="0" y="0">cos</tspan></text>
+      <text class="o" transform="translate(101.39 131.96)"><tspan class="m" x="0" y="0">(</tspan><tspan class="q" x="3" y="0">ɑ)</tspan></text>
+      <text class="k" transform="translate(88.11 150.18)"><tspan class="u" x="0" y="0">–</tspan><tspan x="5.17" y="0">s</tspan></text>
+      <text class="k" transform="translate(96.75 150.18)"><tspan x="0" y="0">in</tspan></text>
+      <text class="k" transform="translate(105.06 150.18)"><tspan x="0" y="0">(</tspan></text>
+      <text class="p" transform="translate(108.06 150.18)"><tspan x="0" y="0">ɑ)</tspan></text>
+      <g class="t">
+        <text class="k" transform="translate(139.92 107.39)"><tspan x="0" y="0">x</tspan></text>
+        <text class="k" transform="translate(54.74 7.47)"><tspan x="0" y="0">y</tspan></text>
+      </g>
+      <text class="p" transform="translate(53.24 80.53)"><tspan x="0" y="0">ɑ</tspan></text>
+      <text class="p" transform="translate(64.73 106.61)"><tspan x="0" y="0">a</tspan></text>
+      <text class="l" transform="translate(38.02 52.3)"><tspan x="0" y="0">1</tspan></text>
+      <text class="l" transform="translate(94.93 107.48)"><tspan x="0" y="0">1</tspan></text>
+      <text class="k" transform="translate(105.3 66.65)"><tspan x="0" y="0">si</tspan></text>
+      <text class="o" transform="translate(111.2 66.65)"><tspan class="n" x="0" y="0">n</tspan><tspan class="m" x="5.4" y="0">(</tspan><tspan class="q" x="8.4" y="0">ɑ)</tspan></text>
+      <text class="k" transform="translate(105.3 84.86)"><tspan x="0" y="0">cos</tspan></text>
+      <text class="o" transform="translate(118.57 84.86)"><tspan class="m" x="0" y="0">(</tspan><tspan class="q" x="3" y="0">ɑ)</tspan></text>
+    </g>
+  </g>
+</svg>

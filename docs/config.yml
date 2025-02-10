@@ -3,6 +3,7 @@ nav:
           - quantum:
                 - spin
                 - linear-algebra
+                - spin-and-qubits
           - ads:
                 - avl-tree
                 - amortized-analysis
