@@ -94,3 +94,30 @@ $$
 $$
 \begin{bmatrix}x_1 \\ x_2 \\ \vdots \\ x_n\end{bmatrix} = B^\top \lvert v\rangle = \begin{bmatrix}\langle b_1|v\rangle \\ \langle b_2|v\rangle \\ \vdots \\ \langle b_n|v\rangle\end{bmatrix}.
 $$
+
+---
+
+## 正交矩阵、酉矩阵
+
+在实数域上，**正交矩阵**（Orthogonal matrix）是指满足 $A^\top A=I$ 的矩阵. 它的复数版本是 **酉矩阵**（Unitary matrix），指满足 $A^\dagger A=I$ 的矩阵，其中 $A^\dagger$ 是 $A$ 的**厄米共轭**（Hermitian conjugate）（即将 $A$ 的转置取复共轭）. 正交矩阵是一种特殊的酉矩阵.
+
+下面简要介绍两类特殊的正交矩阵：
+
+$$
+\begin{bmatrix}
+\dfrac{1}{\sqrt{2}} & \dfrac{1}{\sqrt{2}} \\[1em]
+\dfrac{1}{\sqrt{2}} & \dfrac{-1}{\sqrt{2}}
+\end{bmatrix}
+\text{ 和 }
+\begin{bmatrix}
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0
+\end{bmatrix}.
+$$
+
+ - **前者**对应有序基 $\left(\lvert\leftarrow\rangle, \lvert\rightarrow\rangle\right)$，也和 **Hadamard 门**有关.
+ - **后者**是将 $\mathbb{R}^4$ 空间的常用基最后两个元素交换位置得到的，它对应 **CNOT 门**.
+
+**所有的量子电路都由这两种门构成**.

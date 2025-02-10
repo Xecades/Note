@@ -2,7 +2,7 @@ nav:
     - cs:
           - quantum:
                 - spin
-                - la
+                - linear-algebra
           - ads:
                 - avl-tree
                 - amortized-analysis
