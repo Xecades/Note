@@ -23,7 +23,8 @@ const consoleMessage = () => {
     console.log(`
 ┌─Xecades Alpha::Note────────────────────────────────┐
 │                                                    │
-│            Yet another concise homepage            │
+│                Yet another notebook                │
+│             Part of the Alpha Project.             │
 │                                                    │
 ├────────────────────────────────────────────────────┤
 │                                                    │
@@ -37,8 +38,10 @@ const consoleMessage = () => {
 │                                                    │
 ├────────────────────────────────────────────────────┤
 │                                                    │
-│ MIT LICENSE                                        │
-│ Copyright © 2019 - ${year} Xecades                    │
+│  - [GPL-3.0 License]          for code             │
+│  - [CC BY-NC-SA 4.0 License]  for notes            │
+│                                                    │
+│ Copyright © 2024 - ${year} Xecades                    │
 │                                                    │
 └────────────────────────────────────────────────────┘
     `);
