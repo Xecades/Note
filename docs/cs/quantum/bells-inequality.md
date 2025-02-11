@@ -2,7 +2,7 @@
 title: Ch.5 Bell's Inequality
 ---
 
-我们之前学习的理论都来自于量子力学的**哥本哈根解释**（Copenhagen interpretation），但在量子力学的早期发展阶段，还有另一种解释——**隐变量理论**（Hidden variable theory）. **贝尔定理**（Bell's theorem）则通过一个巧妙的实验来区分这两种解释.
+我们之前学习的理论都来自于量子力学的**哥本哈根诠释**（Copenhagen interpretation），但在量子力学的早期发展阶段，还有另一种解释——**隐变量理论**（Hidden variable theory）. **贝尔**则通过一个巧妙的实验来区分这两种理论.
 
 ---
 
@@ -70,7 +70,7 @@ $$
 
 记 $(\lvert\uparrow\rangle, \lvert\downarrow\rangle)$ 为 $a$，$(\lvert\searrow\rangle, \lvert\nwarrow\rangle)$ 为 $b$，$(\lvert\swarrow\rangle, \lvert\nearrow\rangle)$ 为 $c$，用 $(a, b)$ 表示 Alice 在 $a$ 方向测量，Bob 在 $b$ 方向测量的结果. 下表给出了所有可能的结果.
 
-![每种初始情况下可能的测量结果](./assets/bells-inequality.possibilities.png)
+![每种初始情况下可能的测量结果](./assets/bells-inequality.possibilities.png){.inv}
 
 此处我们**不知道 $8$ 种初始情况的概率分布**，但每一个初始情况中，Alice 和 Bob 选择某组特定的方向的概率是确定的，都是 $1/9$.
 
