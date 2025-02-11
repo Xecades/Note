@@ -5,6 +5,7 @@ nav:
                 - linear-algebra
                 - spin-and-qubits
                 - entanglement
+                - bells-inequality
           - ads:
                 - avl-tree
                 - amortized-analysis
