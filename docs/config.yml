@@ -4,6 +4,7 @@ nav:
                 - spin
                 - linear-algebra
                 - spin-and-qubits
+                - entanglement
           - ads:
                 - avl-tree
                 - amortized-analysis
