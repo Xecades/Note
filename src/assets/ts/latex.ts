@@ -10,8 +10,13 @@ const _render = (options: KatexOptions) => (raw: string) => {
     }
 };
 
-const render_inline = _render({ displayMode: false, throwOnError: true });
-const render_block = _render({ displayMode: true, throwOnError: true });
+const config: KatexOptions = {
+    throwOnError: true,
+    macros: { "\\ketbra": "\\mathinner{|{#1}\\rangle\\!\\langle{#2}|}" },
+};
+
+const render_inline = _render({ displayMode: false, ...config });
+const render_block = _render({ displayMode: true, ...config });
 const render = (raw: string, opts: KatexOptions) => _render(opts)(raw);
 
 export { render, render_inline, render_block };
