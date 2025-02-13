@@ -70,7 +70,32 @@ $$
 
 记 $(\lvert\uparrow\rangle, \lvert\downarrow\rangle)$ 为 $a$，$(\lvert\searrow\rangle, \lvert\nwarrow\rangle)$ 为 $b$，$(\lvert\swarrow\rangle, \lvert\nearrow\rangle)$ 为 $c$，用 $(a, b)$ 表示 Alice 在 $a$ 方向测量，Bob 在 $b$ 方向测量的结果. 下表给出了所有可能的结果.
 
-![每种初始情况下可能的测量结果](./assets/bells-inequality.possibilities.png){.inv}
+```typst 每种初始情况下可能的测量结果
+#{
+    show table.cell.where(y: 1): text.with(weight: "bold")
+    table(
+        columns: 10,
+        inset: 9pt,
+        align: horizon,
+        stroke: none,
+        table.hline(y: 0),
+        table.hline(y: 1),
+        table.hline(y: 2, stroke: 2pt),
+        table.hline(y: 10),
+        table.vline(x: 1, stroke: 2pt),
+        table.header([], table.cell(colspan: 9)[*Measurement Directions*]),
+        [*Config.*], $bold((a,a))$, $bold((a,b))$, $bold((a,c))$, $bold((b,a))$, $bold((b,b))$, $bold((b,c))$, $bold((c,a))$, $bold((c,b))$, $bold((c,c))$,
+        [*000*], [A], [A], [A], [A], [A], [A], [A], [A], [A],
+        [*001*], [A], [A], [D], [A], [A], [D], [D], [D], [A],
+        [*010*], [A], [D], [A], [D], [A], [D], [A], [D], [A],
+        [*011*], [A], [D], [D], [D], [A], [A], [D], [A], [A],
+        [*100*], [A], [D], [D], [D], [A], [A], [D], [A], [A],
+        [*101*], [A], [D], [A], [D], [A], [D], [A], [D], [A],
+        [*110*], [A], [A], [D], [A], [A], [D], [D], [D], [A],
+        [*111*], [A], [A], [A], [A], [A], [A], [A], [A], [A],
+    )
+}
+```
 
 此处我们**不知道 $8$ 种初始情况的概率分布**，但每一个初始情况中，Alice 和 Bob 选择某组特定的方向的概率是确定的，都是 $1/9$.
 
