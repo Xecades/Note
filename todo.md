@@ -1,11 +1,10 @@
 ## 近期
 
- - LeftBar 添加折叠
+ - LeftBar 添加折叠（？）
  - 深色模式切换按钮（切换的时候给所有元素设置临时的 transition !important？）（放 rightbar？或者不要也可以）
  - index comp，hover 范围广一点
  - 中文字体 cdn，目前加载太慢了
  - 添加 backtotop 按钮
- - 侧边栏（左右），允许折叠 / 滚动
 
 ## 灵感
 
@@ -46,8 +45,7 @@
 
 ## 暂时不重要的 TODO
 
- - 添加 HTML `<meta>` 那一堆属性 
- - Typst 添加中文字体的支持
+ - 添加 HTML `<meta>` 那一堆属性
  - 代码块换行
  - Command + P 打印样式
  - 想办法过滤掉 \`[公式]\` 等 slot 内容

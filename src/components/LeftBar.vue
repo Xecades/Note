@@ -9,6 +9,7 @@ import {
 } from "vue";
 import { render_list } from "@/assets/ts/leftbar";
 import { LEFTBAR_STATUS } from "@/assets/ts/types";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
 import hotkeys from "hotkeys-js";
 import Search from "./Search.vue";
 
@@ -19,11 +20,17 @@ import config from "@cache/config";
 import type { Ref } from "vue";
 import type { JSX } from "vue/jsx-runtime";
 import type { HotkeysEvent } from "hotkeys-js";
+import type { PartialOptions } from "overlayscrollbars";
 
 const props = defineProps<{
     status: LEFTBAR_STATUS;
     currentCategory: string;
 }>();
+
+const osOptions: PartialOptions = {
+    scrollbars: { autoHide: "move" },
+    overflow: { x: "hidden" },
+};
 
 /** Attributes attached to a category */
 interface Category {
@@ -194,9 +201,16 @@ watchEffect(() => {
             </template>
         </div>
 
-        <Transition name="content">
-            <component class="content" :is="VBody" v-if="do_show_detail" />
-        </Transition>
+        <OverlayScrollbarsComponent
+            element="div"
+            class="content-wrapper"
+            :options="(osOptions as any)"
+            defer
+        >
+            <Transition name="content">
+                <component class="content" :is="VBody" v-if="do_show_detail" />
+            </Transition>
+        </OverlayScrollbarsComponent>
 
         <!-- https://cn.vuejs.org/guide/built-ins/teleport.html -->
         <Teleport to="body">
@@ -326,51 +340,54 @@ $width = $toc-offset-left + $toc-width;
                 text-decoration-style: wavy;
                 text-decoration-color: $item-underline-color;
 
-    .content
+    .content-wrapper
         position: absolute;
         left: $toc-offset-left;
         top: $toc-offset-top;
         width: $toc-width;
-        display: block;
-        border-radius: $background-radius;
-        padding: 15px 0;
+        bottom: 0;
 
-    .content .title
-        color: var(--toc-color);
-        font-size: 0.95rem;
-        line-height: $toc-title-height;
-        margin-bottom: 5px;
-        padding-right: 10px;
-        display: flex;
-        gap: 8px;
-        transition: color 0.2s;
+        .content
+            position: absolute;
+            border-radius: $background-radius;
+            padding: 15px 0;
 
-    .content .title.router-link-exact-active .text
-        color: $theme-color;
+            .title
+                color: var(--toc-color);
+                font-size: 0.95rem;
+                line-height: $toc-title-height;
+                margin-bottom: 5px;
+                padding-right: 10px;
+                display: flex;
+                gap: 8px;
+                transition: color 0.2s;
 
-    .content .title .sign
-        color: $theme-color;
-        opacity: 0;
-        transition: opacity 0.1s;
-        font-size: 0.7rem;
-        display: block;
-        animation: shake-x 1s infinite ease-in-out;
+            .title.router-link-exact-active .text
+                color: $theme-color;
 
-    .content .title .text
-        text-indent: 0 - $toc-title-indent;
-        padding-left: $toc-title-indent;
+            .title .sign
+                color: $theme-color;
+                opacity: 0;
+                transition: opacity 0.1s;
+                font-size: 0.7rem;
+                display: block;
+                animation: shake-x 1s infinite ease-in-out;
 
-    .content .title:hover .text
-        color: $theme-color;
+            .title .text
+                text-indent: 0 - $toc-title-indent;
+                padding-left: $toc-title-indent;
 
-    .content .title:hover .sign
-        opacity: 1;
+            .title:hover .text
+                color: $theme-color;
 
-    .content .children
-        margin-left: 1rem;
+            .title:hover .sign
+                opacity: 1;
 
-    .content > .children
-        margin: 0;
+            .children
+                margin-left: 1rem;
+
+            &> .children
+                margin: 0;
 
     .content-enter-active,
     .content-leave-active
