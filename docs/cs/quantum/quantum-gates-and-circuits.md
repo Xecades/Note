@@ -77,6 +77,7 @@ $$
 ```typst
 #import "@preview/quill:0.6.0": *
 #import "@preview/physica:0.9.4": *
+#show math.equation: math.display
 #scale(180%, reflow: true, quantum-circuit(
     lstick($1/sqrt(2)ket(0)+1/sqrt(2)ket(1)$), 1, ctrl(1), 1, rstick($1/sqrt(2)ket(00)+1/sqrt(2)ket(11)$, n:2), [\ ],
     lstick($ket(0)$), 1, targ(), 1
@@ -244,6 +245,95 @@ Alice 将处理完成的量子比特**交给 Bob**，Bob 对这 Alice 的量子�
 
 ## 量子隐形传态
 
-**量子隐形传态**（Quantum Teleportation）
+和密集编码场景一样，Alice 和 Bob 共享纠缠态为 $\frac{1}{\sqrt{2}}(\ket{00}+\ket{11})$ 的两个量子比特，但除此之外 Alice 还有一个**未知的量子态** $a\ket{0}+b\ket{1}$，因为不能测量，**她无从得知 $a$ 和 $b$ 的值**，但她想要**将这个量子态传输给 Bob**. 我们称之为**量子隐形传态**（Quantum Teleportation）.
 
-写不动了，明天再写.
+Alice 通过一个**逆贝尔电路**来对自己的未知比特进行编码.
+
+```typst 量子隐形传态
+#import "@preview/quill:0.6.0": *
+#import "@preview/physica:0.9.4": *
+#show math.equation: math.display
+#scale(180%, reflow: true, quantum-circuit(
+    lstick($a ket(0)+b ket(1)$), 1, ctrl(1), $H$, 1, rstick([Alice's qubits], n: 2), [\ ],
+    lstick($1/sqrt(2) ket(00)+1/sqrt(2) ket(11)$, n: 2), 1, targ(), [\ ],
+    5, rstick([Bob's qubits], n: 1)
+))
+```
+
+当 Alice 的量子比特通过电路后，整个系统的状态为
+
+$$
+\begin{align*}
+&1/2\ket{00}\oplus(a\ket{0}+b\ket{1}) \\[0.5em]
++\ &1/2\ket{01}\oplus(a\ket{1}+b\ket{0}) \\[0.5em]
++\ &1/2\ket{10}\oplus(a\ket{0}-b\ket{1}) \\[0.5em]
++\ &1/2\ket{11}\oplus(a\ket{1}-b\ket{0}).
+\end{align*}
+$$
+
+接下来，Alice对自己的两个量子比特**进行测量**，共有四种可能的结果，概率均为 $1/4$.
+
+ - 测量结果为 $00$ 时，Bob 的量子比特状态为 $a\ket{0}+b\ket{1}$；
+ - 测量结果为 $01$ 时，Bob 的量子比特状态为 $a\ket{1}+b\ket{0}$；
+ - 测量结果为 $10$ 时，Bob 的量子比特状态为 $a\ket{0}-b\ket{1}$；
+ - 测量结果为 $11$ 时，Bob 的量子比特状态为 $a\ket{1}-b\ket{0}$.
+
+Alice 把自己的测量结果**使用两个经典比特**传输给 Bob，Bob 根据收到的信息**对自己的量子比特进行操作**，即可得到 Alice 想要传输的量子态.
+
+ - 如果 Bob 收到的信息是 $00$，他不做任何操作；
+ - 如果 Bob 收到的信息是 $01$，他对自己的量子比特应用 X 门；
+ - 如果 Bob 收到的信息是 $10$，他对自己的量子比特应用 Z 门；
+ - 如果 Bob 收到的信息是 $11$，他对自己的量子比特应用 Y 门.
+
+量子隐形传态的过程中，**量子态的信息并没有通过传统的通信方式传输**，而是通过**纠缠态**的方式传输，这是量子通信的一个重要特性. 量子隐形传态可以理解为**密集编码的逆过程**.
+
+---
+
+## 量子位翻转纠错
+
+**量子纠错**（Quantum Error Correction，QEC）是量子计算中的一个重要研究方向，本节介绍一个简单的量子纠错算法：**量子位翻转纠错**（Quantum Bit-Flip Correction）. 即发送的量子比特 01 翻转，从 $a\ket{0}+b\ket{1}$ 变成 $a\ket{1}+b\ket{0}$ 的情况.
+
+解决方案是**发送三个拷贝**，例如要发送 $\ket{0}$，则发送 $\ket{000}$，如果其中一个比特发生了翻转（**发生两个翻转的可能性很低**），我们可以通过剩下的两个比特来确定正确的比特.
+
+Alice 通过如下电路来制备这三个比特，它们是纠缠态，因此并不违背不可复制原理.
+
+```typst 冗余量子比特制备
+#import "@preview/quill:0.6.0": *
+#import "@preview/physica:0.9.4": *
+#show math.equation: math.display
+#scale(180%, reflow: true, quantum-circuit(
+    lstick($a ket(0)+b ket(1)$), 1, ctrl(1), ctrl(2), 1, rstick($a ket(000)+b ket(111)$, n: 3), [\ ],
+    lstick($ket(0)$), 1, targ(), [\ ],
+    lstick($ket(0)$), 2, targ()
+))
+```
+
+Alice 把这三个比特同时发给 Bob，由于**信道干扰**，Bob 收到的比特可能是 $a\ket{000}+b\ket{111}$、$a\ket{100}+b\ket{011}$、$a\ket{010}+b\ket{101}$ 或 $a\ket{110}+b\ket{001}$，分别对应无翻转、第一位翻转、第二位翻转和第三位翻转的情况.
+
+Bob 需要从中得知是否发生了偏转以及哪一位发生了偏转，但**不能直接测量**，因为测量会破坏信息 $a$、$b$ 本身. 他新增两个辅助比特进行运算.
+
+```typst 位翻转奇偶校验
+#import "@preview/quill:0.6.0": *
+#import "@preview/physica:0.9.4": *
+#show math.equation: math.display
+#scale(180%, reflow: true, quantum-circuit(
+    lstick([Received qubits], n:3), 1, ctrl(3), 1, ctrl(4), 2, rstick([Received qubits], n: 3), [\ ],
+    3, ctrl(2), [\ ],
+    5, ctrl(2), [\ ],
+    lstick($ket(0)$), 1, targ(), targ(), 2, meter(), rstick([Parity qubits], n: 2), [\ ],
+    lstick($ket(0)$), 3, targ(), targ(), meter()
+))
+```
+
+先**只考虑前四个量子比特**，假设 Bob 收到 $a\ket{c_0c_1c_2}+b\ket{d_0d_1d_2}$. 首先注意到如果发生翻转，一定是在 $c$ 和 $d$ 的同一位同时发生的，即 $c_0\oplus c_1=d_0\oplus d_1$.
+
+当 $c_0\oplus c_1=0$ 时，第四位量子比特不受前两个比特的翻转，保持为 $\ket{0}$；当 $c_0\oplus c_1=1$ 时，第四位比特受到了翻转，变为 $\ket{1}$. 容易证明，第四位比特和前三位不会发生纠缠，因此**直接测量第四位比特**即可得知 $c_0\oplus c_1$ 的值. 同理，第五位比特对应 $c_0\oplus c_2$ 的值.
+
+观察校验位的结果，Bob 进行如下操作：
+
+ - 如果得到 $\ket{00}$，说明没有发生翻转，不做任何操作；
+ - 如果得到 $\ket{01}$，说明第三位翻转，对第三个比特应用 X 门；
+ - 如果得到 $\ket{10}$，说明第二位翻转，对第二个比特应用 X 门；
+ - 如果得到 $\ket{11}$，说明第一位翻转，对第一个比特应用 X 门.
+
+从而完成纠错.
