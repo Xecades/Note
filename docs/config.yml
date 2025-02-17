@@ -17,7 +17,6 @@ nav:
                 - leftist-heap
                 - skew-heap
                 - binomial-queue
-                - review
           - others:
                 - mit-missing-semester
                 - c-language-cheatsheet
