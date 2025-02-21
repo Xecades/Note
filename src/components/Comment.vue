@@ -5,7 +5,7 @@ import router from "@/router";
 
 import "@/assets/css/twikoo.css";
 
-const URL = "https://cdn.jsdelivr.net/npm/twikoo@1.6.39/dist/twikoo.nocss.js";
+const URL = "https://registry.npmmirror.com/twikoo/1.6.41/files/dist/twikoo.all.min.js";
 const ENV_ID = "https://twikoo-blog.xecades.xyz/";
 
 const { load, unload } = useScriptTag(
