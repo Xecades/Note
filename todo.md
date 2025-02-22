@@ -3,11 +3,12 @@
  - LeftBar 添加折叠（？）
  - 深色模式切换按钮（切换的时候给所有元素设置临时的 transition !important？）（放 rightbar？或者不要也可以）
  - index comp，hover 范围广一点
- - 中文字体 cdn，目前加载太慢了
+ - 字体 cdn
  - 添加 backtotop 按钮
 
 ## 灵感
 
+ - index page，"Xecades Notes"特大居中，页面滚动过程中逐渐回到左上角
  - 元胞自动机、陨石雨、Gravity
 
 ## 长期
@@ -30,6 +31,7 @@
 
 ## 当前
 
+ - Code block 行高亮
  - Code block 添加标题、复制按钮
  - Dark Mode code block prism css error（目前是在 twikoo 中设置 theme 为 none）
  - MDCShorthand 前加 MDCBlock，shorthand 会渲染失败
