@@ -1,0 +1,49 @@
+@font-face {
+    font-family: "Libertinus Serif";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Libertinus Serif"),
+        url("../font/LibertinusSerif-Regular.woff") format("woff");
+}
+@font-face {
+    font-family: "Libertinus Serif";
+    font-style: italic;
+    font-weight: 400;
+    src: local("Libertinus Serif"),
+        url("../font/LibertinusSerif-Italic.woff") format("woff");
+}
+@font-face {
+    font-family: "Libertinus Serif";
+    font-style: normal;
+    font-weight: 600;
+    src: local("Libertinus Serif"),
+        url("../font/LibertinusSerif-Semibold.woff") format("woff");
+}
+@font-face {
+    font-family: "Libertinus Serif";
+    font-style: italic;
+    font-weight: 600;
+    src: local("Libertinus Serif"),
+        url("../font/LibertinusSerif-SemiboldItalic.woff") format("woff");
+}
+@font-face {
+    font-family: "Libertinus Serif";
+    font-style: normal;
+    font-weight: 700;
+    src: local("Libertinus Serif"),
+        url("../font/LibertinusSerif-Bold.woff") format("woff");
+}
+@font-face {
+    font-family: "Libertinus Serif";
+    font-style: italic;
+    font-weight: 700;
+    src: local("Libertinus Serif"),
+        url("../font/LibertinusSerif-BoldItalic.woff") format("woff");
+}
+@font-face {
+    font-family: "Libertinus Serif Display";
+    font-style: normal;
+    font-weight: 400;
+    src: local("Libertinus Serif Display"),
+        url("../font/LibertinusSerifDisplay-Regular.woff") format("woff");
+}
