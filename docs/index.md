@@ -5,7 +5,7 @@ displayTitle: Xecades Notes
 
 ::dot-pattern
 :::p{style="font-size: 1.1em"}
-Hi [👋]{.waving} 欢迎来到我的笔记本～
+Hi []{.waving} 欢迎来到我的笔记本～
 :::
 
 :::span{.home-links}

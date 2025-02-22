@@ -291,11 +291,18 @@ schemer(--quote-background-invert, 0, 1);
     /* span.waving 标签 */
     span.waving
         display: inline-block;
-        scale: 1.1;
-        margin-left: 0.1em;
         margin-right: 0.1em;
         animation: waving 1.7s infinite ease-in-out;
         transform-origin: 70% 60%;
+
+        &::before
+            margin-bottom: -0.2em;
+            width: 1.1em;
+            height: 1.1em;
+            content: "";
+            display: inline-block;
+            background: url(@/assets/img/waving.png) no-repeat;
+            background-size: 100%;
 
     /* span.home-links 标签 */
     span.home-links
