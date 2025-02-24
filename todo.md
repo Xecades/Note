@@ -1,5 +1,6 @@
 ## 近期
 
+ - 修改 . 的渲染
  - LeftBar 添加折叠（？）
  - 深色模式切换按钮（切换的时候给所有元素设置临时的 transition !important？）（放 rightbar？或者不要也可以）
  - index comp，hover 范围广一点
