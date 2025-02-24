@@ -18,7 +18,7 @@ Hi []{.waving} 欢迎来到我的笔记本～
 
 ::grid{align=equal gapx=10px gapy=20px .home-grid}
 :sep{span=24}
-:::fold{always expand title="关于我" info .home-fontawesome-list}
+:::fold{always expand title="关于我" info .fold-fontawesome-list}
 &nbsp;:user: 网名 Xecades，读作 /'zɛkeɪdz/
 
 &nbsp;:graduation-cap: 浙江大学图灵班 CS 专业 23 级本科生，目前大二
@@ -42,7 +42,7 @@ $^\ast$ 若未特殊说明，本站所有笔记均采用 [CC BY-NC-SA 4.0](https
 :::
 
 :sep{span=12 sm:span=24}
-:::fold{always expand title="站点统计" default .home-fontawesome-list}
+:::fold{always expand title="站点统计" default .fold-fontawesome-list}
 &nbsp;:file-lines: 页面总数：@PAGE_COUNT
 
 &nbsp;:pen-nib: 总词数：@WORD_COUNT
@@ -51,7 +51,7 @@ $^\ast$ 若未特殊说明，本站所有笔记均采用 [CC BY-NC-SA 4.0](https
 :::
 
 :sep{span=12 sm:span=24}
-:::fold{always expand title="最近更新" success .home-fontawesome-list .home-recent-updates}
+:::fold{always expand title="最近更新" success .fold-fontawesome-list .home-recent-updates}
 @RECENT_UPDATES
 :::
 
