@@ -1,5 +1,7 @@
 nav:
     - cs:
+          - db:
+                - relational-model
           - quantum:
                 - spin
                 - linear-algebra
