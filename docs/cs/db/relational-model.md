@@ -59,76 +59,59 @@ prereq([course_id]{.und}, [prereq_id]{.und})
 
 **投影 $\Pi_{A_1, A_2, \cdots, A_n}(r)$**：截取关系 $r$ 中的部分属性 $A_1, A_2, \cdots, A_n$.
 
-::grid{gap=5px align=top}
-:sep{span=7 offset=2}
 ```typst
 #show table.cell.where(y: 0): math.bold
-#table(
-    columns: 3,
-    inset: 9pt,
-    align: horizon + center,
-    stroke: (right: 1pt, bottom: 0pt),
-    table.hline(y: 0, stroke: 1pt),
-    table.hline(y: 1, stroke: 1pt),
-    table.vline(x: 0, stroke: 0pt),
-    table.vline(x: 3, stroke: 0pt),
-    table.header($A$, $B$, $C$),
-    $alpha$, $10$, $1$,
-    $alpha$, $20$, $1$,
-    $beta$, $30$, $1$,
-    $beta$, $40$, $2$
+#set text(font: "Noto Serif SC")
+#let tb(cap, col, ..args) = [
+    #table(
+        columns: col,
+        inset: (x: 9pt),
+        align: horizon + center,
+        stroke: (right: 1pt, bottom: 0pt),
+        table.hline(y: 0, stroke: 1pt),
+        table.hline(y: 1, stroke: 1pt),
+        table.vline(x: 0, stroke: 0pt),
+        table.vline(x: col, stroke: 0pt),
+        ..args
+    )
+    #v(-3pt)
+    #align(center, cap)
+]
+
+#grid(
+    columns: 5,
+    gutter: 16pt,
+    align: horizon,
+    tb(
+        [关系 $r$],
+        3,
+        $A$, $B$, $C$,
+        $alpha$, $10$, $1$,
+        $alpha$, $20$, $1$,
+        $beta$, $30$, $1$,
+        $beta$, $40$, $2$
+    ),
+    $stretch(=>, size: #150%) ^ display(Pi_(A,C)(r))$,
+    tb(
+        [],
+        2,
+        $A$, $C$,
+        $alpha$, $1$,
+        $alpha$, $1$,
+        $beta$, $1$,
+        $beta$, $2$
+    ),
+    $=$,
+    tb(
+        [],
+        2,
+        $A$, $C$,
+        $alpha$, $1$,
+        $beta$, $1$,
+        $beta$, $2$
+    ),
 )
 ```
-
-:sep{span=2 .center}
-$\xRightarrow{\displaystyle\Pi_{A, C}(r)}$
-
-:v{2rem}
-
-:sep{span=4 offset=1}
-```typst
-#show table.cell.where(y: 0): math.bold
-#table(
-    columns: 2,
-    inset: 9pt,
-    align: horizon + center,
-    stroke: (right: 1pt, bottom: 0pt),
-    table.hline(y: 0, stroke: 1pt),
-    table.hline(y: 1, stroke: 1pt),
-    table.vline(x: 0, stroke: 0pt),
-    table.vline(x: 2, stroke: 0pt),
-    table.header($A$, $C$),
-    $alpha$, $1$,
-    $alpha$, $1$,
-    $beta$, $1$,
-    $beta$, $2$
-)
-```
-
-:sep{span=1 .center}
-$=$
-
-:v{2rem}
-
-:sep{span=4}
-```typst
-#show table.cell.where(y: 0): math.bold
-#table(
-    columns: 2,
-    inset: 9pt,
-    align: horizon + center,
-    stroke: (right: 1pt, bottom: 0pt),
-    table.hline(y: 0, stroke: 1pt),
-    table.hline(y: 1, stroke: 1pt),
-    table.vline(x: 0, stroke: 0pt),
-    table.vline(x: 2, stroke: 0pt),
-    table.header($A$, $C$),
-    $alpha$, $1$,
-    $beta$, $1$,
-    $beta$, $2$
-)
-```
-::
 
 **并 $r\cup s$** $=\set{t\mid t\in r\ \text{或}\ t\in s}$，将两个关系的元组合并，要求两个关系的**元数**（Arity，属性个数）相同，且对应位置的**域**（Domain，所有能填入的值的集合）匹配.
 
@@ -146,74 +129,62 @@ $=$
 
 **笛卡尔积 $r\times s$** $=\set{t\cup q\mid t\in r\ \text{且}\ q\in s}$，将两个关系的元组两两组合，要求两个关系的**属性不同**，否则必须重命名.
 
-::grid{gap=5px align=top}
-:sep{span=5 offset=1}
-```typst 关系 $r$
+```typst
 #show table.cell.where(y: 0): math.bold
-#table(
-    columns: 2,
-    inset: 9pt,
-    align: horizon + center,
-    stroke: (right: 1pt, bottom: 0pt),
-    table.hline(y: 0, stroke: 1pt),
-    table.hline(y: 1, stroke: 1pt),
-    table.vline(x: 0, stroke: 0pt),
-    table.vline(x: 2, stroke: 0pt),
-    table.header($A$, $B$),
-    $alpha$, $1$,
-    $beta$, $2$
-)
-```
+#set text(font: "Noto Serif SC")
+#let tb(cap, col, ..args) = [
+    #table(
+        columns: col,
+        inset: (x: 9pt),
+        align: horizon + center,
+        stroke: (right: 1pt, bottom: 0pt),
+        table.hline(y: 0, stroke: 1pt),
+        table.hline(y: 1, stroke: 1pt),
+        table.vline(x: 0, stroke: 0pt),
+        table.vline(x: col, stroke: 0pt),
+        ..args
+    )
+    #v(-3pt)
+    #align(center, cap)
+]
 
-:sep{span=5}
-```typst 关系 $s$
-#show table.cell.where(y: 0): math.bold
-#table(
-    columns: 3,
-    inset: 9pt,
-    align: horizon + center,
-    stroke: (right: 1pt, bottom: 0pt),
-    table.hline(y: 0, stroke: 1pt),
-    table.hline(y: 1, stroke: 1pt),
-    table.vline(x: 0, stroke: 0pt),
-    table.vline(x: 3, stroke: 0pt),
-    table.header($C$, $D$, $E$),
-    $alpha$, $10$, $a$,
-    $beta$, $10$, $a$,
-    $beta$, $20$, $b$,
-    $gamma$, $10$, $b$
-)
-```
-
-:sep{span=4 .center}
-$\xRightarrow{\displaystyle{r\times s}}$
-
-:v{10rem}
-
-:sep{span=8}
-```typst 笛卡尔积 $r\times s$
-#show table.cell.where(y: 0): math.bold
-#table(
+#grid(
     columns: 5,
-    inset: 9pt,
-    align: horizon + center,
-    stroke: (right: 1pt, bottom: 0pt),
-    table.hline(y: 0, stroke: 1pt),
-    table.hline(y: 1, stroke: 1pt),
-    table.vline(x: 0, stroke: 0pt),
-    table.vline(x: 5, stroke: 0pt),
-    table.header($A$, $B$, $C$, $D$, $E$),
-    $alpha$, $1$, $alpha$, $10$, $a$,
-    $alpha$, $1$, $beta$, $10$, $a$,
-    $alpha$, $1$, $beta$, $20$, $b$,
-    $alpha$, $1$, $gamma$, $10$, $b$,
-    $beta$, $2$, $alpha$, $10$, $a$,
-    $beta$, $2$, $beta$, $10$, $a$,
-    $beta$, $2$, $beta$, $20$, $b$,
-    $beta$, $2$, $gamma$, $10$, $b$
+    gutter: 16pt,
+    align: horizon,
+    tb(
+        [关系 $r$],
+        2,
+        $A$, $B$,
+        $alpha$, $1$,
+        $beta$, $2$
+    ),
+    $times$,
+    tb(
+        [关系 $s$],
+        3,
+        $C$, $D$, $E$,
+        $alpha$, $10$, $a$,
+        $beta$, $10$, $a$,
+        $beta$, $20$, $b$,
+        $gamma$, $10$, $b$
+    ),
+    $=$,
+    tb(
+        [笛卡尔积 $r times s$],
+        5,
+        $A$, $B$, $C$, $D$, $E$,
+        $alpha$, $1$, $alpha$, $10$, $a$,
+        $alpha$, $1$, $beta$, $10$, $a$,
+        $alpha$, $1$, $beta$, $20$, $b$,
+        $alpha$, $1$, $gamma$, $10$, $b$,
+        $beta$, $2$, $alpha$, $10$, $a$,
+        $beta$, $2$, $beta$, $10$, $a$,
+        $beta$, $2$, $beta$, $20$, $b$,
+        $beta$, $2$, $gamma$, $10$, $b$
+    ),
 )
 ```
-::
 
 **重命名 $\rho_{x}(s)$**：将关系 $s$ 重命名为 $x$.
 
@@ -232,7 +203,7 @@ $$
 
 ---
 
-## 关系代数的扩展
+## 算符简写
 
 这些拓展**并没有增强关系代数的表达能力**，都能用基本关系代数表示，只是为了方便书写：交 $\cap$、自然连接 ⋈、外连接 ⟕ ⟖ ⟗、半连接 ⋉ ⋊、赋值 $\leftarrow$、除 $\div$.
 
@@ -257,47 +228,49 @@ $$
 
 
 ::fold{expand info title="自然连接、外连接例子"}
-:::grid{gap=5px align=top}
-:sep{span=12}
-```typst 关系 instructor
-#show table.cell.where(y: 0): set text(weight: "bold")
-#show table.cell.where(y: 3): set text(fill: red)
-#table(
-    columns: 3,
-    inset: 9pt,
-    align: horizon + center,
-    stroke: (right: 1pt, bottom: 0pt),
-    table.hline(y: 0, stroke: 1pt),
-    table.hline(y: 1, stroke: 1pt),
-    table.vline(x: 0, stroke: 0pt),
-    table.vline(x: 3, stroke: 0pt),
-    table.header([ID], [name], [dept_name]),
-    "10101", "Srinivasan", "Comp. Sci.",
-    "12121", "Wu", "Finance",
-    "15151", "Mozart", "Music"
-)
-```
+```typst 关系 instructor 和关系 teaches
+#show table.cell.where(y: 0): text.with(weight: "bold")
+#set text(font: ("Libertinus Serif", "Noto Serif SC"))
+#let tb(cap, col, ..args) = [
+    #table(
+        columns: col,
+        inset: (x: 9pt, y: 7pt),
+        align: horizon + center,
+        stroke: (right: 1pt, bottom: 0pt),
+        table.hline(y: 0, stroke: 1pt),
+        table.hline(y: 1, stroke: 1pt),
+        table.vline(x: 0, stroke: 0pt),
+        table.vline(x: col, stroke: 0pt),
+        ..args
+    )
+    #v(-3pt)
+    #align(center, cap)
+]
+#let r = text.with(fill: red)
+#let b = text.with(fill: blue)
 
-:sep{span=12}
-```typst 关系 teaches
-#show table.cell.where(y: 0): set text(weight: "bold")
-#show table.cell.where(y: 3): set text(fill: blue)
-#table(
+#grid(
     columns: 2,
-    inset: 9pt,
-    align: horizon + center,
-    stroke: (right: 1pt, bottom: 0pt),
-    table.hline(y: 0, stroke: 1pt),
-    table.hline(y: 1, stroke: 1pt),
-    table.vline(x: 0, stroke: 0pt),
-    table.vline(x: 2, stroke: 0pt),
-    table.header([ID], [course_id]),
-    "10101", "CS-101",
-    "12121", "FIN-201",
-    "76766", "BIO-101"
+    gutter: 28pt,
+    align: horizon,
+    tb(
+        [instructor],
+        3,
+        [ID], [name], [dept_name],
+        "10101", "Srinivasan", "Comp. Sci.",
+        "12121", "Wu", "Finance",
+        r("15151"), r("Mozart"), r("Music")
+    ),
+    tb(
+        [teaches],
+        2,
+        [ID], [course_id],
+        "10101", "CS-101",
+        "12121", "FIN-201",
+        b("76766"), b("BIO-101")
+    ),
 )
 ```
-:::
 
 ```typst 自然连接 instructor ⋈ teaches
 #show table.cell.where(y: 0): set text(weight: "bold")
@@ -484,4 +457,66 @@ $\Pi_{\text{name}}(\text{instructor}$ ⋉$_{\text{instructor.ID = teaches.ID}}(\
 
 **除 $r\div s$**：给定关系 $r(R)$ 和 $s(S)$，$S\subset R$，$r\div s$ 是满足 $t\times s\subseteq r$ 的最大的关系 $t(R-S)$. 也即，选出来的每个元组和 $s$ 作笛卡尔积后都在 $r$ 中.
 
-TBD: 剩下的以后再写.
+   - $\text{temp1}\leftarrow\Pi_{R-S}(r)$\
+   $\text{temp2}\leftarrow\Pi_{R-S}((\text{temp1}\times s) - \Pi_{R-S, S}(r))$\
+   $r\div s = \text{temp1} - \text{temp2}$.
+
+```typst
+#show table.cell.where(y: 0): math.bold
+#set text(font: "Noto Serif SC")
+#let tb(cap, col, ..args) = [
+    #table(
+        columns: col,
+        inset: (x: 9pt),
+        align: horizon + center,
+        stroke: (right: 1pt, bottom: 0pt),
+        table.hline(y: 0, stroke: 1pt),
+        table.hline(y: 1, stroke: 1pt),
+        table.vline(x: 0, stroke: 0pt),
+        table.vline(x: col, stroke: 0pt),
+        ..args
+    )
+    #v(-3pt)
+    #align(center, cap)
+]
+
+#grid(
+    columns: 5,
+    gutter: 16pt,
+    align: horizon,
+    tb(
+        [关系 $r$],
+        2,
+        $A$, $B$,
+        $alpha$, $1$,
+        $alpha$, $2$,
+        $alpha$, $3$,
+        $beta$, $1$,
+        $gamma$, $1$,
+        $delta$, $1$,
+        $delta$, $3$,
+        $delta$, $4$,
+        $epsilon$, $6$,
+        $epsilon$, $1$,
+        $beta$, $2$
+    ),
+    $div$,
+    tb([关系 $s$], 1, $B$, $1$, $2$),
+    $=$,
+    tb($r div s$, 1, $A$, $alpha$, $beta$),
+)
+```
+
+---
+
+## 算符拓展
+
+这些拓展能够实现**基础关系代数无法实现**的功能：拓展投影 $\Pi_{f(R)}$、聚合算子 $\mathcal{G}$.
+
+**拓展投影 $\Pi_{F_1, F_2, \dots, F_n}(r)$**：在投影的基础上，允许对属性值进行算数运算.
+
+ - *e.g.* $\Pi_{\text{ID},\ \text{salary} / 12}(\text{instructor})$ 计算每个教师的月工资.
+
+**聚合算子 Aggregate Operation**：对关系中的元组进行聚合操作，得到一个值. 写作 $_{G_1, G_2, \dots, G_m}\mathcal{G}_{F_1, F_2, \dots, F_n}(r)$. 其中 $G_i$ 为分组属性，若省略则代表不分组. $F_i$ 是以属性为参数的**聚合函数**，包括 avg、min、max、sum、count.
+
+ - *e.g.* $_\text{dept\_name}\mathcal{G}_{\text{avg(salary)}}(\text{instructor})$ 将所有教师按照系分组，计算每个系的平均工资. 返回的关系模式为 $(\text{dept\_name}, \text{avg(salary)})$.
