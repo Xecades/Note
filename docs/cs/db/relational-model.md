@@ -61,7 +61,6 @@ prereq([course_id]{.und}, [prereq_id]{.und})
 
 ```typst
 #show table.cell.where(y: 0): math.bold
-#set text(font: "Noto Serif SC")
 #let tb(cap, col, ..args) = [
     #table(
         columns: col,
@@ -83,7 +82,7 @@ prereq([course_id]{.und}, [prereq_id]{.und})
     gutter: 16pt,
     align: horizon,
     tb(
-        [关系 $r$],
+        [],
         3,
         $A$, $B$, $C$,
         $alpha$, $10$, $1$,
@@ -131,7 +130,6 @@ prereq([course_id]{.und}, [prereq_id]{.und})
 
 ```typst
 #show table.cell.where(y: 0): math.bold
-#set text(font: "Noto Serif SC")
 #let tb(cap, col, ..args) = [
     #table(
         columns: col,
@@ -153,7 +151,7 @@ prereq([course_id]{.und}, [prereq_id]{.und})
     gutter: 16pt,
     align: horizon,
     tb(
-        [关系 $r$],
+        $r$,
         2,
         $A$, $B$,
         $alpha$, $1$,
@@ -161,7 +159,7 @@ prereq([course_id]{.und}, [prereq_id]{.und})
     ),
     $times$,
     tb(
-        [关系 $s$],
+        $s$,
         3,
         $C$, $D$, $E$,
         $alpha$, $10$, $a$,
@@ -171,7 +169,7 @@ prereq([course_id]{.und}, [prereq_id]{.und})
     ),
     $=$,
     tb(
-        [笛卡尔积 $r times s$],
+        $r times s$,
         5,
         $A$, $B$, $C$, $D$, $E$,
         $alpha$, $1$, $alpha$, $10$, $a$,
@@ -463,7 +461,6 @@ $\Pi_{\text{name}}(\text{instructor}$ ⋉$_{\text{instructor.ID = teaches.ID}}(\
 
 ```typst
 #show table.cell.where(y: 0): math.bold
-#set text(font: "Noto Serif SC")
 #let tb(cap, col, ..args) = [
     #table(
         columns: col,
@@ -485,7 +482,7 @@ $\Pi_{\text{name}}(\text{instructor}$ ⋉$_{\text{instructor.ID = teaches.ID}}(\
     gutter: 16pt,
     align: horizon,
     tb(
-        [关系 $r$],
+        $r$,
         2,
         $A$, $B$,
         $alpha$, $1$,
@@ -501,7 +498,7 @@ $\Pi_{\text{name}}(\text{instructor}$ ⋉$_{\text{instructor.ID = teaches.ID}}(\
         $beta$, $2$
     ),
     $div$,
-    tb([关系 $s$], 1, $B$, $1$, $2$),
+    tb($s$, 1, $B$, $1$, $2$),
     $=$,
     tb($r div s$, 1, $A$, $alpha$, $beta$),
 )
