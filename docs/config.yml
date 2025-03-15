@@ -2,6 +2,7 @@ nav:
     - cs:
           - db:
                 - relational-model
+                - introduction-to-sql
           - quantum:
                 - spin
                 - linear-algebra
