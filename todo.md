@@ -1,5 +1,6 @@
 ## 近期
 
+ - typst 生成的 svg，支持文本选中
  - typst 支持中文（让 workflow 先安装字体）
  - 修改 . 的渲染
  - LeftBar 添加折叠（？）
