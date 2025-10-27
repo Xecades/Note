@@ -1,5 +1,14 @@
 nav:
     - cs:
+          - tcs:
+                - lec01
+                - lec02
+                - lec03
+                - lec04
+                - lec05
+          - rl:
+                - fundamentals
+                - value-based
           - db:
                 - relational-model
                 - introduction-to-sql

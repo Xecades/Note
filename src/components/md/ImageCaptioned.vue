@@ -40,6 +40,9 @@ figure
         max-height: 25em;
         cursor: pointer;
 
+    img.full-height
+        max-height: unset;
+
     figcaption
         margin-top: 0.6em;
         font-size: 0.8em;
