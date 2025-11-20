@@ -21,7 +21,7 @@ Hi []{.waving} 欢迎来到我的笔记本～
 :::fold{always expand title="关于我" info .fold-fontawesome-list}
 &nbsp;:user: 网名 Xecades，读作 /'zɛkeɪdz/
 
-&nbsp;:graduation-cap: 浙江大学图灵班 CS 专业 23 级本科生，目前大二
+&nbsp;:graduation-cap: 浙江大学图灵班 CS 专业 23 级本科生，目前大三
 
 &nbsp;:flag: CTF 选手，浙江大学 AAA 战队队员
 
