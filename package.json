@@ -10,6 +10,9 @@
     },
     "description": "Yet another personal website.",
     "license": "GPL-3.0-only",
+    "workspaces": [
+        "packages/*"
+    ],
     "scripts": {
         "dev": "vite",
         "build": "run-p type-check \"build-only {@}\" --",
@@ -61,6 +64,7 @@
         "typescript": "~5.6.3",
         "vite": "^5.4.11",
         "vite-plugin-vue-devtools": "^7.6.8",
+        "vite-plugin-vue-xecades-note": "workspace:*",
         "vue-tsc": "^2.1.10"
     }
 }
