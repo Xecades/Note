@@ -6,6 +6,7 @@ import type { KatexOptions } from "katex";
  * 
  * Example:
  * \newcommand{\foo}[2]{#1 + #2}  -->  \gdef\foo#1#2{#1 + #2}
+ * \newcommand{\NN}{\mathbb{N}}   -->  \gdef\NN{\mathbb{N}}
  */
 const replaceNewcommandWithGdef = (raw: string): string => {
     let result = '';
@@ -15,8 +16,8 @@ const replaceNewcommandWithGdef = (raw: string): string => {
 
     for (const match of raw.matchAll(newcmd_head)) {
         const [, cmd, argc] = match;
+        const braceStart = match.index! + match[0].length - 1;
 
-        const braceStart = raw.indexOf('{', match.index + match[0].length);
         let depth = 0;
         let i = braceStart;
 
@@ -41,7 +42,7 @@ const replaceNewcommandWithGdef = (raw: string): string => {
 
     result += raw.slice(lastIndex);
     return result;
-}
+};
 
 
 const _render = (options: KatexOptions) => (raw: string) => {
