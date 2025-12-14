@@ -8,6 +8,9 @@ $\newcommand{\rmTIME}{\mathrm{TIME}}$
 $\newcommand{\rmRAM}{\mathrm{RAM}}$
 $\newcommand{\rmTM}{\mathrm{TM}}$
 $\newcommand{\rmHALT}{\mathrm{HALT}}$
+$\newcommand{\Ppoly}{\mathcal{P}/\mathrm{poly}}$
+$\newcommand{\zeroone}{\{0,1\}}$
+$\newcommand{\zeroonestar}{\zeroone^*}$
 
 从本次课开始，我们主要讨论可计算函数。
 
@@ -153,16 +156,16 @@ on input z:
 
 ---
 
-**$F_{\uparrow n}$**：给定 $F:\{0,1\}^* \to \{0,1\}$，定义 $F_{\uparrow n}:\{0,1\}^n \to \{0,1\}$，其中对任意 $x \in \{0,1\}^n$，都有 $F_{\uparrow n}(x) = F(x)$。即把 $F$ 限制在长度为 $n$ 的输入上。
+**$F_{\uparrow n}$**：给定 $F:\zeroonestar \to \zeroone$，定义 $F_{\uparrow n}:\zeroone^n \to \zeroone$，其中对任意 $x \in \zeroone^n$，都有 $F_{\uparrow n}(x) = F(x)$。即把 $F$ 限制在长度为 $n$ 的输入上。
 
 **$F_{\uparrow n}\in\rmSIZE_n(T(n))$ if it needs at most $T(n)$ gates.**（NAND-CIRC 电路）
 
 **$F \in \rmSIZE(T(n))$ if for every $n$, $F_{\uparrow n} \in \rmSIZE_n(T(n))$**。即对于任意输入长度 $n$，$F$ 在该长度下都能被大小为 $T(n)$ 的电路计算出来。
 
 ::fold{title="$\rmSIZE$ 和 $\rmTIME$ 比较" always expand}
-$F\in\rmSIZE(T(n))\Longleftrightarrow\forall n, \exists$ NAND-CIRC $P, \forall x\in \{0,1\}^n, F(x)$ can be computed by $P$ in $T(n)$ lines.
+$F\in\rmSIZE(T(n))\Longleftrightarrow\forall n, \exists$ NAND-CIRC $P, \forall x\in \zeroone^n, F(x)$ can be computed by $P$ in $T(n)$ lines.
 
-$F\in\rmTIME(T(n))\Longleftrightarrow\exists$ NAND-TM $P, \forall n, \forall x\in \{0,1\}^n, F(x)$ can be computed by $P$ in $T(n)$ steps.
+$F\in\rmTIME(T(n))\Longleftrightarrow\exists$ NAND-TM $P, \forall n, \forall x\in \zeroone^n, F(x)$ can be computed by $P$ in $T(n)$ steps.
 
 两者只有前面两个量词顺序不同。直觉上，$\rmTIME$ 要求对所有 $n$ 找到一个通用的 $P$，而 $\rmSIZE$ 只需要对每个 $n$ 找到一个对应的 $P$ 即可，因此 $\rmTIME$ 应该要求更高。
 ::
@@ -170,4 +173,27 @@ $F\in\rmTIME(T(n))\Longleftrightarrow\exists$ NAND-TM $P, \forall n, \forall x\i
 ::fold{title="**定理**：$\rmTIME$ 和 $\rmSIZE$ 的关系" success always expand}
 $\forall$ nice function $T(n)$，都有 **$\rmTIME(T(n)) \subseteq \rmSIZE(T(n)^3)$**。
 
+:::fold{title="证明" expand}
+（这里详细讲了，没听）
+:::
 ::
+
+**$\Ppoly = \bigcup_{k\in \NN} \rmSIZE(n^k)$**，即所有能被多项式大小电路计算的布尔函数的集合。
+
+由上面的定理可知，$\mathcal{P} \subseteq \Ppoly$（其实是真包含）。
+
+::fold{title="**定理**：$\Ppoly$ 甚至包含不可计算函数" success always expand}
+定义 $s: \NN \to \zeroonestar$，其中 $s(n)$ 是 $n$ 先转化为二进制表示再去除最高位 1 后的字符串。e.g. $s(7) = 11$，$s(8) = 000$。
+
+定义 unary halting problem：
+
+$$
+\mathrm{UH}(x) = \mathrm{HALT\_ON\_ZERO}(s(|x|))
+$$
+
+显然 $\mathrm{UH}$ 不可计算，因为可以构造从 $\mathrm{HALT\_ON\_ZERO}$ 到 $\mathrm{UH}$ 的归约。因此显然 $\mathrm{UH} \notin \mathcal{P}$。
+
+注意到 $\mathrm{UH}$ 只与输入长度有关，因此当限制长度固定时，**$\mathrm{UH}_{\uparrow n}$ 是个常数函数**，可以用常数多个门计算出来。因此，$\mathrm{UH} \in \Ppoly$。
+::
+
+因此 **$\mathcal{P} \subsetneq \Ppoly$**。
