@@ -127,6 +127,12 @@ onMounted(() => {
             --block-extend: 0;
             padding: var(--wrapper-padding);
 
+            > .fold:first-child
+                margin-top: 0.2em;
+
+            > .fold:last-child
+                margin-bottom: 0.2em;
+
         &.immensive
             --wrapper-padding: 0;
 
