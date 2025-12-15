@@ -45,11 +45,11 @@ const replaceNewcommandWithGdef = (raw: string): string => {
 };
 
 
-const _render = (options: KatexOptions) => (raw: string) => {
+const _render = (options: KatexOptions) => (raw: string, macros?: any) => {
     raw = replaceNewcommandWithGdef(raw);
 
     try {
-        return katex.renderToString(raw, options);
+        return katex.renderToString(raw, { ...options, macros: macros || {} });
     } catch (error) {
         console.error(error);
         return `<span style="color: red">${raw}</span>`;
@@ -63,6 +63,6 @@ const config: KatexOptions = {
 
 const render_inline = _render({ displayMode: false, ...config });
 const render_block = _render({ displayMode: true, ...config });
-const render = (raw: string, opts: KatexOptions) => _render(opts)(raw);
+const render = (raw: string, opts: KatexOptions, macros?: any) => _render(opts)(raw, macros);
 
 export { render, render_inline, render_block };
