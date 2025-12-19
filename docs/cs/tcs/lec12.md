@@ -152,7 +152,7 @@ $$
 然后再转化成十进制即可。
 ::
 
-**多项式时间可验证**：$F: \zeroonestar \to \zeroone$ is polynomial-time verifiable if $\exists$ TM $V$ with polynomial running time such that for any $x \in \zeroonestar$, $F(x) = 1 \iff \exists t \in \zeroonestar$ such that $V(x, t) = 1$ and $|t| \leq \mathrm{poly}(|x|)$。即对于任意输入 $x$，如果 $F(x) = 1$，则存在一个多项式长度的**证据** $t$，使得验证器 $V$ 在输入 $(x, t)$ 上输出 1；反之亦然。（注意：对于 $F(x) = 0$ 的情况没有要求）
+**多项式时间可验证**：$F: \zeroonestar \to \zeroone$ is polynomial-time verifiable if $\exists$ TM $V$ with polynomial running time such that for any $x \in \zeroonestar$, $F(x) = 1 \iff \exists t \in \zeroonestar$ such that $V(x, t) = 1$ and $|t| \leq \mathrm{poly}(|x|)$。即对于任意输入 $x$，如果 $F(x) = 1$，则存在一个多项式长度的**证据** $t$，使得验证器 $V$ 在输入 $(x, t)$ 上输出 1；反之亦然。
 
 ::fold{title="3SAT 是多项式时间可验证的" expand}
 定义 $V(x, t)$：
