@@ -46,6 +46,7 @@ export const navigate = (
     smooth: boolean = true,
     pushState: boolean = true
 ) => {
+    if (!id) return;
     const OFFSET = 4 * 16;
     let el = document.getElementById(id);
     if (el) {

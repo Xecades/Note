@@ -127,6 +127,7 @@ const mouse = {
 
 const keyboard = {
     command_k: (event: KeyboardEvent, handler: HotkeysEvent) => {
+        event.preventDefault();
         if (!is_searching.value) {
             search.reveal();
         }
