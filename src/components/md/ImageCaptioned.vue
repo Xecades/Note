@@ -56,7 +56,7 @@ figure
     img.svg, img.inv
         filter: invert(0.9);
 
-@media only screen and (max-width: 748px)
+@media only screen and (max-width: 768px)
     img
         max-height: 15em;
 </style>

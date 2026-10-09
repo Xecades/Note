@@ -1,32 +1,31 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from "vue";
-import { useScriptTag } from "@vueuse/core";
-import router from "@/router";
-
+import { onMounted, onBeforeUnmount, ref } from "vue";
+import { loadComments } from "@/assets/ts/comments";
 import "@/assets/css/twikoo.css";
 
-const URL = "https://registry.npmmirror.com/twikoo/1.6.41/files/dist/twikoo.all.min.js";
-const ENV_ID = "https://twikoo-blog.xecades.xyz/";
-
-const { load, unload } = useScriptTag(
-    URL,
-    () => {
-        // @ts-expect-error
-        const twikoo = window.twikoo;
-        twikoo.init({ envId: ENV_ID, el: "#twikoo" });
-    },
-    { manual: true }
-);
-
-router.afterEach(() => load());
-router.beforeEach(() => unload());
-onMounted(() => load());
-onUnmounted(() => unload());
+const target = ref<HTMLElement>();
+let disposed = false;
+onMounted(async () => {
+    try {
+        const twikoo = await loadComments();
+        if (!disposed && target.value)
+            await twikoo.init({
+                envId: "https://twikoo-blog.xecades.xyz/",
+                el: target.value,
+                path: location.pathname,
+            });
+    } catch (error) {
+        console.error("Unable to load comments", error);
+    }
+});
+onBeforeUnmount(() => {
+    disposed = true;
+});
 </script>
 
 <template>
     <div id="comment">
-        <div id="twikoo" />
+        <div ref="target" id="twikoo" />
     </div>
 </template>
 

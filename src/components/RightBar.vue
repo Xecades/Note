@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUpdated, ref } from "vue";
+import { computed, onMounted, onBeforeUnmount, watch, ref } from "vue";
 import { serial_toc, ScrollListener, cascade_toc } from "@/assets/ts/rightbar";
 import { RIGHTBAR_STATUS } from "@/assets/ts/types";
 import RightBarDetail from "./RightBarDetail.vue";
@@ -21,13 +21,13 @@ const mouse = {
 const in_view: Ref<number> = ref(-1);
 const sl = new ScrollListener(in_view);
 
-const registerScrollListener = () => {
-    sl.reset();
-    document.querySelectorAll(".heading").forEach(sl.listen.bind(sl));
-};
-
-onUpdated(registerScrollListener);
-onMounted(registerScrollListener);
+onMounted(() => sl.start());
+onBeforeUnmount(() => sl.stop());
+watch(
+    () => props.toc,
+    () => sl.refresh(),
+    { flush: "post" },
+);
 </script>
 
 <template>
@@ -68,9 +68,7 @@ onMounted(registerScrollListener);
                                 expand:
                                     item.children.length &&
                                     (item.index === in_view ||
-                                        item.children.some(
-                                            (c) => c.index === in_view
-                                        )),
+                                        item.children.some((c) => c.index === in_view)),
                             }"
                         />
 

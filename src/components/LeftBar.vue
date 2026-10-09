@@ -1,16 +1,8 @@
 <script setup lang="ts">
-import {
-    nextTick,
-    onBeforeUnmount,
-    onMounted,
-    ref,
-    watch,
-    watchEffect,
-} from "vue";
+import { nextTick, onBeforeUnmount, onMounted, ref, watch, watchEffect } from "vue";
 import { render_list } from "@/assets/ts/leftbar";
 import { LEFTBAR_STATUS } from "@/assets/ts/types";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
-import hotkeys from "hotkeys-js";
 import Search from "./Search.vue";
 
 // Cache
@@ -18,8 +10,6 @@ import config from "@cache/config";
 
 // Types
 import type { Ref } from "vue";
-import type { JSX } from "vue/jsx-runtime";
-import type { HotkeysEvent } from "hotkeys-js";
 import type { PartialOptions } from "overlayscrollbars";
 
 const props = defineProps<{
@@ -37,7 +27,7 @@ interface Category {
     name: string;
     link: string;
     opacity: number;
-    timeout?: NodeJS.Timeout;
+    timeout?: ReturnType<typeof setTimeout>;
 }
 
 /** Categories to be displayed as buttons. */
@@ -46,12 +36,12 @@ const categories: Ref<Category[]> = ref(
         name: c.title,
         link: c.link,
         opacity: 0,
-    }))
+    })),
 );
 
 /** ID of category of current page, -1 iff current location is index page. */
 const category_id: number = categories.value.findIndex(
-    (c) => c.link === "/" + props.currentCategory
+    (c) => c.link === "/" + props.currentCategory,
 );
 
 /** ID of active category. */
@@ -70,7 +60,7 @@ const category = {
         for (let i = 0; i < len; i++) {
             clearTimeout(categories.value[i].timeout);
 
-            let timeout: NodeJS.Timeout = setTimeout(() => {
+            let timeout: ReturnType<typeof setTimeout> = setTimeout(() => {
                 categories.value[i].opacity = 1;
             }, REVEAL_DELAY * i);
 
@@ -83,9 +73,12 @@ const category = {
         for (let i = len - 1; i >= 0; i--) {
             clearTimeout(categories.value[i].timeout);
 
-            let timeout: NodeJS.Timeout = setTimeout(() => {
-                categories.value[i].opacity = 0;
-            }, REVEAL_DELAY * (len - 1 - i));
+            let timeout: ReturnType<typeof setTimeout> = setTimeout(
+                () => {
+                    categories.value[i].opacity = 0;
+                },
+                REVEAL_DELAY * (len - 1 - i),
+            );
 
             categories.value[i].timeout = timeout;
         }
@@ -96,9 +89,6 @@ const search = {
     reveal: async () => {
         is_searching.value = true;
         await nextTick();
-
-        const input = document.querySelector(".search .input") as any;
-        input.focus();
     },
     hide: () => {
         is_searching.value = false;
@@ -125,34 +115,25 @@ const mouse = {
     },
 };
 
-const keyboard = {
-    command_k: (event: KeyboardEvent, handler: HotkeysEvent) => {
+const onKeydown = (event: KeyboardEvent) => {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
-        if (!is_searching.value) {
-            search.reveal();
-        }
-    },
-
-    esc: (event: KeyboardEvent, handler: HotkeysEvent) => {
-        if (is_searching.value) {
-            search.hide();
-        }
-    },
+        if (!is_searching.value) search.reveal();
+    }
 };
-
-const VBody_fn = () => () => render_list(config.nav[active_id.value], true);
-const VBody: Ref<() => JSX.Element> = ref(VBody_fn());
-watch(active_id, () => (VBody.value = VBody_fn()));
-
-onMounted(() => {
-    hotkeys("command+k,ctrl+k", keyboard.command_k);
-    hotkeys("esc", keyboard.esc);
-});
-
+const VBody = () => render_list(config.nav[active_id.value], true);
+onMounted(() => window.addEventListener("keydown", onKeydown));
 onBeforeUnmount(() => {
-    hotkeys.unbind("command+k,ctrl+k");
-    hotkeys.unbind("esc");
+    window.removeEventListener("keydown", onKeydown);
+    categories.value.forEach((category) => clearTimeout(category.timeout));
 });
+watch(
+    () => props.currentCategory,
+    (value) => {
+        const index = config.nav.findIndex((node) => node.link === "/" + value);
+        if (index >= 0) active_id.value = index;
+    },
+);
 
 watchEffect(() => {
     if (props.status === LEFTBAR_STATUS.SHOW_SEARCH_AND_CATEGORY) {
@@ -170,8 +151,8 @@ watchEffect(() => {
             '--z-index': do_show_detail
                 ? 1001
                 : status == LEFTBAR_STATUS.HOVER_TO_SHOW
-                ? 0
-                : 1001,
+                  ? 0
+                  : 1001,
             '--height':
                 status == LEFTBAR_STATUS.HOVER_TO_SHOW
                     ? 'calc(100vh - var(--offset-top) * 2)'
@@ -179,15 +160,20 @@ watchEffect(() => {
         }"
     >
         <ul class="nav">
-            <li class="btn" id="search" @click="search.reveal">
-                <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+            <li>
+                <button
+                    class="btn"
+                    id="search-button"
+                    type="button"
+                    aria-label="搜索笔记"
+                    @click="search.reveal"
+                >
+                    <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
+                </button>
             </li>
         </ul>
 
-        <div
-            class="category"
-            v-if="status != LEFTBAR_STATUS.ONLY_SEARCH_BUTTON"
-        >
+        <div class="category" v-if="status != LEFTBAR_STATUS.ONLY_SEARCH_BUTTON">
             <template v-for="(item, idx) in categories">
                 <a
                     class="item"
@@ -205,7 +191,7 @@ watchEffect(() => {
         <OverlayScrollbarsComponent
             element="div"
             class="content-wrapper"
-            :options="(osOptions as any)"
+            :options="osOptions as any"
             defer
         >
             <Transition name="content">
@@ -294,6 +280,7 @@ $width = $toc-offset-left + $toc-width;
             transition: background-color 0.07s, color 0.08s;
             color: var(--nav-color);
             cursor: pointer;
+            background: transparent;
             display: block;
 
             &:hover
@@ -424,7 +411,7 @@ $width = $toc-offset-left + $toc-width;
     opacity: 0;
     transform: scale($search-scale);
 
-@media only screen and (max-width: 748px)
+@media only screen and (max-width: 768px)
     #left
         position: absolute;
 

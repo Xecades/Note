@@ -3,7 +3,6 @@ import { defineConfig } from "vite";
 
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
-import vueDevTools from "vite-plugin-vue-devtools";
 import vueXecadesNote from "vite-plugin-vue-xecades-note";
 import autoprefixer from "autoprefixer";
 
@@ -24,11 +23,7 @@ export default defineConfig({
         // [@vitejs/plugin-vue-jsx]
         vueJsx(),
 
-        // [vite-plugin-vue-devtools]
-        vueDevTools(),
-
         // [vite-plugin-vue-xecades-note]
-        // @ts-ignore
         vueXecadesNote({ componentDir: "src/components/md" }),
     ],
     resolve: {

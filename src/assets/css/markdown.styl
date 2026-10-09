@@ -2,8 +2,6 @@
 
 // @todo 完善标点挤压（写 js 脚本，临时用 font-feature-settings: "halt" 解决）
 
-dualr(--block-extend, -0.5rem, -1rem);
-
 schemer(--hr-color, lighten(black, 82%), lighten(black, 50%));
 schemer(--bold-color, darken($theme-color, 20%), $theme-color);
 
@@ -30,6 +28,9 @@ schemer(--quote-background-opacity, 0.35, 0.5);
 schemer(--quote-background-invert, 0, 1);
 
 .markdown
+    // Let nested containers override this through normal inheritance.
+    dual(--block-extend, -0.5rem, -1rem);
+
     /* 基础样式 */
     line-height: 1.73em;
     font-size: 1.06rem;

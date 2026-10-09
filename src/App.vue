@@ -1,33 +1,27 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed } from "vue";
+import { useWindowSize } from "@vueuse/core";
 import { useRoute } from "vue-router";
 import { get_leftbar_status } from "@/assets/ts/leftbar";
 import { get_rightbar_status } from "@/assets/ts/rightbar";
-import { assertType, LEFTBAR_STATUS, RIGHTBAR_STATUS } from "@/assets/ts/types";
-import router from "@/router";
+import { assertType } from "@/assets/ts/types";
 
 import LeftBar from "@/components/LeftBar.vue";
 import RightBar from "@/components/RightBar.vue";
 import Content from "@/components/Content.vue";
 import Logo from "./components/Logo.vue";
 
-import type { Ref } from "vue";
 import type { RouteMeta } from "vite-plugin-vue-xecades-note";
 
 const route = useRoute();
-const meta: Ref<RouteMeta | null> = ref(null);
-router.afterEach(() => (meta.value = assertType<RouteMeta>(route.meta)));
-
-const left_stat: Ref<LEFTBAR_STATUS> = ref(get_leftbar_status());
-const right_stat: Ref<RIGHTBAR_STATUS> = ref(get_rightbar_status());
-window.onresize = () => {
-    left_stat.value = get_leftbar_status();
-    right_stat.value = get_rightbar_status();
-};
+const meta = computed(() => assertType<RouteMeta>(route.meta));
+const { width } = useWindowSize();
+const left_stat = computed(() => get_leftbar_status(width.value));
+const right_stat = computed(() => get_rightbar_status(width.value));
 </script>
 
 <template>
-    <div id="main" v-if="meta">
+    <div id="main" v-if="meta.attr">
         <LeftBar :status="left_stat" :current-category="meta.category" />
         <Content :meta="meta" />
         <RightBar :status="right_stat" :toc="meta.toc" />

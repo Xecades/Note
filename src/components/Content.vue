@@ -1,9 +1,6 @@
 <script setup lang="tsx">
-/** @todo 图片缓存，不能每次都重新加载一遍 */
-
-import { computed, nextTick, onMounted } from "vue";
-import { RouterView, useRoute } from "vue-router";
-import { navigate } from "@/assets/ts/utils";
+import { computed } from "vue";
+import { RouterView } from "vue-router";
 
 import Timestamp from "./Timestamp.vue";
 import Comment from "./Comment.vue";
@@ -15,10 +12,8 @@ import "@/assets/css/markdown.styl";
 // Types
 import type { Ref } from "vue";
 import type { RouteMeta } from "vite-plugin-vue-xecades-note";
-import router from "@/router";
 
 const props = defineProps<{ meta: RouteMeta }>();
-const route = useRoute();
 
 /**
  * Whether to show timestamp.
@@ -27,8 +22,7 @@ const route = useRoute();
  *  - Otherwise, return the value in front-matter.
  */
 const show_timestamp: Ref<boolean> = computed(() => {
-    if (props.meta.attr.timestamp === undefined)
-        return props.meta.type === "post";
+    if (props.meta.attr.timestamp === undefined) return props.meta.type === "post";
     return props.meta.attr.timestamp;
 });
 
@@ -39,20 +33,9 @@ const show_timestamp: Ref<boolean> = computed(() => {
  *  - Otherwise, return the value in front-matter.
  */
 const show_comment: Ref<boolean> = computed(() => {
-    if (props.meta.attr.comment === undefined)
-        return props.meta.type === "post";
+    if (props.meta.attr.comment === undefined) return props.meta.type === "post";
     return props.meta.attr.comment;
 });
-
-const scrollToAnchor = async () => {
-    await nextTick();
-    await nextTick();
-    const hash = route.hash;
-    navigate(hash.slice(1), false, false);
-};
-
-router.afterEach(scrollToAnchor);
-onMounted(scrollToAnchor);
 </script>
 
 <template>
@@ -61,11 +44,7 @@ onMounted(scrollToAnchor);
             <h1>{{ meta.attr.displayTitle ?? meta.attr.title }}</h1>
         </header>
 
-        <Metadata
-            :breadcrumb="meta.breadcrumb"
-            :type="meta.type"
-            :key="meta.pathname"
-        />
+        <Metadata :breadcrumb="meta.breadcrumb" :type="meta.type" :key="meta.pathname" />
 
         <main class="markdown">
             <RouterView />
@@ -77,7 +56,7 @@ onMounted(scrollToAnchor);
             :updated="meta.updated"
         />
 
-        <Comment v-if="show_comment" />
+        <Comment v-if="show_comment" :key="meta.pathname" />
         <Footer />
     </div>
 </template>

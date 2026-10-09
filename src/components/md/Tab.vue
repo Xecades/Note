@@ -1,109 +1,24 @@
 <script setup lang="ts">
-import {
-    computed,
-    nextTick,
-    onBeforeUnmount,
-    onMounted,
-    ref,
-    useSlots,
-} from "vue";
+import { ref, useId } from "vue";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
-import { watchImmediate } from "@vueuse/core";
-import AnimateHeight from "vue-animate-height";
+import AutoHeight from "../AutoHeight.vue";
 
-import type { Ref, VNodeRef } from "vue";
-import type { JSX } from "vue/jsx-runtime";
-import type { PartialOptions } from "overlayscrollbars";
-
-type TabData = {
-    title: JSX.Element[];
-    content: JSX.Element[];
-};
-
-/** Map slots to tab data. */
-const mapData = (parts: JSX.Element[]): TabData[] => {
-    const res: TabData[] = [];
-
-    for (const part of parts) {
-        // @ts-expect-error
-        if (part.type.__name === "Delimiter") {
-            res.push({
-                // @ts-expect-error
-                title: part.children.default() as JSX.Element[],
-                content: [],
-            });
-        } else {
-            const last = res.length - 1;
-            res[last].content.push(part);
-        }
-    }
-
-    return res;
-};
-
-/** @see https://github.com/KingSora/OverlayScrollbars/ */
-const osOptions: PartialOptions = {
-    scrollbars: { autoHide: "move", autoHideDelay: 500 },
-    overflow: { y: "visible-hidden" },
-};
-
-const active: Ref<number> = ref(0);
-const height: Ref<number | "auto"> = ref("auto");
-
-const target: VNodeRef = ref();
-const listener: Ref<HTMLElement> = computed(() =>
-    target.value.$el.querySelector(".tab-height-listener")
-);
-
-const parts: Ref<JSX.Element[]> = computed(() => useSlots().default!());
-const data: Ref<TabData[]> = computed(() => mapData(parts.value));
-
-const is_immensive: Ref<boolean> = ref(false);
-
-let shifting = false;
-let observer: ResizeObserver;
-
-const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
-
-// If current tab is a single block, then set immensive mode.
-watchImmediate(active, async () => {
-    shifting = true;
-
-    // Wait for the content to be rendered.
-    await nextTick();
-    const children = listener.value.children;
-
-    is_immensive.value =
-        children.length === 1 &&
-        (children[0].classList.contains("block-code") ||
-            children[0].classList.contains("quote") ||
-            children[0].classList.contains("index-comp"));
-
-    // Wait for immensive mode to be applied.
-    await nextTick();
-    height.value = listener.value.clientHeight;
-
-    // Wait for animation to finish.
-    await sleep(250);
-    shifting = false;
-
-    // For unknown reason when using block-code,
-    // the height is not calculated correctly.
-    height.value = listener.value.clientHeight;
-});
-
-onMounted(() => {
-    const el: HTMLElement = listener.value;
-    observer = new ResizeObserver(() => {
-        if (shifting) return;
-        height.value = "auto";
-    });
-    observer.observe(el);
-});
-
-onBeforeUnmount(() => {
-    observer.disconnect();
-});
+const props = defineProps<{ count: number }>();
+const active = ref(0);
+const id = useId();
+const buttons = ref<HTMLButtonElement[]>([]);
+function onKey(event: KeyboardEvent, index: number) {
+    let next = index;
+    if (event.key === "ArrowRight") next = (index + 1) % props.count;
+    else if (event.key === "ArrowLeft")
+        next = (index + props.count - 1) % props.count;
+    else if (event.key === "Home") next = 0;
+    else if (event.key === "End") next = props.count - 1;
+    else return;
+    event.preventDefault();
+    active.value = next;
+    buttons.value[next]?.focus();
+}
 </script>
 
 <template>
@@ -111,32 +26,48 @@ onBeforeUnmount(() => {
         <div class="header-wrapper">
             <OverlayScrollbarsComponent
                 element="div"
-                :options="(osOptions as any)"
                 class="header-container"
+                :options="{
+                    scrollbars: { autoHide: 'move', autoHideDelay: 500 },
+                    overflow: { y: 'visible-hidden' },
+                }"
             >
-                <div class="header">
-                    <div
+                <div class="header" role="tablist" aria-label="内容选项卡">
+                    <button
+                        v-for="n in count"
+                        :key="n"
+                        ref="buttons"
                         class="item"
-                        v-for="(tab, idx) in data"
-                        @click="active = idx"
-                        :class="{ active: idx === active }"
+                        type="button"
+                        role="tab"
+                        :id="`${id}-tab-${n}`"
+                        :aria-controls="`${id}-panel-${n}`"
+                        :aria-selected="active === n - 1"
+                        :tabindex="active === n - 1 ? 0 : -1"
+                        :class="{ active: active === n - 1 }"
+                        @click="active = n - 1"
+                        @keydown="onKey($event, n - 1)"
                     >
-                        <component :is="() => tab.title" />
-                    </div>
+                        <slot :name="`title-${n - 1}`" />
+                    </button>
                 </div>
             </OverlayScrollbarsComponent>
         </div>
-        <div class="content" :class="{ immensive: is_immensive }">
-            <!-- @see https://www.npmjs.com/package/vue-animate-height -->
-            <AnimateHeight
-                ref="target"
-                contentClass="tab-height-listener"
-                :height="height"
-            >
-                <KeepAlive>
-                    <component :is="() => data[active].content" />
-                </KeepAlive>
-            </AnimateHeight>
+        <div class="content">
+            <AutoHeight :transition-key="active">
+                <div
+                    v-for="n in count"
+                    :key="n"
+                    class="tab-panel"
+                    role="tabpanel"
+                    :id="`${id}-panel-${n}`"
+                    :aria-labelledby="`${id}-tab-${n}`"
+                    :hidden="active !== n - 1"
+                    tabindex="0"
+                >
+                    <slot :name="`panel-${n - 1}`" />
+                </div>
+            </AutoHeight>
         </div>
     </div>
 </template>
@@ -195,25 +126,39 @@ $header-height = 2.8rem;
                     border-bottom: 1.5px solid var(--header-active-border);
 
     > .content
-        --block-extend: 0;
-        --listener-padding: 0.5rem 1.4rem;
+        --block-extend: 0px;
+</style>
 
-        &.immensive
-            --listener-padding: 0;
+<!-- Keep relational selectors in plain CSS: Stylus rewrites nested :is() lists. -->
+<style>
+.tab-panel {
+    padding: 0.5rem 1.4rem;
+    overflow: hidden;
+}
+.tab-panel:has(> :is(.block-code, .quote, .index-comp):only-child) {
+    padding: 0;
+}
+.tab-panel > .block-code:only-child {
+    margin: 0;
+    border: none;
+    background: unset;
+}
+.tab-panel > .quote:only-child {
+    margin: 3rem 1.4rem;
+}
+.tab-panel > .index-comp:only-child {
+    margin: 2rem 1.4rem;
+}
+</style>
 
-            .block-code
-                margin: 0;
-                border: none;
-                background: unset;
-
-            .quote
-                margin: 3rem 1.4rem;
-
-            .index-comp
-                margin: 2rem 1.4rem;
-
-        > div > .tab-height-listener
-            padding: var(--listener-padding);
-            // Fix margin collapse
-            overflow: hidden;
+<style scoped>
+button.item {
+    background: none;
+    border: 0;
+    color: inherit;
+    font-family: inherit;
+}
+.tab-panel[hidden] {
+    display: none;
+}
 </style>

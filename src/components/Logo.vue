@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { sleep } from "@/assets/ts/utils";
 import Vivus from "vivus";
-import { onMounted } from "vue";
+import { onMounted, onBeforeUnmount } from "vue";
 
 const paths = [
     "M91,8.93s-17.45,32.09-50.86,36.65S15.56,21.58,48.56,8.93,117.88-.96,98.55,33.29s-56.21,44.95-65.89,46.33S.25,81.49,2.11,68.77c.91-6.3,7.23-5.19,7.23-5.19",
@@ -22,6 +22,13 @@ const SPEED_REV = 1.2;
 const play = (vivus: Vivus, speed: number) =>
     new Promise<void>((res) => vivus.play(speed, res));
 
+let disposed = false;
+let animation: Vivus | undefined;
+onBeforeUnmount(() => {
+    disposed = true;
+    animation?.stop();
+    animation?.destroy();
+});
 onMounted(async () => {
     const vivus = new Vivus("logo-svg", {
         pathTimingFunction: Vivus.EASE,
@@ -30,21 +37,22 @@ onMounted(async () => {
         start: "manual",
     });
 
-    while (true) {
+    animation = vivus;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        vivus.finish();
+        return;
+    }
+    while (!disposed) {
         await play(vivus, SPEED_NOR);
         await sleep(7000);
-        await play(vivus, -SPEED_REV);
+        if (!disposed) await play(vivus, -SPEED_REV);
     }
 });
 </script>
 
 <template>
     <RouterLink id="logo" to="/">
-        <svg
-            id="logo-svg"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 171.26 139.54"
-        >
+        <svg id="logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 171.26 139.54">
             <path
                 :d="svg.path"
                 :data-start="svg.start"

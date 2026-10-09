@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { navigate } from "@/assets/ts/utils";
 
-const props = defineProps<{ level: number; id: number }>();
+const props = defineProps<{ level: number; id: string }>();
 
 const anchorClick = (e: Event) => {
     e.preventDefault();

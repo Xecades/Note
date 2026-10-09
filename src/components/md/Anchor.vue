@@ -1,13 +1,19 @@
 <script setup lang="ts">
 const props = defineProps<{ href: string }>();
-const is_internal: boolean = !props.href.startsWith("http");
+const isInternal = (href: string) => !/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href);
 </script>
 
 <template>
-    <router-link :to="encodeURI(href)" v-if="is_internal">
+    <router-link :to="href" v-if="isInternal(href)">
         <slot />
     </router-link>
-    <a :href="href" v-else class="external" target="_blank">
+    <a
+        :href="href"
+        v-else
+        class="external"
+        :target="/^https?:/.test(href) ? '_blank' : undefined"
+        rel="noopener"
+    >
         <slot />
     </a>
 </template>

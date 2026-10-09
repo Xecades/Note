@@ -18,9 +18,8 @@ defineProps<{ item: SerialHeader; in_view: number }>();
             passed: item.index < in_view,
         }"
     >
-        <span class="text">
-            <component :is="item.title" />
-        </span>
+        <!-- title is static HTML produced by our trusted Markdown compiler. -->
+        <span class="text" v-html="item.title" />
         <span class="sign" v-if="item.level === 0">
             <font-awesome-icon :icon="['fas', 'caret-left']" />
         </span>

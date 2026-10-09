@@ -1,11 +1,11 @@
-import { isWidthLessThan, RIGHTBAR_THRESHOLD } from "./utils";
+import { RIGHTBAR_THRESHOLD } from "./utils";
 import { RIGHTBAR_STATUS } from "./types";
 
-import type { MarkdownHeaderJsx } from "vite-plugin-vue-xecades-note";
+import type { HeadingData } from "vite-plugin-vue-xecades-note";
 import type { Ref } from "vue";
 
 /** Header type used for ref rendering */
-export type SerialHeader = MarkdownHeaderJsx & {
+export type SerialHeader = HeadingData & {
     width: string;
     indent: string;
     opacity: string;
@@ -23,10 +23,8 @@ const opacity_preset = ["1", "0.8", "0.7", "0.7", "0.7"];
  * @note Only when the screen width is less than `RIGHTBAR_THRESHOLD`,
  *       will the rightbar be hidden.
  */
-export const get_rightbar_status = (): RIGHTBAR_STATUS =>
-    isWidthLessThan(RIGHTBAR_THRESHOLD)
-        ? RIGHTBAR_STATUS.HIDE
-        : RIGHTBAR_STATUS.SHOW;
+export const get_rightbar_status = (width = window.innerWidth): RIGHTBAR_STATUS =>
+    width < RIGHTBAR_THRESHOLD ? RIGHTBAR_STATUS.HIDE : RIGHTBAR_STATUS.SHOW;
 
 /**
  * Append width and indent properties to TOC data.
@@ -34,7 +32,7 @@ export const get_rightbar_status = (): RIGHTBAR_STATUS =>
  * @param toc - Raw TOC data imported from json
  * @returns Normalized TOC data
  */
-export const serial_toc = (toc: MarkdownHeaderJsx[]): SerialHeader[] => {
+export const serial_toc = (toc: HeadingData[]): SerialHeader[] => {
     const levels = toc.map((item) => item.level);
     const minLevel = Math.min(...levels);
     const maxLevel = Math.max(...levels);
@@ -73,62 +71,41 @@ export const cascade_toc = (s_toc: SerialHeader[]): CascadeHeader[] => {
  * Scroll listener class for rightbar.
  */
 export class ScrollListener {
-    targets: Element[];
-    store: Ref<number>;
+    private frame = 0;
+    private observer?: ResizeObserver;
+    private targets: Element[] = [];
+    constructor(private store: Ref<number>) {}
 
-    /**
-     * Constructor.
-     *
-     * @param in_view - Ref to store the index of the element in view
-     */
-    constructor(in_view: Ref<number>) {
-        this.targets = [];
-        this.store = in_view;
-
-        window.onscroll = () => {
-            for (let i = 0; i < this.targets.length; i++) {
-                if (this.in_viewport(this.targets[i])) {
-                    this.store.value = i;
-                    break;
-                }
-            }
-        };
+    private update = () => {
+        this.frame = 0;
+        let current = -1;
+        for (let i = 0; i < this.targets.length; i++) {
+            const element = this.targets[i];
+            if (!element.getClientRects().length || element.closest("[hidden], [inert]"))
+                continue;
+            if (current === -1 || element.getBoundingClientRect().top <= 80) current = i;
+            else break;
+        }
+        this.store.value = current;
+    };
+    private schedule = () => {
+        if (!this.frame) this.frame = requestAnimationFrame(this.update);
+    };
+    refresh() {
+        this.targets = Array.from(document.querySelectorAll(".heading"));
+        this.schedule();
     }
-
-    /**
-     * Add an element to the listener.
-     *
-     * @param target - The element to add to the listener
-     */
-    listen(target: Element): void {
-        this.targets.push(target);
+    start() {
+        window.addEventListener("scroll", this.schedule, { passive: true });
+        window.addEventListener("resize", this.schedule);
+        this.observer = new ResizeObserver(this.schedule);
+        this.observer.observe(document.body);
+        this.refresh();
     }
-
-    /**
-     * Clear the listener.
-     */
-    reset(): void {
-        this.targets = [];
-        this.store.value = -1;
-    }
-
-    /**
-     * Check whether an element is in viewport.
-     *
-     * @param el - The element to check
-     * @returns Whether the element is in the viewport
-     */
-    private in_viewport(el: Element): boolean {
-        const vh = window.innerHeight || document.documentElement.clientHeight;
-        const vw = window.innerWidth || document.documentElement.clientWidth;
-
-        const rect: DOMRect = el.getBoundingClientRect();
-
-        return (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= vh &&
-            rect.right <= vw
-        );
+    stop() {
+        window.removeEventListener("scroll", this.schedule);
+        window.removeEventListener("resize", this.schedule);
+        this.observer?.disconnect();
+        cancelAnimationFrame(this.frame);
     }
 }

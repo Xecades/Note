@@ -1,5 +1,8 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+    faA,
+    faB,
+    faC,
     faAngleDown,
     faAngleRight,
     faArrowUpRightFromSquare,
@@ -30,6 +33,9 @@ import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 library.add(
+    faA,
+    faB,
+    faC,
     faAngleRight,
     faAngleDown,
     faBars,
@@ -56,5 +62,5 @@ library.add(
     faBoxArchive,
     faFlag,
     faChevronLeft,
-    faSpinner
+    faSpinner,
 );

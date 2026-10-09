@@ -1,8 +1,5 @@
-import type { FuseResult, FuseResultMatch, RangeTuple } from "fuse.js";
-import type {
-    CachedSearchFn,
-    SearchTarget,
-} from "vite-plugin-vue-xecades-note";
+import type { FuseResult, RangeTuple } from "fuse.js";
+import type { CachedSearchFn, SearchTarget } from "vite-plugin-vue-xecades-note";
 
 /** Search results. */
 export type Result = {
@@ -22,35 +19,36 @@ export type Result = {
 /** Maximum characters before highlight */
 const BEFORE_CNT: number = 10;
 
-let search_internal: CachedSearchFn;
+let pending: Promise<CachedSearchFn> | undefined;
 
 /**
  * Search and return parsed results.
  *
  * @param query - Search query
- * @param onAfterLoad - Callback after database is loaded
  * @returns Parsed search results
  */
-export const search = async (
-    query: string,
-    onAfterLoad: () => void
-): Promise<Result[]> => {
+export const search = async (query: string): Promise<Result[]> => {
     const range = (i: RangeTuple): number => i[1] - i[0];
     const longest = (indices: readonly RangeTuple[]): RangeTuple =>
         indices.reduce((acc, cur) => (range(cur) > range(acc) ? cur : acc));
 
-    if (search_internal === undefined) {
-        search_internal = (await import("@cache/search")).default;
-        onAfterLoad();
-    }
+    const search_internal = await (pending ??= import("@cache/search")
+        .then((module) => module.default)
+        .catch((error) => {
+            pending = undefined;
+            throw error;
+        }));
 
-    let searchResults: FuseResult<SearchTarget>[] | Result[] =
-        search_internal(query);
+    let searchResults: FuseResult<SearchTarget>[] | Result[] = search_internal(query);
     let results: Result[] = [];
 
     if (query !== "") {
         for (let res of searchResults as FuseResult<SearchTarget>[]) {
-            let match = (res.matches as FuseResultMatch[])[0];
+            const match = res.matches?.find((match) => match.indices.length > 0);
+            if (!match) {
+                results.push(res.item);
+                continue;
+            }
 
             // Always highlights the longest match
             let [s, e] = longest(match.indices);
@@ -70,15 +68,16 @@ export const search = async (
                 }
 
                 mark = text.slice(s, e + 1);
-                after = text.slice(e + 1);
+                after = text.slice(e + 1, e + 161);
             } else if (type === "title") {
                 before = text.slice(0, s);
                 mark = text.slice(s, e + 1);
-                after = text.slice(e + 1);
+                after = text.slice(e + 1, e + 161);
             }
 
             results.push({
                 ...res.item,
+                content: res.item.content.slice(0, 160),
                 type,
                 before,
                 mark,
@@ -87,7 +86,10 @@ export const search = async (
         }
     } else {
         // if query is empty, show all posts
-        results = searchResults as Result[];
+        results = (searchResults as Result[]).map((result) => ({
+            ...result,
+            content: result.content.slice(0, 160),
+        }));
     }
 
     return results;

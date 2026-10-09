@@ -31,8 +31,7 @@ export const isSmallScreen = () => isWidthLessThan(768);
  */
 export const isMobile = () => is_mobile({ tablet: true });
 
-export const sleep = (ms: number) =>
-    new Promise<void>((res) => setTimeout(res, ms));
+export const sleep = (ms: number) => new Promise<void>((res) => setTimeout(res, ms));
 
 /**
  * Navigate to the element with the given ID.
@@ -44,7 +43,7 @@ export const sleep = (ms: number) =>
 export const navigate = (
     id: string,
     smooth: boolean = true,
-    pushState: boolean = true
+    pushState: boolean = true,
 ) => {
     if (!id) return;
     const OFFSET = 4 * 16;
@@ -52,7 +51,13 @@ export const navigate = (
     if (el) {
         const y = el.getBoundingClientRect().top + window.scrollY - OFFSET;
 
-        window.scrollTo({ top: y, behavior: smooth ? "smooth" : "auto" });
+        window.scrollTo({
+            top: y,
+            behavior:
+                smooth && !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                    ? "smooth"
+                    : "auto",
+        });
         if (pushState) history.pushState(history.state, "", `#${id}`);
     }
 };

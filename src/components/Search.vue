@@ -1,32 +1,87 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch, onActivated, onDeactivated, nextTick } from "vue";
+import { useRouter } from "vue-router";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-vue";
-import { search } from "@/assets/ts/search";
-import { watchImmediate } from "@vueuse/core";
-
-// Types
-import type { Ref } from "vue";
+import { search, type Result } from "@/assets/ts/search";
 import type { PartialOptions } from "overlayscrollbars";
-import type { Result } from "@/assets/ts/search";
 
-const query: Ref<string> = ref("");
-const results: Ref<Result[]> = ref([]);
-const isLoading: Ref<boolean> = ref(true);
-
+const emit = defineEmits<{ close: [] }>();
+const router = useRouter();
+const dialog = ref<HTMLDialogElement>();
+const input = ref<HTMLInputElement>();
+const query = ref("");
+const results = ref<Result[]>([]);
+const selected = ref(0);
+const isLoading = ref(true);
+const error = ref("");
 const osOptions: PartialOptions = {
     scrollbars: { autoHide: "move" },
     overflow: { x: "hidden" },
 };
-
-watchImmediate(query, async () => {
-    results.value = await search(query.value, () => {
-        isLoading.value = false;
-    });
+let request = 0;
+watch(
+    query,
+    async (value) => {
+        const current = ++request;
+        isLoading.value = true;
+        error.value = "";
+        try {
+            const found = await search(value);
+            if (current === request) {
+                results.value = found;
+                selected.value = 0;
+            }
+        } catch {
+            if (current === request) error.value = "搜索加载失败，请稍后重试。";
+        } finally {
+            if (current === request) isLoading.value = false;
+        }
+    },
+    { immediate: true },
+);
+let previousFocus: HTMLElement | null = null;
+let previousOverflow = "";
+onActivated(() => {
+    previousFocus = document.activeElement as HTMLElement;
+    previousOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    dialog.value?.showModal();
+    input.value?.focus();
 });
+onDeactivated(() => {
+    dialog.value?.close();
+    document.documentElement.style.overflow = previousOverflow;
+    previousFocus?.focus();
+});
+async function onKey(event: KeyboardEvent) {
+    if (!results.value.length) return;
+    if (event.key === "Enter") {
+        event.preventDefault();
+        await router.push(results.value[selected.value].link);
+        emit("close");
+    } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        event.preventDefault();
+        selected.value =
+            (selected.value +
+                (event.key === "ArrowDown" ? 1 : -1) +
+                results.value.length) %
+            results.value.length;
+        await nextTick();
+        document
+            .getElementById(`search-result-${selected.value}`)
+            ?.scrollIntoView({ block: "nearest" });
+    }
+}
 </script>
 
 <template>
-    <div id="search" @click.self="$emit('close')">
+    <dialog
+        ref="dialog"
+        id="search"
+        aria-label="搜索笔记"
+        @cancel.prevent="$emit('close')"
+        @click.self="$emit('close')"
+    >
         <div class="panel">
             <div class="search">
                 <div class="icon glass">
@@ -35,23 +90,34 @@ watchImmediate(query, async () => {
 
                 <input
                     class="input"
+                    ref="input"
+                    aria-label="搜索笔记"
+                    aria-controls="search-results"
+                    @keydown="onKey"
                     v-model.trim="query"
                     type="text"
                     placeholder="Search in the void."
                     @keydown.esc="$emit('close')"
                 />
 
-                <div class="icon xmark" @click="$emit('close')">
+                <button
+                    type="button"
+                    aria-label="关闭搜索"
+                    class="icon xmark"
+                    @click="$emit('close')"
+                >
                     <font-awesome-icon :icon="['fas', 'xmark']" />
-                </div>
+                </button>
             </div>
 
             <OverlayScrollbarsComponent
                 element="ul"
                 class="results"
-                :options="(osOptions as any)"
+                id="search-results"
+                :options="osOptions as any"
                 defer
             >
+                <li v-if="error" role="alert">{{ error }}</li>
                 <li class="empty" v-if="results.length === 0">
                     <font-awesome-icon
                         class="icon"
@@ -59,10 +125,15 @@ watchImmediate(query, async () => {
                         :spin="isLoading"
                     />
                 </li>
-                <li v-for="res in results">
+                <li
+                    v-for="(res, index) in results"
+                    :key="res.link"
+                    :id="`search-result-${index}`"
+                >
                     <router-link
                         :to="res.link"
                         class="post"
+                        :class="{ selected: index === selected }"
                         @click="$emit('close')"
                     >
                         <div class="meta">
@@ -71,10 +142,7 @@ watchImmediate(query, async () => {
                                 :data-type="res.is_index ? 'index' : 'post'"
                             >
                                 <font-awesome-icon
-                                    :icon="[
-                                        'fas',
-                                        res.is_index ? 'folder' : 'file',
-                                    ]"
+                                    :icon="['fas', res.is_index ? 'folder' : 'file']"
                                 />
                             </span>
                             <span class="title">
@@ -102,7 +170,7 @@ watchImmediate(query, async () => {
                 </li>
             </OverlayScrollbarsComponent>
         </div>
-    </div>
+    </dialog>
 </template>
 
 <style scoped lang="stylus">
@@ -165,7 +233,7 @@ $results-bottom = 16px;
         padding: 12px 16px;
         transition: background-color 0.15s;
 
-        &:hover
+        &:hover, &.selected
             background-color: var(--post-hover-background-color);
 
         .meta
@@ -278,4 +346,19 @@ $results-bottom = 16px;
     .results .post .content
         margin: 6px 0 0 27px;
         font-size: 0.84rem;
+</style>
+
+<style scoped>
+dialog#search {
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+}
+.xmark {
+    background: transparent;
+}
 </style>
