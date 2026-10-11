@@ -25,7 +25,7 @@ CNOT 门是**可逆的**，给定一组输出，可以唯一确定输入. 我们
 在量子电路中，我们用如下记号表示.
 
 ```typst
-#import "@preview/quill:0.6.0": *
+#import "@preview/quill:0.8.0": *
 #scale(180%, reflow: true, quantum-circuit(
     lstick($x$), 1, ctrl(1), 1, rstick($x$), [\ ],
     lstick($y$), 1, targ(), 1, rstick($x xor y$)
@@ -47,7 +47,7 @@ $$
 它用如下的记号表示.
 
 ```typst
-#import "@preview/quill:0.6.0": *
+#import "@preview/quill:0.8.0": *
 #scale(180%, reflow: true, quantum-circuit(
     lstick($x$), 1, ctrl(1), 1, rstick($x$), [\ ],
     lstick($y$), 1, ctrl(1), 1, rstick($y$), [\ ],
@@ -86,7 +86,7 @@ $$
 Fredkin 门也是自身的逆. 可用如下记号表示.
 
 ```typst
-#import "@preview/quill:0.6.0": *
+#import "@preview/quill:0.8.0": *
 #scale(180%, reflow: true, quantum-circuit(
     lstick($x$), 1, ctrl(1), 1, rstick($x$), [\ ],
     lstick($y$), 1, swap(1), 1, rstick($(not x and y) or (x and z)$), [\ ],

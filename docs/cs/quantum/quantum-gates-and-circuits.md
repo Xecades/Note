@@ -41,7 +41,7 @@ $\Longrightarrow$
 
 :sep{span=11}
 ```typst 量子 CNOT 门
-#import "@preview/physica:0.9.4": *
+#import "@preview/physica:0.9.8": *
 #show table.cell.where(y: 1): text.with(weight: "bold")
 #table(
     columns: 2,
@@ -75,8 +75,8 @@ $$
 经过 CNOT 门后，输出为 $\frac{1}{\sqrt{2}}\ket{00}+\frac{1}{\sqrt{2}}\ket{11}$，**这是一个纠缠态**. 我们用如下的电路图来表示这个过程：
 
 ```typst
-#import "@preview/quill:0.6.0": *
-#import "@preview/physica:0.9.4": *
+#import "@preview/quill:0.8.0": *
+#import "@preview/physica:0.9.8": *
 #show math.equation: math.display
 #scale(180%, reflow: true, quantum-circuit(
     lstick($1/sqrt(2)ket(0)+1/sqrt(2)ket(1)$), 1, ctrl(1), 1, rstick($1/sqrt(2)ket(00)+1/sqrt(2)ket(11)$, n:2), [\ ],
@@ -142,7 +142,7 @@ $$
 我们通过在方框内加上对应符号来表示这些门：
 
 ```typst
-#import "@preview/quill:0.6.0": *
+#import "@preview/quill:0.8.0": *
 #scale(180%, reflow: true, quantum-circuit(
     3, $H$, 3
 ))
@@ -169,8 +169,8 @@ $$
 假设这样的门 $G$ 存在，它输入量子态 $\ket{x}$ 和一个与 $\ket{x}$ 无关的辅助位 $\ket{k}$，将 $\ket{x}$ 复制后输出 $\ket{x}\ket{x}$，即
 
 ```typst
-#import "@preview/quill:0.6.0": *
-#import "@preview/physica:0.9.4": *
+#import "@preview/quill:0.8.0": *
+#import "@preview/physica:0.9.8": *
 #scale(180%, reflow: true, quantum-circuit(
     lstick($ket(x)$), 1, mqgate($G$, n: 2), 1, rstick($ket(x)$), [\ ],
     lstick($ket(k)$), 3, rstick($ket(x)$)
@@ -198,7 +198,7 @@ $$
 **贝尔电路**是一种常用的量子电路结构.
 
 ```typst 贝尔电路
-#import "@preview/quill:0.6.0": *
+#import "@preview/quill:0.8.0": *
 #scale(180%, reflow: true, quantum-circuit(
     2, $H$, ctrl(1), 2, [\ ],
     3, targ(), 2
@@ -217,7 +217,7 @@ $$
 由于 CNOT 门和 Hadamard 门都是可逆的，因此**贝尔电路也是可逆的**.
 
 ```typst 逆贝尔电路
-#import "@preview/quill:0.6.0": *
+#import "@preview/quill:0.8.0": *
 #scale(180%, reflow: true, quantum-circuit(
     2, ctrl(1), $H$, 2, [\ ],
     2, targ()
@@ -250,8 +250,8 @@ Alice 将处理完成的量子比特**交给 Bob**，Bob 对这 Alice 的量子�
 Alice 通过一个**逆贝尔电路**来对自己的未知比特进行编码.
 
 ```typst 量子隐形传态
-#import "@preview/quill:0.6.0": *
-#import "@preview/physica:0.9.4": *
+#import "@preview/quill:0.8.0": *
+#import "@preview/physica:0.9.8": *
 #show math.equation: math.display
 #scale(180%, reflow: true, quantum-circuit(
     lstick($a ket(0)+b ket(1)$), 1, ctrl(1), $H$, 1, rstick([Alice's qubits], n: 2), [\ ],
@@ -298,8 +298,8 @@ Alice 把自己的测量结果**使用两个经典比特**传输给 Bob，Bob �
 Alice 通过如下电路来制备这三个比特，它们是纠缠态，因此并不违背不可复制原理.
 
 ```typst 冗余量子比特制备
-#import "@preview/quill:0.6.0": *
-#import "@preview/physica:0.9.4": *
+#import "@preview/quill:0.8.0": *
+#import "@preview/physica:0.9.8": *
 #show math.equation: math.display
 #scale(180%, reflow: true, quantum-circuit(
     lstick($a ket(0)+b ket(1)$), 1, ctrl(1), ctrl(2), 1, rstick($a ket(000)+b ket(111)$, n: 3), [\ ],
@@ -313,8 +313,8 @@ Alice 把这三个比特同时发给 Bob，由于**信道干扰**，Bob 收到�
 Bob 需要从中得知是否发生了偏转以及哪一位发生了偏转，但**不能直接测量**，因为测量会破坏信息 $a$、$b$ 本身. 他新增两个辅助比特进行运算.
 
 ```typst 位翻转奇偶校验
-#import "@preview/quill:0.6.0": *
-#import "@preview/physica:0.9.4": *
+#import "@preview/quill:0.8.0": *
+#import "@preview/physica:0.9.8": *
 #show math.equation: math.display
 #scale(180%, reflow: true, quantum-circuit(
     lstick([Received qubits], n:3), 1, ctrl(3), 1, ctrl(4), 2, rstick([Received qubits], n: 3), [\ ],

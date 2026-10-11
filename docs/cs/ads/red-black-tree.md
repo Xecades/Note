@@ -76,7 +76,7 @@ $U$ 为红色，则 $G$ 一定是黑色。无论 $z$ 是 $P$ 的左节点还是�
 :sep{span=12}
 
 ```typst 初始情况
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -114,7 +114,7 @@ $U$ 为红色，则 $G$ 一定是黑色。无论 $z$ 是 $P$ 的左节点还是�
 :sep{span=12}
 
 ```typst 调整后
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -166,7 +166,7 @@ $U$ 为黑色，$z$ 为 $P$ 的左节点，此时 $G$ 一定是黑色。
 :sep{span=12}
 
 ```typst 初始情况
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -205,7 +205,7 @@ $U$ 为黑色，$z$ 为 $P$ 的左节点，此时 $G$ 一定是黑色。
 :sep{span=12}
 
 ```typst 颜色调整
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -244,7 +244,7 @@ $U$ 为黑色，$z$ 为 $P$ 的左节点，此时 $G$ 一定是黑色。
 :sep{span=12}
 
 ```typst Right-Rotation
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -295,7 +295,7 @@ $U$ 为黑色，$z$ 为 $P$ 的右节点。在 $P$ 上进行 Left-Rotation，将
 :sep{span=12}
 
 ```typst 初始情况
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -334,7 +334,7 @@ $U$ 为黑色，$z$ 为 $P$ 的右节点。在 $P$ 上进行 Left-Rotation，将
 :sep{span=12}
 
 ```typst Left-Rotation
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))

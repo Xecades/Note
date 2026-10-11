@@ -104,7 +104,7 @@ Splay Tree 的操作都由 Zig、Zag、Zig-Zag 三种子操作构成。我们对
 :sep{span=12}
 
 ```typst 初始情况（$T_1$）
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -154,7 +154,7 @@ Splay Tree 的操作都由 Zig、Zag、Zig-Zag 三种子操作构成。我们对
 :sep{span=12}
 
 ```typst 一次 Zig 操作后（$T_2$）
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -226,7 +226,7 @@ $$
 :sep{span=12}
 
 ```typst 初始情况（$T_1$）
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -291,7 +291,7 @@ $$
 :sep{span=12}
 
 ```typst 一次 Zig-Zag 操作后（$T_2$）
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -396,7 +396,7 @@ $$
 :sep{span=12}
 
 ```typst 初始情况（$T_1$）
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))
@@ -461,7 +461,7 @@ $$
 :sep{span=12}
 
 ```typst 一次 Zig-Zig 操作后（$T_2$）
-#import "@preview/cetz:0.2.2": canvas, draw, tree
+#import "@preview/cetz:0.5.2": canvas, draw, tree
 #canvas(length: 2.5cm, {
     import draw: *
     set-style(radius: .35, stroke: (thickness: 1.4pt))

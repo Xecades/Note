@@ -324,7 +324,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 # :flask: 效果
 ```typst *Waves*
 // Code from https://raw.githubusercontent.com/typst/packages/main/packages/preview/cetz/0.3.2/gallery/waves.typ
-#import "@preview/cetz:0.3.2": canvas, draw, vector, matrix
+#import "@preview/cetz:0.5.2": canvas, draw, vector, matrix
 
 #set page(width: auto, height: auto, margin: .5cm)
 
@@ -370,7 +370,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ~~~md
 ```typst *Waves*
 // Code from https://raw.githubusercontent.com/typst/packages/main/packages/preview/cetz/0.3.2/gallery/waves.typ
-#import "@preview/cetz:0.3.2": canvas, draw, vector, matrix
+#import "@preview/cetz:0.5.2": canvas, draw, vector, matrix
 
 #set page(width: auto, height: auto, margin: .5cm)
 
